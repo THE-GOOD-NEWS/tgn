@@ -50,7 +50,7 @@ export default function LoginPage() {
       if (result?.error) {
         setError("Invalid email or password");
       } else {
-        router.push(`/${locale}/dashboard`);
+        router.push(`/${locale}/account`);
       }
     } catch (error) {
       setError("An error occurred. Please try again.");
@@ -62,7 +62,7 @@ export default function LoginPage() {
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true);
     try {
-      await signIn("google", { callbackUrl: `/${locale}/dashboard` });
+      await signIn("google", { callbackUrl: `/${locale}/account` });
     } catch (error) {
       setError("An error occurred with Google sign in.");
       setIsGoogleLoading(false);

@@ -25,7 +25,7 @@ declare module "next-auth" {
       subscriptionExpiryDate?: Date | null;
       // loyaltyPoints?: number;
       sessionId?: string; // Add sessionId here
-      deviceFingerprint?: string; // Add device fingerprint
+      // deviceFingerprint?: string; // Add device fingerprint
     };
   }
 }
@@ -67,7 +67,7 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: {},
         password: {},
-        deviceFingerprint: {},
+        // deviceFingerprint: {},
       },
       // In the CredentialsProvider authorize function
       async authorize(credentials) {
@@ -93,7 +93,7 @@ export const authOptions: NextAuthOptions = {
           );
 
           // Get device fingerprint if provided
-          const deviceFingerprint = credentials?.deviceFingerprint || null;
+          // const deviceFingerprint = credentials?.deviceFingerprint || null;
 
           return {
             id: user._id.toString(),
@@ -101,7 +101,7 @@ export const authOptions: NextAuthOptions = {
             name: user.username,
             // loyaltyPoints,
             sessionId, // Attach sessionId for JWT
-            deviceFingerprint, // Attach device fingerprint for JWT
+            // deviceFingerprint, // Attach device fingerprint for JWT
           };
         } catch (error) {
           console.error("Authorize error:", error);
@@ -236,9 +236,9 @@ export const authOptions: NextAuthOptions = {
         session.user.sessionId = token.sessionId;
       }
       // Add device fingerprint to session if available
-      if (session.user && token.deviceFingerprint) {
-        session.user.deviceFingerprint = token.deviceFingerprint as string;
-      }
+      // if (session.user && token.deviceFingerprint) {
+      //   session.user.deviceFingerprint = token.deviceFingerprint as string;
+      // }
       return session;
     },
   },

@@ -14,7 +14,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Mail, Lock, Eye, EyeOff, User } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { Separator } from "@/components/ui/separator";
-
+import axios from "axios";
 export default function SignupPage() {
   const t = useTranslations("auth.signup");
   const locale = useLocale();
@@ -28,7 +28,8 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -58,23 +59,22 @@ export default function SignupPage() {
     }
 
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        }),
+      const response = await axios.post("/api/auth/register", {
+        firstName: `${formData.firstName}`,
+        lastName: `${formData.lastName}`,
+        email: formData.email,
+        password: formData.password,
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Registration failed");
+      if (response.status === 201) {
+        //
+        //  Use router.push for client-side navigation
+        router.push("/verification");
       }
+      // const data = await response;
+
+      // if (!response.ok) {
+      //   throw new Error(data.error || "Registration failed");
+      // }
 
       setSuccess(true);
       setTimeout(() => {
@@ -87,14 +87,33 @@ export default function SignupPage() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    setIsGoogleLoading(true);
-    try {
-      await signIn("google", { callbackUrl: `/${locale}/dashboard` });
-    } catch (error) {
-      setError("An error occurred with Google sign in.");
-      setIsGoogleLoading(false);
-    }
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setError("");
+  //   setLoading(true);
+
+  //   try {
+  //     const response = await axios.post("/api/auth/register", {
+  //       username,
+  //       email,
+  //       password,
+  //     });
+
+  //     if (response.status === 201) {
+  //       //
+  //       //  Use router.push for client-side navigation
+  //       router.push("/verification");
+  //     }
+  //   } catch (error: any) {
+  //     setError(
+  //       error.response?.data?.error || "Registration failed. Please try again."
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  const handleGoogleSignUp = () => {
+    signIn("google", { callbackUrl: "/account" });
   };
 
   return (
@@ -152,7 +171,7 @@ export default function SignupPage() {
               <Button
                 type="button"
                 variant="outline"
-                onClick={handleGoogleSignIn}
+                onClick={handleGoogleSignUp}
                 disabled={isGoogleLoading || success}
                 className="w-full h-12 mb-4 border-border/50 hover:bg-muted/50"
               >
@@ -172,24 +191,48 @@ export default function SignupPage() {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Name Field */}
-                <div className="space-y-2">
-                  <Label htmlFor="name" className="text-sm font-medium">
-                    {t("name")}
-                  </Label>
-                  <div className="relative">
-                    <User className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                    <Input
-                      id="name"
-                      name="name"
-                      type="text"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="John Doe"
-                      className="pl-10 rtl:pl-4 rtl:pr-12 h-12 bg-muted/50 border-border/50 focus:border-hot-pink/50 focus:ring-hot-pink/25"
-                      required
-                      disabled={success}
-                    />
+                {/* Name Fields - Side by side on md and up */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* First Name Field */}
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName" className="text-sm font-medium">
+                      {t("firstName")}
+                    </Label>
+                    <div className="relative">
+                      <User className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                      <Input
+                        id="firstName"
+                        name="firstName"
+                        type="text"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        placeholder="John"
+                        className="pl-10 rtl:pl-4 rtl:pr-12 h-12 bg-muted/50 border-border/50 focus:border-hot-pink/50 focus:ring-hot-pink/25"
+                        required
+                        disabled={success}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Last Name Field */}
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName" className="text-sm font-medium">
+                      {t("lastName")}
+                    </Label>
+                    <div className="relative">
+                      <User className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                      <Input
+                        id="lastName"
+                        name="lastName"
+                        type="text"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        placeholder="Doe"
+                        className="pl-10 rtl:pl-4 rtl:pr-12 h-12 bg-muted/50 border-border/50 focus:border-hot-pink/50 focus:ring-hot-pink/25"
+                        required
+                        disabled={success}
+                      />
+                    </div>
                   </div>
                 </div>
 

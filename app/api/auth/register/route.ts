@@ -10,11 +10,11 @@ import { hash } from "bcryptjs";
 
 export async function POST(req: Request) {
   try {
-    const { username, email, password } = await req.json();
-    console.log("here" + username, email, password);
+    const { firstName, lastName, email, password } = await req.json();
+    console.log("here" + firstName, email, password);
 
     // Validate required fields
-    if (!username || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
       return new Response(
         JSON.stringify({ error: "All fields are required" }),
         { status: 400 }
@@ -49,10 +49,11 @@ export async function POST(req: Request) {
     }
 
     const hashedPassword = await hash(password, 10);
-    console.log(username, email, hashedPassword);
+    console.log(firstName, email, hashedPassword);
 
     const user = await UserModel.create({
-      username: username,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: hashedPassword,
     });
@@ -60,7 +61,8 @@ export async function POST(req: Request) {
     // Remove password from response
     const userResponse = {
       id: user._id,
-      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       createdAt: user.createdAt,
     };

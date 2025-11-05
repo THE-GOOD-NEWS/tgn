@@ -138,6 +138,8 @@
     "signup": {
       "title": "Join THE GOOD NEWS",
       "subtitle": "Create your account to get started",
+      "firstName": "First Name",
+      "lastName": "Last Name",
       "name": "Full Name",
       "email": "Email",
       "password": "Password",
@@ -145,6 +147,11 @@
       "button": "Create Account",
       "hasAccount": "Already have an account?",
       "signIn": "Sign in here"
+    },
+    "verification": {
+      "title": "Check Your Email",
+      "message": "Please check your email for verification link",
+      "imageAlt": "Verification illustration"
     }
   },
   "subscription": {

@@ -26,7 +26,6 @@ export interface IUser extends Document {
   imageURL?: string;
   subscription: ISubscription;
   birthDate?: Date;
-  weddingDate?: Date;
 
   // comparePassword(candidatePassword: string): Promise<boolean>;
 }
@@ -37,10 +36,9 @@ const UserSchema = new Schema<IUser>(
   {
     username: {
       type: String,
-      required: true,
+      required: false,
       unique: false,
       // trim: true,
-      minlength: 3,
     },
 
     firstName: {
@@ -70,17 +68,12 @@ const UserSchema = new Schema<IUser>(
     },
     email: { type: String, required: true },
     emailVerified: { type: Boolean, default: false },
-    isSubscribed: { type: Boolean, default: false },
     subscription: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "subscriptions",
       required: false,
     },
     birthDate: {
-      type: Date,
-      required: false,
-    },
-    weddingDate: {
       type: Date,
       required: false,
     },
