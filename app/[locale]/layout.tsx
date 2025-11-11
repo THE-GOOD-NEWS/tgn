@@ -6,6 +6,7 @@ import { Metadata, Viewport } from "next";
 import { Navigation } from "@/components/navigation";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Footer } from "@/components/footer";
+import { AuthProvider } from "../providers/AuthProvider";
 
 type Props = {
   children: React.ReactNode;
@@ -59,9 +60,11 @@ export default async function LocaleLayout({ children, params }: Props) {
       disableTransitionOnChange
     >
       <NextIntlClientProvider messages={messages}>
-        <Navigation isLoggedIn={isLoggedIn} userRole={userRole} />
-        <div className="overflow-x-hidden">{children}</div>
-        <Footer />
+        <AuthProvider>
+          <Navigation isLoggedIn={isLoggedIn} userRole={userRole} />
+          <div className="overflow-x-hidden">{children}</div>
+          <Footer />
+        </AuthProvider>
       </NextIntlClientProvider>
     </ThemeProvider>
   );

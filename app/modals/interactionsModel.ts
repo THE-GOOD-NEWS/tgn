@@ -6,9 +6,9 @@ export interface IInteraction extends Document {
   broadcast: boolean;
   targetId: mongoose.Types.ObjectId;
   parentId?: mongoose.Types.ObjectId;
-  parentType?: "video" | "blog";
+  parentType?: "video" | "article";
   replyId?: mongoose.Types.ObjectId;
-  targetType: "video" | "comment" | "reply" | "blog";
+  targetType: "video" | "comment" | "reply" | "article";
   actionType: "like" | "unlike" | "comment" | "reply";
   link: string;
   content?: string; // For comments/replies
@@ -46,7 +46,7 @@ const InteractionSchema = new Schema<IInteraction>(
     },
     targetType: {
       type: String,
-      enum: ["video", "comment", "reply", "blog"],
+      enum: ["video", "comment", "reply", "article"],
       required: true,
     },
     actionType: {
@@ -56,7 +56,7 @@ const InteractionSchema = new Schema<IInteraction>(
     },
     parentType: {
       type: String,
-      enum: ["video", "blog"],
+      enum: ["video", "article"],
       required: false,
     },
     parentId: {

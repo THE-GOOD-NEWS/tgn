@@ -58,6 +58,9 @@ export function Navigation({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [scrolled, setScrolled] = useState(false);
+  const [articleCategories, setArticleCategories] = useState<
+    { slug: string; titleEn: string; titleAr: string }[]
+  >([]);
 
   // Add scroll event listener
   useEffect(() => {
@@ -94,56 +97,10 @@ export function Navigation({
     {
       label: t("news"),
       type: "dropdown",
-      items: [
-        {
-          href: `/${locale}/articles?category=egypt`,
-          label: t("newsSubItems.egyptNews"),
-        },
-        {
-          href: `/${locale}/articles?category=uae`,
-          label: t("newsSubItems.uaeNews"),
-        },
-        {
-          href: `/${locale}/articles?category=saudi`,
-          label: t("newsSubItems.saudiNews"),
-        },
-        {
-          href: `/${locale}/articles?category=society`,
-          label: t("newsSubItems.society"),
-        },
-        {
-          href: `/${locale}/articles?category=business`,
-          label: t("newsSubItems.business"),
-        },
-        {
-          href: `/${locale}/articles?category=education`,
-          label: t("newsSubItems.education"),
-        },
-        {
-          href: `/${locale}/articles?category=sports`,
-          label: t("newsSubItems.sports"),
-        },
-        {
-          href: `/${locale}/articles?category=entertainment`,
-          label: t("newsSubItems.entertainment"),
-        },
-        {
-          href: `/${locale}/articles?category=lifestyle`,
-          label: t("newsSubItems.lifestyle"),
-        },
-        {
-          href: `/${locale}/articles?category=sustainability`,
-          label: t("newsSubItems.sustainability"),
-        },
-        {
-          href: `/${locale}/articles?category=events`,
-          label: t("newsSubItems.events"),
-        },
-        {
-          href: `/${locale}/articles?category=interviews`,
-          label: t("projectsSubItems.interviews"),
-        },
-      ],
+      items: articleCategories.map((cat) => ({
+        href: `/${locale}/articles?category=${cat.slug}`,
+        label: locale === "ar" ? cat.titleAr : cat.titleEn,
+      })),
     },
     // {
     //   label: t("projects"),
@@ -260,6 +217,23 @@ export function Navigation({
     //   items: [],
     // },
   ];
+
+  // Fetch article categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`/api/article-categories`, {
+          cache: "no-store",
+        });
+        if (!res.ok) throw new Error("Failed to fetch categories");
+        const data = await res.json();
+        setArticleCategories(data.categories || []);
+      } catch (error) {
+        console.error("Error loading categories:", error);
+      }
+    };
+    fetchCategories();
+  }, [locale]);
 
   return (
     <header

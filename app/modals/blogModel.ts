@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { CommentUser } from "../interfaces/interfaces";
 
-// Define the Blog interface
-export interface IBlog extends Document {
+// Define the Article interface
+export interface IArticle extends Document {
   _id: string;
   title: string;
   slug: string;
@@ -24,8 +24,8 @@ export interface IBlog extends Document {
   updatedAt: Date;
 }
 
-// Define the Blog schema
-const BlogSchema = new Schema(
+// Define the Article schema
+const ArticleSchema = new Schema(
   {
     title: {
       type: String,
@@ -120,14 +120,14 @@ const BlogSchema = new Schema(
 );
 
 // Create indexes for better performance
-BlogSchema.index({ slug: 1 });
-BlogSchema.index({ status: 1, publishedAt: -1 });
-BlogSchema.index({ tags: 1 });
-BlogSchema.index({ categories: 1 });
-BlogSchema.index({ featured: 1, status: 1 });
+ArticleSchema.index({ slug: 1 });
+ArticleSchema.index({ status: 1, publishedAt: -1 });
+ArticleSchema.index({ tags: 1 });
+ArticleSchema.index({ categories: 1 });
+ArticleSchema.index({ featured: 1, status: 1 });
 
 // Pre-save middleware to auto-generate slug if not provided
-BlogSchema.pre("save", function (next) {
+ArticleSchema.pre("save", function (next) {
   if (!this.slug && this.title) {
     this.slug = this.title
       .toLowerCase()
@@ -150,14 +150,14 @@ BlogSchema.pre("save", function (next) {
 });
 
 // Virtual for reading time estimation (assuming 200 words per minute)
-// BlogSchema.virtual("readingTime").get(function () {
+// ArticleSchema.virtual("readingTime").get(function () {
 //   const wordCount = this.content.replace(/<[^>]*>/g, "").split(/\s+/).length;
 //   const readingTime = Math.ceil(wordCount / 200);
 //   return readingTime;
 // });
 
 // Virtual for formatted publish date
-BlogSchema.virtual("formattedPublishDate").get(function () {
+ArticleSchema.virtual("formattedPublishDate").get(function () {
   if (this.publishedAt) {
     return this.publishedAt.toLocaleDateString("en-US", {
       year: "numeric",
@@ -168,8 +168,9 @@ BlogSchema.virtual("formattedPublishDate").get(function () {
   return null;
 });
 
-// Create and export the Blog model
-const BlogModel =
-  mongoose.models.blogs || mongoose.model<IBlog>("blogs", BlogSchema);
+// Create and export the Article model
+const ArticleModel =
+  mongoose.models.articles ||
+  mongoose.model<IArticle>("articles", ArticleSchema);
 
-export default BlogModel;
+export default ArticleModel;

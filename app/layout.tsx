@@ -14,7 +14,8 @@ export const metadata: Metadata = {
   title: "THE GOOD NEWS",
   description:
     "Discover stories that matter, insights that inspire. Join our community of readers sharing positive stories.",
-  keywords: "news, blog, articles, community, subscription, exclusive content",
+  keywords:
+    "news, article, articles, community, subscription, exclusive content",
   authors: [{ name: "THE GOOD NEWS Team" }],
   viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",

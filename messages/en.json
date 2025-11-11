@@ -190,6 +190,56 @@
       "save": "Save Changes"
     }
   },
+  "account": {
+    "title": "My Account",
+    "subtitle": "Manage your profile and preferences",
+    "navigation": {
+      "profile": "Profile",
+      "subscription": "Subscription",
+      "playlist": "My Playlist",
+      "articles": "Saved Articles",
+      "settings": "Settings",
+      "signOut": "Sign Out"
+    },
+    "profile": {
+      "title": "Profile Information",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "memberSince": "Member Since",
+      "edit": "Edit Profile"
+    },
+    "subscription": {
+      "title": "Subscription Status",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "plan": "Plan",
+      "nextBilling": "Next Billing Date",
+      "manage": "Manage Subscription",
+      "upgrade": "Upgrade Plan"
+    },
+    "playlist": {
+      "title": "My Playlist",
+      "empty": "No videos in your playlist yet",
+      "addMore": "Add More Videos",
+      "recentlyAdded": "Recently Added"
+    },
+    "articles": {
+      "title": "Featured Articles",
+      "saved": "Saved Articles",
+      "empty": "No saved articles yet",
+      "readMore": "Read More",
+      "save": "Save Article"
+    },
+    "settings": {
+      "title": "Account Settings",
+      "language": "Language",
+      "theme": "Theme",
+      "notifications": "Email Notifications",
+      "privacy": "Privacy Settings"
+    }
+  },
   "common": {
     "loading": "Loading...",
     "error": "Something went wrong",
