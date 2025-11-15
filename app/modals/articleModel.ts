@@ -1,35 +1,54 @@
-import mongoose, { Schema, Document } from "mongoose";
-import { CommentUser } from "../interfaces/interfaces";
+import mongoose, { Schema } from "mongoose";
 
 // Define the Article interface
-export interface IArticle extends Document {
+// Define block-based content types
+export type BlockLayout = "img-left" | "img-block";
+
+export interface IContentBlock {
+  type: "text" | "image" | "imageText";
+  textHtml?: string;
+  imageUrl?: string;
+  caption?: string;
+  alt?: string;
+  layout?: BlockLayout; // img-left = image beside text, img-block = image above text
+  arabicContent?: string; // New optional field for Arabic content
+}
+
+export interface IArticle {
   _id: string;
   title: string;
+  titleAR?: string;
   slug: string;
-  tikTokVideoUrl?: string;
-  content: string; // Rich text content (HTML)
+  content?: string; // Rich text content (HTML)
+  blocks?: IContentBlock[]; // Optional structured blocks for future designs
   excerpt: string;
+  excerptAR?: string;
   featuredImage?: string;
-  author: mongoose.Types.ObjectId;
+  tikTokVideoUrl?: string;
+  author?: mongoose.Types.ObjectId;
   status: "draft" | "published" | "archived";
   tags: string[];
-  categories: string[];
+  categories: mongoose.Types.ObjectId[];
   metaTitle?: string;
   metaDescription?: string;
   publishedAt?: Date;
   viewCount: number;
   featured: boolean;
-  likes: CommentUser[];
   createdAt: Date;
   updatedAt: Date;
 }
 
 // Define the Article schema
 const ArticleSchema = new Schema(
-  {
+  ({
     title: {
       type: String,
       required: true,
+      trim: true,
+    },
+    titleAR: {
+      type: String,
+      required: false,
       trim: true,
     },
     slug: {
@@ -39,19 +58,41 @@ const ArticleSchema = new Schema(
       trim: true,
       lowercase: true,
       match: [
-        /^[a-z0-9-]+$/,
+        /^[a-z0-9\s-]+$/,
         "Slug can only contain lowercase letters, numbers, and hyphens",
       ],
     },
-    tikTokVideoUrl: {
+    content: {
       type: String,
       required: false,
     },
-    content: {
-      type: String,
-      required: true,
-    },
+    blocks: [
+      new Schema(
+        {
+          type: {
+            type: String,
+            enum: ["text", "image", "imageText"],
+            required: true,
+          },
+          textHtml: { type: String },
+          imageUrl: { type: String },
+          caption: { type: String },
+          arabicContent: { type: String },
+          alt: { type: String },
+          layout: {
+            type: String,
+            enum: ["img-left", "img-block"],
+            default: "img-block",
+          },
+        },
+        { _id: false },
+      ),
+    ],
     excerpt: {
+      type: String,
+      required: false,
+    },
+    excerptAR: {
       type: String,
       required: false,
     },
@@ -59,13 +100,26 @@ const ArticleSchema = new Schema(
       type: String,
       required: false,
     },
-    likes: [{ type: Schema.Types.ObjectId, ref: "users" }], // Array of user references who liked the video
-
-    // author: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "users",
-    //   required: true
-    // },
+    tikTokVideoUrl: {
+      type: String,
+      required: false,
+      validate: {
+        validator: function (v: string) {
+          if (!v) return true; // Allow empty values
+          // Validate TikTok URL format
+          return (
+            /^https:\/\/(www\.)?tiktok\.com\/@[\w.-]+\/video\/\d+/.test(v) ||
+            /^https:\/\/vm\.tiktok\.com\/[\w]+/.test(v)
+          );
+        },
+        message: "Please enter a valid TikTok video URL",
+      },
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+      required: false,
+    },
     status: {
       type: String,
       enum: ["draft", "published", "archived"],
@@ -82,16 +136,12 @@ const ArticleSchema = new Schema(
         message: "Maximum 30 tags allowed",
       },
     },
-    categories: {
-      type: [String],
-      default: [],
-      validate: {
-        validator: function (v: string[]) {
-          return v.length <= 15;
-        },
-        message: "Maximum 15 categories allowed",
+    categories: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "articleCategories",
       },
-    },
+    ],
     metaTitle: {
       type: String,
     },
@@ -111,12 +161,12 @@ const ArticleSchema = new Schema(
       type: Boolean,
       default: false,
     },
-  },
+  } as any),
   {
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  }
+  },
 );
 
 // Create indexes for better performance
@@ -150,11 +200,23 @@ ArticleSchema.pre("save", function (next) {
 });
 
 // Virtual for reading time estimation (assuming 200 words per minute)
-// ArticleSchema.virtual("readingTime").get(function () {
-//   const wordCount = this.content.replace(/<[^>]*>/g, "").split(/\s+/).length;
-//   const readingTime = Math.ceil(wordCount / 200);
-//   return readingTime;
-// });
+ArticleSchema.virtual("readingTime").get(function () {
+  let text = "";
+  if (this.content && typeof this.content === "string") {
+    text = this.content;
+  } else if (Array.isArray(this.blocks) && this.blocks.length > 0) {
+    text = this.blocks
+      .map((b: IContentBlock) => (b.textHtml ? b.textHtml : ""))
+      .join(" ");
+  }
+  const wordCount = text
+    .replace(/<[^>]*>/g, "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+  return readingTime;
+});
 
 // Virtual for formatted publish date
 ArticleSchema.virtual("formattedPublishDate").get(function () {
@@ -170,7 +232,7 @@ ArticleSchema.virtual("formattedPublishDate").get(function () {
 
 // Create and export the Article model
 const ArticleModel =
-  mongoose.models.articles ||
-  mongoose.model<IArticle>("articles", ArticleSchema);
+  (mongoose.models.articles as any) ||
+  (mongoose.model("articles", ArticleSchema as any) as any);
 
 export default ArticleModel;

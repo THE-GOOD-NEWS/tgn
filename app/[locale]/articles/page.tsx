@@ -1,58 +1,89 @@
-"use client";
-
-import React, { Suspense } from "react";
-import { useTranslations, useLocale } from "next-intl";
-import { motion, useInView } from "framer-motion";
+import React from "react";
+import { getTranslations } from "next-intl/server";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ArticlesGrid } from "@/components/articles-grid";
-import { sampleArticles } from "@/lib/articles-data";
-import { ARTICLE_CATEGORIES } from "@/lib/constants";
-import { useSearchParams } from "next/navigation";
+import { Article } from "@/lib/articles-data";
+import { connectToDatabase } from "@/utils/mongodb";
+import ArticleModel from "@/app/modals/articleModel";
+import ArticleCategoryModel from "@/app/modals/articleCategoryModel";
+import mongoose from "mongoose";
 
-export default function ArticlesPage() {
-  const t = useTranslations("articles");
-  const locale = useLocale();
-  const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true });
+export default async function ArticlesPage({ params, searchParams }: any) {
+  const locale = params.locale;
+  const t = await getTranslations("articles");
   const isRTL = locale === "ar";
-  const searchParams = useSearchParams();
-  const categoryParam = searchParams.get("category");
+  const categoryParam = searchParams?.category || null;
 
-  const categoryDisplay = React.useMemo(() => {
-    // No category provided or explicit 'all' => use default title
-    if (!categoryParam || categoryParam === "all") return null;
-
-    // Prefer configured categories for accurate, localized names
-    const categories = ARTICLE_CATEGORIES[locale as "en" | "ar"];
+  await connectToDatabase();
+  let categoryDisplay: string | null = null;
+  let categoryFilterId: mongoose.Types.ObjectId | null = null;
+  if (categoryParam && categoryParam !== "all") {
     const normalized = slugify(categoryParam);
-    const match = categories.find((c) => c.slug === normalized);
+    let categoryDoc: any = null;
+    if (mongoose.Types.ObjectId.isValid(categoryParam)) {
+      categoryDoc = await ArticleCategoryModel.findById(categoryParam).lean();
+    }
+    if (!categoryDoc) {
+      categoryDoc = await ArticleCategoryModel.findOne({
+        slug: normalized,
+      }).lean();
+    }
+    if (categoryDoc) {
+      categoryFilterId = categoryDoc._id as mongoose.Types.ObjectId;
+      categoryDisplay =
+        locale === "ar" ? categoryDoc.titleAr : categoryDoc.titleEn;
+    } else {
+      categoryDisplay = humanizeSlug(categoryParam);
+    }
+  }
 
-    if (match) return match.name;
+  const articlesFromDb = await ArticleModel.find({
+    status: "published",
+    ...(categoryFilterId ? { categories: categoryFilterId } : {}),
+  })
+    .sort({ publishedAt: -1 })
+    .populate("categories", "titleEn titleAr slug")
+    .populate("author", "firstName lastName userName email")
+    .lean({ virtuals: true });
 
-    // Fallback: humanize the provided slug
-    return humanizeSlug(categoryParam);
-  }, [categoryParam, locale]);
-
-  // In a real app, these would come from authentication context and API
-  const isLoggedIn = false;
-  const userRole = "user" as const;
+  const articles: Article[] = (articlesFromDb || []).map((a: any) => {
+    const firstCategory =
+      Array.isArray(a.categories) && a.categories.length > 0
+        ? a.categories[0]
+        : null;
+    const categoryEn = firstCategory ? firstCategory.titleEn : "General";
+    const categoryAr = firstCategory ? firstCategory.titleAr : "عام";
+    const authorName = a.author?.firstName || "Unknown";
+    const readTimeNum = a.readingTime || 1;
+    return {
+      id: a._id?.toString?.() || a._id,
+      title: { en: a.title, ar: a.titleAR || a.title },
+      slug: a.slug,
+      excerpt: { en: a.excerpt || "", ar: a.excerptAR || a.excerpt || "" },
+      category: { en: categoryEn, ar: categoryAr },
+      author: { en: authorName, ar: authorName },
+      publishedAt:
+        (a.publishedAt || a.createdAt)?.toISOString?.() ||
+        new Date().toISOString(),
+      featuredImage: a.featuredImage,
+      isExclusive: !!a.featured,
+      readTime: {
+        en: `${readTimeNum} min read`,
+        ar: `${readTimeNum} دقائق قراءة`,
+      },
+    };
+  });
 
   return (
     <div className="bg-cream">
-      <Navigation isLoggedIn={isLoggedIn} userRole={userRole} />
+      <Navigation isLoggedIn={false} userRole={"user"} />
 
       <main className="min-h-screen pt-20">
         {/* Page Header */}
         <section className="pt-16 pb-8 bg-mint-green">
           <div className="container mx-auto px-4">
-            <motion.div
-              ref={ref}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
+            <div className="text-center">
               <h1
                 className={`text-5xl md:text-6xl lg:text-7xl font-bold text-black mb-6 ${
                   isRTL ? "font-header-ar" : "font-header-en"
@@ -67,31 +98,21 @@ export default function ArticlesPage() {
               >
                 {t("headerSubtitle")}
               </p>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* Articles Grid (filtered by category via searchParams) */}
         <section className="">
           <div className="container mx-auto px-4">
-            <Suspense
-              fallback={
-                <div className="py-12 text-center">Loading articles...</div>
-              }
-            >
-              <ArticlesByCategory isInView={isInView} />
-            </Suspense>
+            <ArticlesGrid articles={articles} />
           </div>
         </section>
 
         {/* Load More Section */}
         <section className="py-8 bg-mint-green">
           <div className="container mx-auto px-4 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
+            <div>
               <p
                 className={`text-gray-600 text-lg mb-4 ${
                   isRTL ? "font-body-ar" : "font-body-en"
@@ -100,7 +121,7 @@ export default function ArticlesPage() {
                 {t("moreComing")}
               </p>
               <div className="w-16 h-1 bg-black mx-auto"></div>
-            </motion.div>
+            </div>
           </div>
         </section>
       </main>
@@ -122,30 +143,4 @@ function humanizeSlug(slug: string) {
     .join(" ");
 }
 
-function ArticlesByCategory({ isInView }: { isInView: boolean }) {
-  const searchParams = useSearchParams();
-  const categoryParam = searchParams.get("category") || "all";
-
-  const filteredArticles =
-    categoryParam === "all"
-      ? sampleArticles
-      : sampleArticles.filter((a) => {
-          const en =
-            typeof a.category === "string" ? a.category : a.category.en;
-          const ar =
-            typeof a.category === "string" ? a.category : a.category.ar;
-          const enSlug = slugify(en);
-          const arSlug = slugify(ar);
-          return enSlug === categoryParam || arSlug === categoryParam;
-        });
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: 0.2 }}
-    >
-      <ArticlesGrid key={categoryParam} articles={filteredArticles} />
-    </motion.div>
-  );
-}
+// Client-side filtered sample articles removed; now using DB-backed fetch above
