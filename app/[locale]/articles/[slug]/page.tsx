@@ -1,10 +1,20 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar, User, Clock, Share2 } from "lucide-react";
+import { Calendar, User, Clock, Share2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { connectToDatabase } from "@/utils/mongodb";
 import ArticleModel from "@/app/modals/articleModel";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import ArticleCategoryModel from "@/app/modals/articleCategoryModel";
+import UserModel from "@/app/modals/userModel";
 
 interface PopulatedArticle {
   _id: string;
@@ -44,7 +54,11 @@ interface PopulatedArticle {
 async function getArticle(slug: string): Promise<PopulatedArticle | null> {
   try {
     await connectToDatabase();
-
+    console.log(
+      "registering users + articlesCategories" +
+        ArticleCategoryModel +
+        UserModel
+    );
     const article = await ArticleModel.findOne({
       slug,
       status: "published",
@@ -178,6 +192,7 @@ function renderContentBlocks(
 export default async function ArticlePage({ params }: any) {
   const { locale, slug } = params;
   const t = await getTranslations("common");
+  const footerT = await getTranslations("footer");
 
   const article = await getArticle(slug);
 
@@ -196,17 +211,29 @@ export default async function ArticlePage({ params }: any) {
       dir={isArabic ? "rtl" : "ltr"}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Back Button */}
-        <Link
-          href={`/${locale}/articles`}
-          className="inline-flex items-center space-x-2 rtl:space-x-reverse text-muted-foreground hover:text-foreground transition-colors mb-8"
-        >
-          <ArrowLeft className={`h-4 w-4 ${isArabic ? "rotate-180" : ""}`} />
-          <span>{t("back")}</span>
-        </Link>
-
         {/* Article Header */}
         <div className="max-w-4xl mx-auto">
+          <Breadcrumb className="mb-8">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${locale}`}>{footerT("quickLinks.home")}</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="rtl:rotate-180" />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${locale}/articles`}>
+                    {footerT("quickLinks.articles")}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="rtl:rotate-180" />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
           <div className="mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
               {title}

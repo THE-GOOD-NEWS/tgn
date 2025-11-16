@@ -4,11 +4,11 @@ import nodemailer from "nodemailer";
 
 // Configure nodemailer transporter
 const transporter = nodemailer.createTransport({
-  host: "mail.smtp2go.com",
+  host: "smtp-relay.brevo.com",
   port: 587,
   secure: false,
   auth: {
-    user: process.env.SMTP_EMAIL,
+    user: process.env.SMTP_LOGIN,
     pass: process.env.SMTP_PASSWORD,
   },
 });

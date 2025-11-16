@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Article } from "@/lib/articles-data";
 import { Badge } from "@/components/ui/badge";
-import { Clock, ArrowRight } from "lucide-react";
+import { Clock, ArrowRight, User } from "lucide-react";
 
 interface ArticleCardProps {
   article: Article;
@@ -31,10 +31,10 @@ export function ArticleCard({ article, index = 0 }: ArticleCardProps) {
     typeof article.category === "string"
       ? article.category
       : article.category[locale as "en" | "ar"];
-  const author =
-    typeof article.author === "string"
-      ? article.author
-      : article.author[locale as "en" | "ar"];
+  // const author =
+  //   typeof article.author === "string"
+  //     ? article.author
+  //     : article.author[locale as "en" | "ar"];
   const readTime =
     typeof article.readTime === "string"
       ? article.readTime
@@ -96,10 +96,20 @@ export function ArticleCard({ article, index = 0 }: ArticleCardProps) {
                   {formatDate(article.publishedAt)}
                 </time>
                 <span className="w-px h-3 bg-gray-300" />
-                <div className="flex items-center gap-1">
+                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                  <User className="h-4 w-4" />
+                  <span>
+                    {[article.author?.firstName, article.author?.lastName]
+                      .filter(Boolean)
+                      .join(" ") ||
+                      article.author?.username ||
+                      "Unknown Author"}
+                  </span>
+                </div>
+                {/* <div className="flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   <span>{readTime}</span>
-                </div>
+                </div> */}
               </div>
 
               {/* Big title styling akin to the attachment */}
