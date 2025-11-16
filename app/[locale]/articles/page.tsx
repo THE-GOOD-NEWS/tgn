@@ -8,6 +8,7 @@ import { connectToDatabase } from "@/utils/mongodb";
 import ArticleModel from "@/app/modals/articleModel";
 import ArticleCategoryModel from "@/app/modals/articleCategoryModel";
 import mongoose from "mongoose";
+import UserModel from "@/app/modals/userModel";
 
 export default async function ArticlesPage({ params, searchParams }: any) {
   const locale = params.locale;
@@ -37,7 +38,7 @@ export default async function ArticlesPage({ params, searchParams }: any) {
       categoryDisplay = humanizeSlug(categoryParam);
     }
   }
-
+  console.log("registering" + UserModel + ArticleCategoryModel);
   const articlesFromDb = await ArticleModel.find({
     status: "published",
     ...(categoryFilterId ? { categories: categoryFilterId } : {}),
