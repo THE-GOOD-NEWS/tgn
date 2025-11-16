@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
 import { ArticleCard } from "@/components/article-card";
 import { Button } from "@/components/ui/button";
-import { sampleArticles, Article } from "@/lib/articles-data";
+import { Article } from "@/lib/articles-data";
 import { Loader2 } from "lucide-react";
 
 interface ArticlesGridProps {
@@ -17,7 +17,7 @@ export function ArticlesGrid({ articles: inputArticles }: ArticlesGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Use provided articles or fall back to sample
-  const articles = inputArticles ?? sampleArticles;
+  const articles = inputArticles || [];
 
   // Reset pagination when filtered articles change
   useEffect(() => {
