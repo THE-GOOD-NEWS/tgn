@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/utils/mongodb";
 import ArticleModel from "@/app/modals/articleModel";
+import UserModel from "@/app/modals/userModel";
+import ArticleCategoryModel from "@/app/modals/articleCategoryModel";
 
 export async function GET(request: Request) {
   try {
@@ -17,7 +19,7 @@ export async function GET(request: Request) {
     if (featuredParam === "true") {
       query.featured = true;
     }
-
+    console.log("registering" + UserModel + ArticleCategoryModel);
     const articles = await ArticleModel.find(query)
       .populate("categories", "titleEn titleAr slug")
       .populate("author", "firstName lastName username email")
@@ -26,6 +28,9 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ articles });
   } catch (error) {
-    return NextResponse.json({ error: "Failed to load articles" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to load articles" },
+      { status: 500 }
+    );
   }
 }
