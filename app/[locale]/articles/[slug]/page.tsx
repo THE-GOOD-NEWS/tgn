@@ -15,6 +15,14 @@ import {
 } from "@/components/ui/breadcrumb";
 import ArticleCategoryModel from "@/app/modals/articleCategoryModel";
 import UserModel from "@/app/modals/userModel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselIndicators,
+} from "@/components/ui/carousel";
 
 interface PopulatedArticle {
   _id: string;
@@ -23,13 +31,14 @@ interface PopulatedArticle {
   slug: string;
   content?: string;
   blocks?: Array<{
-    type: "text" | "image" | "imageText";
+    type: "text" | "image" | "imageText" | "carousel";
     textHtml?: string;
     imageUrl?: string;
     caption?: string;
     alt?: string;
     layout?: "img-left" | "img-block";
     arabicContent?: string;
+    images?: Array<{ imageUrl: string; alt?: string; caption?: string }>;
   }>;
   excerpt: string;
   excerptAR?: string;
@@ -161,7 +170,7 @@ function renderContentBlocks(
 
         // img-block layout
         return (
-          <div key={index} className="my-8">
+          <div key={index} className="my-8" dir={isRtl ? "rtl" : "ltr"}>
             {block.imageUrl && (
               <div className="relative w-full h-64 md:h-96 rounded-xl overflow-hidden mb-4">
                 <Image
@@ -177,10 +186,65 @@ function renderContentBlocks(
                 {block.caption}
               </p>
             )}
-            {/* <div
+            <div
               className="prose prose-lg max-w-none text-foreground leading-relaxed"
               dangerouslySetInnerHTML={{ __html: content }}
-            /> */}
+            />
+          </div>
+        );
+      case "carousel":
+        const rtl = locale === "ar";
+        const imgs = (block.images || []).filter((i) => !!i?.imageUrl);
+        if (imgs.length === 0 && block.imageUrl) {
+          imgs.push({
+            imageUrl: block.imageUrl,
+            alt: block.alt,
+            caption: block.caption,
+          } as any);
+        }
+
+        return (
+          <div key={index} className="my-8" dir={rtl ? "rtl" : "ltr"}>
+            {imgs.length > 0 ? (
+              <Carousel className="w-full">
+              <CarouselContent>
+                {imgs.map((img, i) => (
+                  <CarouselItem key={i}>
+                    <div className="relative w-full h-64 md:h-96 rounded-xl overflow-hidden bg-muted">
+                      <Image
+                        src={img.imageUrl}
+                        alt={img.alt || "Article image"}
+                        fill
+                        sizes="100vw"
+                        className="object-contain"
+                      />
+                    </div>
+                    {img.caption && (
+                      <p className="text-sm text-muted-foreground text-center mt-2">
+                        {img.caption}
+                      </p>
+                    )}
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+              <CarouselIndicators className="mt-3" />
+            </Carousel>
+            ) : (
+              <div className="w-full h-32 rounded-md bg-muted flex items-center justify-center text-muted-foreground">
+                {rtl
+                  ? "لا توجد صور في هذا المعرض"
+                  : "No images available in this carousel"}
+              </div>
+            )}
+
+            {content && (
+              <div
+                className="prose prose-lg max-w-none text-foreground leading-relaxed mt-4"
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
+            )}
           </div>
         );
       default:

@@ -5,13 +5,14 @@ import mongoose, { Schema } from "mongoose";
 export type BlockLayout = "img-left" | "img-block";
 
 export interface IContentBlock {
-  type: "text" | "image" | "imageText";
+  type: "text" | "image" | "imageText" | "carousel";
   textHtml?: string;
   imageUrl?: string;
   caption?: string;
   alt?: string;
   layout?: BlockLayout; // img-left = image beside text, img-block = image above text
   arabicContent?: string; // New optional field for Arabic content
+  images?: { imageUrl: string; alt?: string; caption?: string }[];
 }
 
 export interface IArticle {
@@ -40,7 +41,7 @@ export interface IArticle {
 
 // Define the Article schema
 const ArticleSchema = new Schema(
-  ({
+  {
     title: {
       type: String,
       required: true,
@@ -71,7 +72,7 @@ const ArticleSchema = new Schema(
         {
           type: {
             type: String,
-            enum: ["text", "image", "imageText"],
+            enum: ["text", "image", "imageText", "carousel"],
             required: true,
           },
           textHtml: { type: String },
@@ -79,13 +80,23 @@ const ArticleSchema = new Schema(
           caption: { type: String },
           arabicContent: { type: String },
           alt: { type: String },
+          images: [
+            new Schema(
+              {
+                imageUrl: { type: String },
+                alt: { type: String },
+                caption: { type: String },
+              },
+              { _id: false }
+            ),
+          ],
           layout: {
             type: String,
             enum: ["img-left", "img-block"],
             default: "img-block",
           },
         },
-        { _id: false },
+        { _id: false }
       ),
     ],
     excerpt: {
@@ -161,12 +172,12 @@ const ArticleSchema = new Schema(
       type: Boolean,
       default: false,
     },
-  } as any),
+  } as any,
   {
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  },
+  }
 );
 
 // Create indexes for better performance

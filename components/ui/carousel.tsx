@@ -252,6 +252,56 @@ const CarouselNext = React.forwardRef<
 });
 CarouselNext.displayName = 'CarouselNext';
 
+const CarouselIndicators = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  const { api } = useCarousel();
+  const [count, setCount] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+  const onSelect = React.useCallback(() => {
+    if (!api) return;
+    setSelectedIndex(api.selectedScrollSnap());
+  }, [api]);
+
+  React.useEffect(() => {
+    if (!api) return;
+    setCount(api.scrollSnapList().length);
+    onSelect();
+    api.on('select', onSelect);
+    api.on('reInit', onSelect);
+    return () => {
+      api?.off('select', onSelect);
+    };
+  }, [api, onSelect]);
+
+  return (
+    <div
+      ref={ref}
+      className={cn('flex items-center justify-center gap-2', className)}
+      {...props}
+    >
+      {Array.from({ length: count }).map((_, i) => (
+        <button
+          key={i}
+          type="button"
+          onClick={() => api?.scrollTo(i)}
+          className={cn(
+            'h-2 w-2 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+            i === selectedIndex
+              ? 'bg-foreground'
+              : 'bg-muted-foreground/40 hover:bg-muted-foreground/70'
+          )}
+          aria-label={`Go to slide ${i + 1}`}
+          aria-current={i === selectedIndex ? 'true' : 'false'}
+        />
+      ))}
+    </div>
+  );
+});
+CarouselIndicators.displayName = 'CarouselIndicators';
+
 export {
   type CarouselApi,
   Carousel,
@@ -259,4 +309,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselIndicators,
 };

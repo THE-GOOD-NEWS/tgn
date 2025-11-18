@@ -13,6 +13,7 @@ interface ArticlesGridProps {
 
 export function ArticlesGrid({ articles: inputArticles }: ArticlesGridProps) {
   const locale = useLocale();
+  const isRtl = locale === "ar";
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -44,7 +45,10 @@ export function ArticlesGrid({ articles: inputArticles }: ArticlesGridProps) {
   return (
     <div className="space-y-12">
       {/* Articles Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-8">
+      <div
+        dir={isRtl ? "rtl" : "ltr"}
+        className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-8"
+      >
         {displayedArticles.map((article, index) => (
           <ArticleCard key={article.id} article={article} index={index} />
         ))}
