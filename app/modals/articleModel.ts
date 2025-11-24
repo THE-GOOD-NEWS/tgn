@@ -15,6 +15,43 @@ export interface IContentBlock {
   images?: { imageUrl: string; alt?: string; caption?: string }[];
 }
 
+export interface IContentImage {
+  imageUrl?: string;
+  alt?: string;
+  caption?: string;
+}
+
+const ContentImageSchema = new Schema(
+  {
+    imageUrl: { type: String },
+    alt: { type: String },
+    caption: { type: String },
+  } as any,
+  { _id: false }
+);
+
+const ContentBlockSchema = new Schema(
+  {
+    type: {
+      type: String,
+      enum: ["text", "image", "imageText", "carousel"],
+      required: true,
+    },
+    textHtml: { type: String },
+    imageUrl: { type: String },
+    caption: { type: String },
+    arabicContent: { type: String },
+    alt: { type: String },
+    images: { type: [ContentImageSchema] },
+    layout: {
+      type: String,
+      enum: ["img-left", "img-block"],
+      default: "img-block",
+    },
+  } as any,
+  { _id: false }
+);
+
 export interface IArticle {
   _id: string;
   title: string;
@@ -67,38 +104,7 @@ const ArticleSchema = new Schema(
       type: String,
       required: false,
     },
-    blocks: [
-      new Schema(
-        {
-          type: {
-            type: String,
-            enum: ["text", "image", "imageText", "carousel"],
-            required: true,
-          },
-          textHtml: { type: String },
-          imageUrl: { type: String },
-          caption: { type: String },
-          arabicContent: { type: String },
-          alt: { type: String },
-          images: [
-            new Schema(
-              {
-                imageUrl: { type: String },
-                alt: { type: String },
-                caption: { type: String },
-              },
-              { _id: false }
-            ),
-          ],
-          layout: {
-            type: String,
-            enum: ["img-left", "img-block"],
-            default: "img-block",
-          },
-        },
-        { _id: false }
-      ),
-    ],
+    blocks: [ContentBlockSchema],
     excerpt: {
       type: String,
       required: false,
