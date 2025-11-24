@@ -206,31 +206,34 @@ function renderContentBlocks(
         return (
           <div key={index} className="my-8" dir={rtl ? "rtl" : "ltr"}>
             {imgs.length > 0 ? (
-              <Carousel className="w-full">
-              <CarouselContent>
-                {imgs.map((img, i) => (
-                  <CarouselItem key={i}>
-                    <div className="relative w-full h-64 md:h-96 rounded-xl overflow-hidden bg-muted">
-                      <Image
-                        src={img.imageUrl}
-                        alt={img.alt || "Article image"}
-                        fill
-                        sizes="100vw"
-                        className="object-contain"
-                      />
-                    </div>
-                    {img.caption && (
-                      <p className="text-sm text-muted-foreground text-center mt-2">
-                        {img.caption}
-                      </p>
-                    )}
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-              <CarouselIndicators className="mt-3" />
-            </Carousel>
+              <Carousel
+                className="w-full"
+                opts={{ direction: rtl ? "rtl" : "ltr" }}
+              >
+                <CarouselContent>
+                  {imgs.map((img, i) => (
+                    <CarouselItem key={i}>
+                      <div className="relative w-full h-64 md:h-96 rounded-xl overflow-hidden bg-muted">
+                        <Image
+                          src={img.imageUrl}
+                          alt={img.alt || "Article image"}
+                          fill
+                          sizes="100vw"
+                          className="object-contain"
+                        />
+                      </div>
+                      {img.caption && (
+                        <p className="text-sm text-muted-foreground text-center mt-2">
+                          {img.caption}
+                        </p>
+                      )}
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+                <CarouselIndicators className="mt-3" />
+              </Carousel>
             ) : (
               <div className="w-full h-32 rounded-md bg-muted flex items-center justify-center text-muted-foreground">
                 {rtl

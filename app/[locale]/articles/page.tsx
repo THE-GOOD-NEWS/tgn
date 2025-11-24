@@ -45,25 +45,33 @@ export default async function ArticlesPage({ params, searchParams }: any) {
   })
     .sort({ publishedAt: -1 })
     .populate("categories", "titleEn titleAr slug")
-    .populate("author", "firstName lastName userName email")
+    .populate("author", "firstName lastName username email")
     .lean({ virtuals: true });
-
+  console.log(articlesFromDb[0].author.firstName + "firstName");
   const articles: Article[] = (articlesFromDb || []).map((a: any) => {
+    console.log(a.author?.firstName + "authorFirstName");
     const firstCategory =
       Array.isArray(a.categories) && a.categories.length > 0
         ? a.categories[0]
         : null;
     const categoryEn = firstCategory ? firstCategory.titleEn : "General";
     const categoryAr = firstCategory ? firstCategory.titleAr : "عام";
-    const authorName = a.author?.firstName || "Unknown";
     const readTimeNum = a.readingTime || 1;
+    const authorObj = a.author
+      ? {
+          firstName: a.author.firstName || "",
+          lastName: a.author.lastName || "",
+          username: a.author.username || "",
+          email: a.author.email || "",
+        }
+      : undefined;
     return {
       id: a._id?.toString?.() || a._id,
       title: { en: a.title, ar: a.titleAR || a.title },
       slug: a.slug,
       excerpt: { en: a.excerpt || "", ar: a.excerptAR || a.excerpt || "" },
       category: { en: categoryEn, ar: categoryAr },
-      author: { en: authorName, ar: authorName },
+      author: authorObj,
       publishedAt:
         (a.publishedAt || a.createdAt)?.toISOString?.() ||
         new Date().toISOString(),
