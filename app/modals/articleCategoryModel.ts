@@ -29,7 +29,7 @@ const ArticleCategorySchema = new Schema<IArticleCategory>(
   }
 );
 
-ArticleCategorySchema.index({ slug: 1 }, { unique: true });
+// Unique index handled by `unique: true` on slug
 ArticleCategorySchema.index({ titleEn: 1 });
 ArticleCategorySchema.index({ titleAr: 1 });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
@@ -20,6 +20,9 @@ export function Footer() {
   const locale = useLocale();
   const t = useTranslations("footer");
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
 
   const socialLinks = [
     {
@@ -145,16 +148,56 @@ export function Footer() {
               {t("newsletter.description")}
             </p>
             <div className="space-y-3">
-              <div className="flex flex-col sm:flex-row gap-2">
+              <form
+                className="flex flex-col sm:flex-row gap-2"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!email || !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) {
+                    setStatus("error");
+                    setMessage(locale === "ar" ? "البريد الإلكتروني غير صالح" : "Invalid email");
+                    return;
+                  }
+                  try {
+                    setStatus("loading");
+                    setMessage("");
+                    const res = await fetch("/api/newsletter", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ email }),
+                    });
+                    const data = await res.json();
+                    if (res.ok && data?.success) {
+                      setStatus("success");
+                      setMessage(locale === "ar" ? "تم الاشتراك بنجاح" : "Subscribed successfully");
+                      setEmail("");
+                    } else {
+                      setStatus("error");
+                      setMessage(locale === "ar" ? "فشل الاشتراك" : "Subscription failed");
+                    }
+                  } catch (err) {
+                    setStatus("error");
+                    setMessage(locale === "ar" ? "حدث خطأ" : "An error occurred");
+                  }
+                }}
+              >
                 <input
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder={t("newsletter.placeholder")}
                   className="flex-1 px-3 py-2 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink/50"
                 />
-                <button className="px-4 py-2 bg-gradient-to-r from-hot-pink to-bright-yellow text-white text-sm font-medium rounded-md hover:shadow-lg transition-all duration-300 button-glow">
-                  {t("newsletter.subscribe")}
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="px-4 py-2 bg-gradient-to-r from-hot-pink to-bright-yellow text-white text-sm font-medium rounded-md hover:shadow-lg transition-all duration-300 button-glow disabled:opacity-70"
+                >
+                  {status === "loading" ? (locale === "ar" ? "جارٍ الاشتراك..." : "Subscribing...") : t("newsletter.subscribe")}
                 </button>
-              </div>
+              </form>
+              {message && (
+                <p className={`text-sm ${status === "error" ? "text-red-600" : "text-green-600"}`}>{message}</p>
+              )}
             </div>
           </div>
         </div>

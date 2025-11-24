@@ -10,10 +10,43 @@ const Newsletter = () => {
   const locale = useLocale();
   const isRTL = locale === "ar";
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email || !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) {
+      setStatus("error");
+      setMessage(
+        locale === "ar" ? "البريد الإلكتروني غير صالح" : "Invalid email"
+      );
+      return;
+    }
+    try {
+      setStatus("loading");
+      setMessage("");
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (res.ok && data?.success) {
+        setStatus("success");
+        setMessage(
+          locale === "ar" ? "تم الاشتراك بنجاح" : "Subscribed successfully"
+        );
+        setEmail("");
+      } else {
+        setStatus("error");
+        setMessage(locale === "ar" ? "فشل الاشتراك" : "Subscription failed");
+      }
+    } catch (err) {
+      setStatus("error");
+      setMessage(locale === "ar" ? "حدث خطأ" : "An error occurred");
+    }
     // In a real implementation, this would send the email to your backend
     // For now, just show success message
     setStatus("success");

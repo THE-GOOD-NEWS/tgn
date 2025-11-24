@@ -38,7 +38,7 @@ export async function GET(_request: NextRequest) {
         }
 
         // Redirect to the login page for the user to sign in with NextAuth
-        return NextResponse.redirect(new URL("/login", _request.url));
+        return NextResponse.redirect(new URL("/auth/login", _request.url));
       } catch (err: any) {
         console.error("Error in updating user:", err);
         return NextResponse.json({ error: err.message }, { status: 500 });

@@ -68,7 +68,7 @@ export default function SignupPage() {
       if (response.status === 201) {
         //
         //  Use router.push for client-side navigation
-        router.push("/verification");
+        router.push("/auth/verification");
       }
       // const data = await response;
 
@@ -77,9 +77,9 @@ export default function SignupPage() {
       // }
 
       setSuccess(true);
-      setTimeout(() => {
-        router.push(`/${locale}/auth/login`);
-      }, 2000);
+      // setTimeout(() => {
+      //   router.push(`/${locale}/auth/login`);
+      // }, 2000);
     } catch (error: any) {
       setError(error.message || "An error occurred. Please try again.");
     } finally {
