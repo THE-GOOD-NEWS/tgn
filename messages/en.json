@@ -518,5 +518,27 @@
     "subtitle": "THE GOOD NEWS in the Media",
     "featuredOnLabel": "FEATURED ON",
     "interviewsLabel": "INTERVIEWS"
+  },
+  "goodIntern": {
+    "hero": {
+      "logoAlt": "The Good Intern logo"
+    },
+    "storyTitle": "The Story Behind",
+    "story": {
+      "p1": "Five years ago, a wave of ambitious students reached out to us seeking internship opportunities. That moment revealed a gap – a lack of platforms truly dedicated to connecting students and fresh graduates with meaningful learning experiences. So, we built The Good Intern – an initiative designed to bridge the divide between young talents and forward-thinking corporates.",
+      "p2": "By 2025, The Good Intern had successfully engaged over 7,000+ passionate candidates, eager to grow, learn, and apply to verified opportunities shared through The Good News."
+    },
+    "campaign": {
+      "title": "The Good Intern",
+      "description": "THE GOOD INTERN is a campaign that aims to connect young people with opportunities they need to better equip themselves for the job market. TGN serves as the bridge between job offerers and job seekers."
+    },
+    "metrics": {
+      "title": "Our Success in Numbers",
+      "internships": "Internships Shared",
+      "applicants": "Applicants",
+      "views": "Total Article Views",
+      "reach": "Reach"
+    },
+    "intro": "Introducing.."
   }
 }
