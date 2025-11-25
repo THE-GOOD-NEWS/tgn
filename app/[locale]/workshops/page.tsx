@@ -1,12 +1,34 @@
 "use client";
 import { useTranslations, useLocale } from "next-intl";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Newsletter from "../sections/Newsletter";
+import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselIndicators,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 export default function WorkshopsPage() {
   const t = useTranslations("workshops");
   const locale = useLocale();
   const isRTL = locale === "ar";
+
+  // Carousel autoplay state
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+  useEffect(() => {
+    if (!carouselApi) return;
+    const id = setInterval(() => {
+      // Advance to the next slide automatically
+      carouselApi.scrollNext();
+    }, 3500);
+    return () => clearInterval(id);
+  }, [carouselApi]);
 
   const container = {
     hidden: { opacity: 0 },
@@ -148,6 +170,36 @@ export default function WorkshopsPage() {
       </section>
 
       {/* Workshop Tracks Section */}
+      <div className="mb-12">
+        <Carousel
+          opts={{ loop: true, direction: isRTL ? "rtl" : "ltr" }}
+          setApi={setCarouselApi}
+          className="w-full"
+        >
+          <CarouselContent>
+            {["IMG_3965.jpg", "IMG_3978.webp", "TMPH3233.webp"].map(
+              (file, idx) => (
+                <CarouselItem key={idx}>
+                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-gray-100">
+                    <Image
+                      src={`/workshops/${file}`}
+                      alt={t("title")}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                      className="object-cover"
+                      priority={idx === 0}
+                    />
+                  </div>
+                </CarouselItem>
+              )
+            )}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+          <CarouselIndicators className="mt-4" />
+        </Carousel>
+      </div>
+      {/* Autoplay Carousel from public/workshops */}
       <section className="max-w-6xl mx-auto " dir={isRTL ? "rtl" : "ltr"}>
         <motion.div
           initial={{ opacity: 0, filter: "blur(20px)" }}
