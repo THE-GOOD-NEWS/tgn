@@ -44,7 +44,7 @@
     "login": "Login",
     "signup": "Sign Up",
     "logout": "Logout",
-    "dashboard": "Dashboard",
+    "account": "Account",
     "search": "Search articles...",
     "subscribe": "Subscribe",
     "newsletter": "Newsletter",
@@ -197,7 +197,7 @@
       "profile": "Profile",
       "subscription": "Subscription",
       "playlist": "My Playlist",
-      "articles": "Saved Articles",
+      "articles": "Recently Read",
       "settings": "Settings",
       "signOut": "Sign Out"
     },
@@ -207,7 +207,8 @@
       "lastName": "Last Name",
       "email": "Email",
       "memberSince": "Member Since",
-      "edit": "Edit Profile"
+      "edit": "Edit Profile",
+      "photo": "Profile Photo"
     },
     "subscription": {
       "title": "Subscription Status",
@@ -226,9 +227,9 @@
       "recentlyAdded": "Recently Added"
     },
     "articles": {
-      "title": "Featured Articles",
-      "saved": "Saved Articles",
-      "empty": "No saved articles yet",
+      "title": "Recently Read Articles",
+      "saved": "Recently Read",
+      "empty": "No recently read articles yet",
       "readMore": "Read More",
       "save": "Save Article"
     },

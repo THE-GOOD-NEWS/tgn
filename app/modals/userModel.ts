@@ -26,6 +26,14 @@ export interface IUser extends Document {
   imageURL?: string;
   subscription: ISubscription;
   birthDate?: Date;
+  recentlyReadArticles?: {
+    articleId: Types.ObjectId;
+    slug: string;
+    title: string;
+    excerpt?: string;
+    featuredImage?: string;
+    readAt: Date;
+  }[];
 
   // comparePassword(candidatePassword: string): Promise<boolean>;
 }
@@ -77,6 +85,20 @@ const UserSchema = new Schema<IUser>(
       type: Date,
       required: false,
     },
+    recentlyReadArticles: [
+      {
+        articleId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "articles",
+          required: true,
+        },
+        slug: { type: String, required: true },
+        title: { type: String, required: true },
+        excerpt: { type: String, required: false },
+        featuredImage: { type: String, required: false },
+        readAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   { timestamps: true }
 );

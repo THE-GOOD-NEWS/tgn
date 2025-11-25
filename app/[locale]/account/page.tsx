@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
@@ -9,7 +10,18 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { ArticleCard } from "@/components/article-card";
+import type { Article } from "@/lib/articles-data";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { UploadButton } from "@uploadthing/react";
+import type { FileRouterType } from "@/app/api/uploadthing/core";
 import {
   User,
   CreditCard,
@@ -101,8 +113,9 @@ interface MenuItem {
 }
 
 export default function AccountPage() {
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
   const t = useTranslations("account");
+  const tc = useTranslations("common");
   const locale = useLocale();
   const router = useRouter();
   const [activeSection, setActiveSection] = useState("profile");
@@ -113,7 +126,7 @@ export default function AccountPage() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 bg-gradient-to-br from-hot-pink to-bright-yellow rounded-full animate-pulse mx-auto mb-4" />
-          <p className="text-muted-foreground">{t("common.loading")}</p>
+          <p className="text-muted-foreground">{tc("loading")}</p>
         </div>
       </div>
     );
@@ -129,7 +142,7 @@ export default function AccountPage() {
   };
 
   const ProfileSection = () => (
-    <Card>
+    <Card dir={locale === "ar" ? "rtl" : "ltr"}>
       <CardHeader>
         <CardTitle className="flex items-center space-x-2 rtl:space-x-reverse">
           <User className="w-5 h-5" />
@@ -139,39 +152,162 @@ export default function AccountPage() {
       <CardContent className="space-y-6">
         <div className="flex items-center space-x-4 rtl:space-x-reverse">
           <Avatar className="w-20 h-20">
+            <AvatarImage src={session?.user?.image || undefined} alt="avatar" />
             <AvatarFallback className="bg-gradient-to-br from-hot-pink to-bright-yellow text-white text-xl">
-              {mockUserData.firstName[0]}{mockUserData.lastName[0]}
+              {session?.user?.firstName?.[0] || session?.user?.name?.[0] || "?"}
+              {session?.user?.lastName?.[0] || ""}
             </AvatarFallback>
           </Avatar>
-          <div>
+          <div dir={locale === "ar" ? "rtl" : "ltr"}>
             <h3 className="text-xl font-semibold text-foreground">
-              {mockUserData.firstName} {mockUserData.lastName}
+              {session?.user?.firstName || session?.user?.name || ""}{" "}
+              {session?.user?.lastName || ""}
             </h3>
-            <p className="text-muted-foreground">{mockUserData.email}</p>
-            <p className="text-sm text-muted-foreground">
-              {t("profile.memberSince")}: {new Date(mockUserData.memberSince).toLocaleDateString()}
+            <p className="text-muted-foreground">
+              {session?.user?.email || ""}
             </p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2">{t("profile.firstName")}</label>
-            <div className="p-3 bg-muted rounded-lg">{mockUserData.firstName}</div>
+            <label className="block text-sm font-medium mb-2">
+              {t("profile.firstName")}
+            </label>
+            <div className="p-3 bg-muted rounded-lg">
+              {session?.user?.firstName || session?.user?.name || ""}
+            </div>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">{t("profile.lastName")}</label>
-            <div className="p-3 bg-muted rounded-lg">{mockUserData.lastName}</div>
+            <label className="block text-sm font-medium mb-2">
+              {t("profile.lastName")}
+            </label>
+            <div className="p-3 bg-muted rounded-lg">
+              {session?.user?.lastName || ""}
+            </div>
           </div>
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-2">{t("profile.email")}</label>
-            <div className="p-3 bg-muted rounded-lg">{mockUserData.email}</div>
+            <label className="block text-sm font-medium mb-2">
+              {t("profile.email")}
+            </label>
+            <div className="p-3 bg-muted rounded-lg">
+              {session?.user?.email || ""}
+            </div>
           </div>
         </div>
 
-        <Button className="button-glow bg-gradient-to-r from-hot-pink to-bright-yellow text-black">
-          {t("profile.edit")}
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="button-glow bg-gradient-to-r from-hot-pink to-bright-yellow text-black">
+              {t("profile.edit")}
+            </Button>
+          </DialogTrigger>
+          <DialogContent
+            className="sm:max-w-md"
+            dir={locale === "ar" ? "rtl" : "ltr"}
+          >
+            <DialogTitle
+              className={locale === "ar" ? "text-right" : "text-left"}
+            >
+              {t("profile.edit")}
+            </DialogTitle>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label
+                  className={`text-sm font-medium ${
+                    locale === "ar" ? "text-right" : "text-left"
+                  }`}
+                >
+                  {t("profile.firstName")}
+                </label>
+                <Input
+                  defaultValue={
+                    session?.user?.firstName || session?.user?.name || ""
+                  }
+                  id="firstName"
+                  className={locale === "ar" ? "text-right" : "text-left"}
+                />
+              </div>
+              <div className="space-y-2">
+                <label
+                  className={`text-sm font-medium ${
+                    locale === "ar" ? "text-right" : "text-left"
+                  }`}
+                >
+                  {t("profile.lastName")}
+                </label>
+                <Input
+                  defaultValue={session?.user?.lastName || ""}
+                  id="lastName"
+                  className={locale === "ar" ? "text-right" : "text-left"}
+                />
+              </div>
+              <div className="space-y-2 ">
+                <label
+                  className={`text-sm font-medium ${
+                    locale === "ar" ? "text-right" : "text-left"
+                  }`}
+                >
+                  {t("profile.photo")}
+                </label>
+                <div
+                  className={`flex items-center gap-3 ${
+                    locale === "ar" ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <Avatar className="h-16 w-16">
+                    <AvatarImage
+                      src={(session?.user?.image as string) || undefined}
+                      alt={t("profile.photo")}
+                    />
+                    <AvatarFallback>
+                      {(session?.user?.firstName || session?.user?.name || "?")
+                        .toString()
+                        .charAt(0)
+                        .toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </div>
+                <UploadButton<FileRouterType, "avatar">
+                  endpoint="avatar"
+                  onClientUploadComplete={async () => {
+                    await update?.();
+                  }}
+                  onUploadError={() => {}}
+                  appearance={{
+                    button: "bg-hot-pink text-white p-2 hover:bg-hot-pink/90",
+                  }}
+                />
+              </div>
+              <div
+                className={`flex ${
+                  locale === "ar" ? "justify-end" : "justify-start"
+                }`}
+              >
+                <Button
+                  onClick={async () => {
+                    const firstNameInput = document.getElementById(
+                      "firstName"
+                    ) as HTMLInputElement;
+                    const lastNameInput = document.getElementById(
+                      "lastName"
+                    ) as HTMLInputElement;
+                    const firstName = firstNameInput?.value || "";
+                    const lastName = lastNameInput?.value || "";
+                    await fetch("/api/account/profile", {
+                      method: "PATCH",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ firstName, lastName }),
+                    });
+                    await update?.();
+                  }}
+                >
+                  {tc("save")}
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </CardContent>
     </Card>
   );
@@ -187,7 +323,9 @@ export default function AccountPage() {
       <CardContent className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-muted-foreground">{t("subscription.status")}</p>
+            <p className="text-sm text-muted-foreground">
+              {t("subscription.status")}
+            </p>
             <div className="flex items-center space-x-2 rtl:space-x-reverse mt-1">
               <Badge className="bg-green-100 text-green-800">
                 {t("subscription.active")}
@@ -195,8 +333,10 @@ export default function AccountPage() {
               <Crown className="w-4 h-4 text-hot-pink" />
             </div>
           </div>
-          <div className="text-right">
-            <p className="text-sm text-muted-foreground">{t("subscription.plan")}</p>
+          <div className={locale === "ar" ? "text-right" : "text-left"}>
+            <p className="text-sm text-muted-foreground">
+              {t("subscription.plan")}
+            </p>
             <p className="font-semibold">{mockUserData.subscription.plan}</p>
           </div>
         </div>
@@ -204,9 +344,15 @@ export default function AccountPage() {
         <div className="bg-muted rounded-lg p-4">
           <div className="flex items-center space-x-2 rtl:space-x-reverse mb-2">
             <Calendar className="w-4 h-4 text-muted-foreground" />
-            <span className="text-sm text-muted-foreground">{t("subscription.nextBilling")}</span>
+            <span className="text-sm text-muted-foreground">
+              {t("subscription.nextBilling")}
+            </span>
           </div>
-          <p className="font-semibold">{new Date(mockUserData.subscription.nextBilling).toLocaleDateString()}</p>
+          <p className="font-semibold">
+            {new Date(
+              mockUserData.subscription.nextBilling
+            ).toLocaleDateString()}
+          </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
@@ -221,86 +367,113 @@ export default function AccountPage() {
     </Card>
   );
 
-  const PlaylistSection = () => (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-foreground">{t("playlist.title")}</h2>
-        <Button size="sm" className="button-glow bg-gradient-to-r from-hot-pink to-bright-yellow text-black">
-          {t("playlist.addMore")}
-        </Button>
-      </div>
+  // const PlaylistSection = () => (
+  //   <div className="space-y-6">
+  //     <div className="flex items-center justify-between">
+  //       <h2 className="text-2xl font-bold text-foreground">
+  //         {t("playlist.title")}
+  //       </h2>
+  //       <Button
+  //         size="sm"
+  //         className="button-glow bg-gradient-to-r from-hot-pink to-bright-yellow text-black"
+  //       >
+  //         {t("playlist.addMore")}
+  //       </Button>
+  //     </div>
 
-      {mockPlaylist.length === 0 ? (
-        <Card>
-          <CardContent className="text-center py-12">
-            <PlayCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-            <p className="text-muted-foreground mb-4">{t("playlist.empty")}</p>
-            <Button className="button-glow bg-gradient-to-r from-hot-pink to-bright-yellow text-black">
-              {t("playlist.addMore")}
-            </Button>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockPlaylist.map((video) => (
-            <Card key={video.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="relative aspect-video bg-muted">
-                <div className="absolute inset-0 bg-gradient-to-br from-hot-pink/20 to-bright-yellow/20 flex items-center justify-center">
-                  <PlayCircle className="w-12 h-12 text-white" />
-                </div>
-                <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                  {video.duration}
-                </div>
-              </div>
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{video.title}</h3>
-                <div className="flex items-center space-x-2 rtl:space-x-reverse text-sm text-muted-foreground">
-                  <Clock className="w-4 h-4" />
-                  <span>{new Date(video.addedDate).toLocaleDateString()}</span>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+  //     {mockPlaylist.length === 0 ? (
+  //       <Card>
+  //         <CardContent className="text-center py-12">
+  //           <PlayCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+  //           <p className="text-muted-foreground mb-4">{t("playlist.empty")}</p>
+  //           <Button className="button-glow bg-gradient-to-r from-hot-pink to-bright-yellow text-black">
+  //             {t("playlist.addMore")}
+  //           </Button>
+  //         </CardContent>
+  //       </Card>
+  //     ) : (
+  //       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  //         {mockPlaylist.map((video) => (
+  //           <Card
+  //             key={video.id}
+  //             className="overflow-hidden hover:shadow-lg transition-shadow"
+  //           >
+  //             <div className="relative aspect-video bg-muted">
+  //               <div className="absolute inset-0 bg-gradient-to-br from-hot-pink/20 to-bright-yellow/20 flex items-center justify-center">
+  //                 <PlayCircle className="w-12 h-12 text-white" />
+  //               </div>
+  //               <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+  //                 {video.duration}
+  //               </div>
+  //             </div>
+  //             <CardContent className="p-4">
+  //               <h3 className="font-semibold text-foreground mb-2 line-clamp-2">
+  //                 {video.title}
+  //               </h3>
+  //               <div className="flex items-center space-x-2 rtl:space-x-reverse text-sm text-muted-foreground">
+  //                 <Clock className="w-4 h-4" />
+  //                 <span>{new Date(video.addedDate).toLocaleDateString()}</span>
+  //               </div>
+  //             </CardContent>
+  //           </Card>
+  //         ))}
+  //       </div>
+  //     )}
+  //   </div>
+  // );
+
+  const ArticlesSection = () => {
+    const [loading, setLoading] = useState(true);
+    const [items, setItems] = useState<
+      Array<{ readAt: string; article: Article }>
+    >([]);
+
+    React.useEffect(() => {
+      let mounted = true;
+      (async () => {
+        try {
+          const res = await fetch("/api/account/recently-read", {
+            credentials: "include",
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (mounted) setItems(Array.isArray(data.items) ? data.items : []);
+          }
+        } catch (_) {}
+        if (mounted) setLoading(false);
+      })();
+      return () => {
+        mounted = false;
+      };
+    }, []);
+
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-foreground">
+            {t("articles.title")}
+          </h2>
         </div>
-      )}
-    </div>
-  );
 
-  const ArticlesSection = () => (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-foreground">{t("articles.title")}</h2>
-        <Button size="sm" variant="outline">
-          {t("articles.save")}
-        </Button>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockArticles.map((article) => (
-          <Card key={article.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-            <div className="relative aspect-video bg-muted">
-              <div className="absolute inset-0 bg-gradient-to-br from-hot-pink/20 to-bright-yellow/20" />
-              <div className="absolute top-2 right-2">
-                <Star className="w-5 h-5 text-yellow-500 fill-current" />
+        {loading ? (
+          <div className="text-muted-foreground">Loading…</div>
+        ) : items.length === 0 ? (
+          <div className="text-muted-foreground">{t("articles.empty")}</div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2  gap-6">
+            {items.map((item, idx) => (
+              <div key={item.article.slug} className="space-y-2">
+                <ArticleCard article={item.article} index={idx} />
+                {/* <div className="text-xs text-muted-foreground">
+                  {new Date(item.readAt).toLocaleDateString(locale)}
+                </div> */}
               </div>
-            </div>
-            <CardContent className="p-4">
-              <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{article.title}</h3>
-              <p className="text-sm text-muted-foreground mb-3 line-clamp-3">{article.excerpt}</p>
-              <div className="flex items-center justify-between text-sm text-muted-foreground">
-                <span>{article.readTime}</span>
-                <span>{new Date(article.date).toLocaleDateString()}</span>
-              </div>
-              <Button size="sm" variant="link" className="mt-3 p-0 text-hot-pink hover:text-hot-pink/80">
-                {t("articles.readMore")}
-                <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
+            ))}
+          </div>
+        )}
       </div>
-    </div>
-  );
+    );
+  };
 
   const SettingsSection = () => (
     <Card>
@@ -313,32 +486,47 @@ export default function AccountPage() {
       <CardContent className="space-y-6">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2">{t("settings.language")}</label>
-            <select className="w-full p-3 border rounded-lg bg-background">
+            <label className="block text-sm font-medium mb-2">
+              {t("settings.language")}
+            </label>
+            <select
+              className="w-full p-3 border rounded-lg bg-background"
+              value={locale}
+              onChange={(e) => {
+                const newLocale = e.target.value;
+                router.push(`/${newLocale}/account`);
+              }}
+            >
               <option value="en">English</option>
               <option value="ar">العربية</option>
             </select>
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-2">{t("settings.theme")}</label>
+          {/* <div>
+            <label className="block text-sm font-medium mb-2">
+              {t("settings.theme")}
+            </label>
             <select className="w-full p-3 border rounded-lg bg-background">
               <option value="light">Light</option>
               <option value="dark">Dark</option>
               <option value="auto">Auto</option>
             </select>
-          </div>
+          </div> */}
         </div>
 
-        <div className="space-y-4">
+        {/* <div className="space-y-4">
           <div className="flex items-center justify-between">
             <span>{t("settings.notifications")}</span>
-            <Button size="sm" variant={"outline"}>Configure</Button>
+            <Button size="sm" variant={"outline"}>
+              Configure
+            </Button>
           </div>
           <div className="flex items-center justify-between">
             <span>{t("settings.privacy")}</span>
-            <Button size="sm" variant={"outline"}>Manage</Button>
+            <Button size="sm" variant={"outline"}>
+              Manage
+            </Button>
           </div>
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   );
@@ -350,22 +538,22 @@ export default function AccountPage() {
       icon: <User className="w-5 h-5" />,
       component: <ProfileSection />,
     },
-    {
-      id: "subscription",
-      label: t("navigation.subscription"),
-      icon: <Crown className="w-5 h-5" />,
-      component: <SubscriptionSection />,
-    },
-    ...(mockUserData.isSubscriber
-      ? [
-          {
-            id: "playlist",
-            label: t("navigation.playlist"),
-            icon: <PlayCircle className="w-5 h-5" />,
-            component: <PlaylistSection />,
-          },
-        ]
-      : []),
+    // {
+    //   id: "subscription",
+    //   label: t("navigation.subscription"),
+    //   icon: <Crown className="w-5 h-5" />,
+    //   component: <SubscriptionSection />,
+    // },
+    // ...(mockUserData.isSubscriber
+    //   ? [
+    //       {
+    //         id: "playlist",
+    //         label: t("navigation.playlist"),
+    //         icon: <PlayCircle className="w-5 h-5" />,
+    //         component: <PlaylistSection />,
+    //       },
+    //     ]
+    //   : []),
     {
       id: "articles",
       label: t("navigation.articles"),
@@ -380,27 +568,48 @@ export default function AccountPage() {
     },
   ];
 
-  const activeComponent = menuItems.find((item) => item.id === activeSection)?.component;
+  const activeComponent = menuItems.find(
+    (item) => item.id === activeSection
+  )?.component;
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation isLoggedIn={true} userRole={mockUserData.isSubscriber ? "subscriber" : "user"} />
+    <div
+      className="min-h-screen pt-28 bg-background"
+      dir={locale === "ar" ? "rtl" : "ltr"}
+    >
+      {/* <Navigation
+        isLoggedIn={true}
+        userRole={mockUserData.isSubscriber ? "subscriber" : "user"}
+      /> */}
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setIsMobileMenuOpen(false)} />
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
       )}
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
-        <div className="mb-8">
-          <h1 className={`text-3xl md:text-4xl font-bold text-foreground mb-2 ${locale === 'ar' ? 'font-arabic-header' : 'font-english-heading'}`}>
+        {/* <div className="mb-8">
+          <h1
+            className={`text-3xl md:text-4xl font-bold text-foreground mb-2 ${
+              locale === "ar" ? "font-arabic-header" : "font-english-heading"
+            }`}
+          >
             {t("title")}
           </h1>
-          <p className={`text-lg text-muted-foreground ${locale === 'ar' ? 'font-arabic-subheading' : 'font-english-subheading'}`}>
+          <p
+            className={`text-lg text-muted-foreground ${
+              locale === "ar"
+                ? "font-arabic-subheading"
+                : "font-english-subheading"
+            }`}
+          >
             {t("subtitle")}
           </p>
-        </div>
+        </div> */}
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Side Navigation - Desktop */}
@@ -412,7 +621,11 @@ export default function AccountPage() {
                     <Button
                       key={item.id}
                       variant={activeSection === item.id ? "default" : "ghost"}
-                      className={`w-full justify-start space-x-2 rtl:space-x-reverse ${activeSection === item.id ? 'bg-gradient-to-r from-hot-pink to-bright-yellow text-black' : ''}`}
+                      className={`w-full justify-start space-x-2 rtl:space-x-reverse ${
+                        activeSection === item.id
+                          ? "bg-gradient-to-r from-hot-pink to-bright-yellow text-black"
+                          : ""
+                      }`}
                       onClick={() => setActiveSection(item.id)}
                     >
                       {item.icon}
@@ -440,7 +653,11 @@ export default function AccountPage() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="mb-4"
             >
-              {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              {isMobileMenuOpen ? (
+                <X className="w-4 h-4" />
+              ) : (
+                <Menu className="w-4 h-4" />
+              )}
               <span className="ml-2">Menu</span>
             </Button>
           </div>
@@ -454,8 +671,14 @@ export default function AccountPage() {
                     {menuItems.map((item) => (
                       <Button
                         key={item.id}
-                        variant={activeSection === item.id ? "default" : "ghost"}
-                        className={`w-full justify-start space-x-2 rtl:space-x-reverse ${activeSection === item.id ? 'bg-gradient-to-r from-hot-pink to-bright-yellow text-black' : ''}`}
+                        variant={
+                          activeSection === item.id ? "default" : "ghost"
+                        }
+                        className={`w-full justify-start space-x-2 rtl:space-x-reverse ${
+                          activeSection === item.id
+                            ? "bg-gradient-to-r from-hot-pink to-bright-yellow text-black"
+                            : ""
+                        }`}
                         onClick={() => {
                           setActiveSection(item.id);
                           setIsMobileMenuOpen(false);
@@ -481,9 +704,7 @@ export default function AccountPage() {
 
           {/* Main Content */}
           <div className="flex-1 min-w-0">
-            <div className="space-y-6">
-              {activeComponent}
-            </div>
+            <div className="space-y-6">{activeComponent}</div>
           </div>
         </div>
       </div>

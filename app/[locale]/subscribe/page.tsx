@@ -74,10 +74,7 @@ export default function SubscribePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation
-        isLoggedIn={!!session}
-        userRole={session?.user ? "user" : "user"}
-      />
+      <Navigation />
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}

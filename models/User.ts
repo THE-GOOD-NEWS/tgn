@@ -9,8 +9,18 @@ export interface User {
   cart?: CartItem[];
   wishlist?: string[]; // Product IDs
   orders?: Order[];
+  recentlyReadArticles?: RecentlyReadArticle[];
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface RecentlyReadArticle {
+  articleId: string;
+  slug: string;
+  title: string;
+  excerpt?: string;
+  featuredImage?: string;
+  readAt: Date;
 }
 
 export interface CartItem {
@@ -65,6 +75,7 @@ export const mockUser: User = {
   ],
   wishlist: ['3', '5'],
   orders: [],
+  recentlyReadArticles: [],
 };
 
 export const mockAdmin: User = {

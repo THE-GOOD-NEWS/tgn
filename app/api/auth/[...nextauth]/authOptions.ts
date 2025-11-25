@@ -173,20 +173,20 @@ export const authOptions: NextAuthOptions = {
       try {
         await ConnectDB();
         const email = user?.email || token.email;
-        if (email) {
-          const subscription = await subscriptionsModel.findOne({
-            email,
-            subscribed: true,
-          });
-          token.isSubscribed = !!(
-            subscription?.expiryDate &&
-            subscription.expiryDate.getTime() > Date.now()
-          );
-          token.subscriptionExpiryDate = subscription?.expiryDate
-            ? subscription.expiryDate.toISOString()
-            : null;
-          // token.loyaltyPoints = await calculateLoyaltyPoints(email);
-        }
+        // if (email) {
+        //   const subscription = await subscriptionsModel.findOne({
+        //     email,
+        //     subscribed: true,
+        //   });
+        //   token.isSubscribed = !!(
+        //     subscription?.expiryDate &&
+        //     subscription.expiryDate.getTime() > Date.now()
+        //   );
+        //   token.subscriptionExpiryDate = subscription?.expiryDate
+        //     ? subscription.expiryDate.toISOString()
+        //     : null;
+        //   // token.loyaltyPoints = await calculateLoyaltyPoints(email);
+        // }
       } catch (error) {
         console.error("JWT callback error:", error);
       }
@@ -219,6 +219,8 @@ export const authOptions: NextAuthOptions = {
             session.user.firstName =
               userData.firstName || userData.username || "";
             session.user.lastName = userData.lastName || "";
+            session.user.image =
+              userData.imageURL || session.user.image || null;
           }
         } catch (error) {
           console.error("Error fetching user data for session:", error);

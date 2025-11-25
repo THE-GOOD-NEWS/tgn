@@ -106,7 +106,7 @@ export default function TheGoodProjectPage() {
   if (!session) {
     return (
       <div className="min-h-screen bg-background">
-        <Navigation isLoggedIn={false} userRole="user" />
+        <Navigation />
         <div className="container mx-auto px-4 py-20 text-center">
           <div className="max-w-md mx-auto">
             <Crown className="w-16 h-16 text-bright-yellow mx-auto mb-6" />
@@ -132,7 +132,7 @@ export default function TheGoodProjectPage() {
   if (!hasAccess) {
     return (
       <div className="min-h-screen bg-background">
-        <Navigation isLoggedIn={true} userRole="user" />
+        <Navigation />
         <div className="container mx-auto px-4 py-20 text-center">
           <div className="max-w-md mx-auto">
             <Lock className="w-16 h-16 text-hot-pink mx-auto mb-6" />
@@ -157,7 +157,7 @@ export default function TheGoodProjectPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation isLoggedIn={true} userRole="subscriber" />
+      <Navigation />
       
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}

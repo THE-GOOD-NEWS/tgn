@@ -86,7 +86,7 @@ export default async function ArticlesPage({ params, searchParams }: any) {
 
   return (
     <div className="bg-cream">
-      <Navigation isLoggedIn={false} userRole={"user"} />
+      <Navigation />
 
       <main className="min-h-screen pt-20">
         {/* Page Header */}

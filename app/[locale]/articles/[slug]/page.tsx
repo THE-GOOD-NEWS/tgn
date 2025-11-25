@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import ArticleCategoryModel from "@/app/modals/articleCategoryModel";
 import UserModel from "@/app/modals/userModel";
+import RecentlyReadTracker from "./RecentlyReadTracker";
 import {
   Carousel,
   CarouselContent,
@@ -277,6 +278,8 @@ export default async function ArticlePage({ params }: any) {
       className="min-h-screen pt-28 bg-gradient-to-br from-cream/20 to-hot-pink/10"
       dir={isArabic ? "rtl" : "ltr"}
     >
+      {/* Update user's recently read list when article page loads */}
+      <RecentlyReadTracker slug={slug} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Article Header */}
         <div className="max-w-4xl mx-auto">

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -24,10 +25,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-interface NavigationProps {
-  isLoggedIn?: boolean;
-  userRole?: "user" | "subscriber" | "admin";
-}
+interface NavigationProps {}
 
 interface NavSubItem {
   href: string;
@@ -48,13 +46,11 @@ interface NavDropdownItem {
 
 type NavItem = NavLinkItem | NavDropdownItem;
 
-export function Navigation({
-  isLoggedIn = false,
-  userRole = "user",
-}: NavigationProps) {
+export function Navigation({}: NavigationProps) {
   const t = useTranslations("nav");
   const locale = useLocale();
   const pathname = usePathname();
+  const { data: session } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [scrolled, setScrolled] = useState(false);
@@ -79,6 +75,10 @@ export function Navigation({
 
   const isRTL = locale === "ar";
   const otherLocale = locale === "en" ? "ar" : "en";
+  const isLoggedIn = !!session;
+  const userRole: "user" | "subscriber" | "admin" = session?.user?.isSubscribed
+    ? "subscriber"
+    : "user";
 
   // Function to get the current path with the other locale
   const getLocalizedPath = () => {
@@ -343,11 +343,11 @@ export function Navigation({
                 <DropdownMenuContent align={isRTL ? "start" : "end"}>
                   <DropdownMenuItem asChild>
                     <Link
-                      href={`/${locale}/dashboard`}
+                      href={`/${locale}/account`}
                       className="flex items-center"
                     >
                       <Settings className="mr-2 rtl:mr-0 rtl:ml-2 h-4 w-4" />
-                      {t("dashboard")}
+                      {t("account")}
                     </Link>
                   </DropdownMenuItem>
                   {userRole === "user" && (

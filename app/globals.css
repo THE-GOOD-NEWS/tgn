@@ -189,6 +189,11 @@
     text-align: right;
   }
 
+  /* LTR Support - ensure inherited alignment flips back when dir switches */
+  [dir="ltr"] {
+    text-align: left;
+  }
+
   [dir="rtl"] .ltr-content {
     direction: ltr;
     text-align: left;
