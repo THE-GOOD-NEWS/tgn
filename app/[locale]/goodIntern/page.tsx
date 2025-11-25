@@ -3,10 +3,11 @@ import { getTranslations } from "next-intl/server";
 import MetricsCards from "./components/MetricsCards";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
-export default async function GoodInternPage({ params: { locale } }: Props) {
+export default async function GoodInternPage({ params }: Props) {
+  const { locale } = await params;
   const t = await getTranslations("goodIntern");
   const isArabic = locale === "ar";
 
