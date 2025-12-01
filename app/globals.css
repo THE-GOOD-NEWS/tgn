@@ -248,6 +248,41 @@
   @apply bg-gray-300 rounded-full;
 }
 
+/* Override browser autofill styles to preserve theme colors */
+@layer base {
+  input:-webkit-autofill,
+  textarea:-webkit-autofill,
+  select:-webkit-autofill {
+    /* Fill background with our theme background color */
+    -webkit-box-shadow: 0 0 0 1000px hsl(var(--background)) inset;
+    /* Keep text color consistent with our theme */
+    -webkit-text-fill-color: hsl(var(--foreground)) !important;
+    /* Preserve border color */
+    border-color: hsl(var(--input)) !important;
+    /* Ensure caret remains visible */
+    caret-color: hsl(var(--foreground));
+    /* Prevent sudden color transitions applied by autofill */
+    transition: background-color 99999s ease-in-out 0s, color 99999s ease-in-out 0s;
+  }
+
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px hsl(var(--background)) inset;
+  }
+
+  /* Firefox */
+  input:-moz-autofill,
+  textarea:-moz-autofill,
+  select:-moz-autofill {
+    background-color: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+    caret-color: hsl(var(--foreground));
+    box-shadow: 0 0 0 1000px hsl(var(--background)) inset;
+    border-color: hsl(var(--input)) !important;
+  }
+}
+
 .scrollbar-hide {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */

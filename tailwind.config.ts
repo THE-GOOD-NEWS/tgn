@@ -9,6 +9,84 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      typography: ({ theme }: { theme: (path: string) => string }) => ({
+        DEFAULT: {
+          css: {
+            color: "hsl(var(--foreground))",
+            hr: { borderColor: "hsl(var(--border))" },
+            strong: { color: "hsl(var(--foreground))" },
+            "h1, h2, h3, h4": { color: "hsl(var(--foreground))" },
+            "h1 strong, h2 strong, h3 strong, h4 strong": {
+              fontWeight: "inherit",
+            },
+
+            // Links
+            a: {
+              color: theme("colors.hot-pink"),
+              textDecorationColor: theme("colors.hot-pink"),
+              textUnderlineOffset: "4px",
+              textDecorationThickness: "2px",
+              fontWeight: "600",
+            },
+            "a:hover": {
+              color: theme("colors.purple"),
+              textDecorationColor: theme("colors.purple"),
+            },
+
+            // Blockquotes
+            blockquote: {
+              color: "hsl(var(--muted-foreground))",
+              borderLeftColor: theme("colors.hot-pink"),
+              borderLeftWidth: "4px",
+              paddingLeft: "1rem",
+              fontStyle: "normal",
+            },
+            "blockquote p:first-of-type::before": { content: "none" },
+            "blockquote p:last-of-type::after": { content: "none" },
+
+            // List markers
+            "ul > li::marker": { color: theme("colors.hot-pink") },
+            "ol > li::marker": { color: theme("colors.purple") },
+
+            // Inline code
+            code: {
+              color: "hsl(var(--foreground))",
+              backgroundColor: theme("colors.muted.DEFAULT"),
+              borderRadius: "0.375rem",
+              padding: "0.25rem 0.375rem",
+              borderColor: "hsl(var(--border))",
+              borderWidth: "1px",
+            },
+            "code::before": { content: "none" },
+            "code::after": { content: "none" },
+
+            // Preformatted code blocks
+            pre: {
+              color: "hsl(var(--foreground))",
+              backgroundColor: theme("colors.muted.DEFAULT"),
+              borderColor: "hsl(var(--border))",
+              borderWidth: "1px",
+              borderRadius: "0.75rem",
+              padding: "1rem",
+              overflowX: "auto",
+            },
+            "pre code": {
+              backgroundColor: "transparent",
+              padding: "0",
+              borderWidth: "0",
+            },
+            "pre code::before": { content: "none" },
+            "pre code::after": { content: "none" },
+            // Softer line breaks
+            br: {
+              display: "block",
+              lineHeight: "0",
+              marginTop: "0.25em",
+              marginBottom: "0.25em",
+            },
+          },
+        },
+      }),
       fontFamily: {
         // Arabic fonts
         "arabic-header": ["Frutiger LT Arabic", "Arial", "sans-serif"],
@@ -135,7 +213,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };
 
 export default config;

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -350,7 +350,7 @@ export function Navigation({}: NavigationProps) {
                       {t("account")}
                     </Link>
                   </DropdownMenuItem>
-                  {userRole === "user" && (
+                  {/* {userRole === "user" && (
                     <DropdownMenuItem asChild>
                       <Link
                         href={`/${locale}/subscribe`}
@@ -360,8 +360,11 @@ export function Navigation({}: NavigationProps) {
                         {t("subscribe")}
                       </Link>
                     </DropdownMenuItem>
-                  )}
-                  <DropdownMenuItem className="flex items-center text-red-600">
+                  )} */}
+                  <DropdownMenuItem
+                    className="flex items-center text-red-600"
+                    onSelect={() => signOut({ callbackUrl: `/${locale}` })}
+                  >
                     <LogOut className="mr-2 rtl:mr-0 rtl:ml-2 h-4 w-4" />
                     {t("logout")}
                   </DropdownMenuItem>

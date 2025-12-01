@@ -93,11 +93,23 @@ function renderContentBlocks(
 ) {
   if (!blocks || blocks.length === 0) return null;
 
+  // Normalize editor-generated spacing like <p><br></p> to smaller breaks
+  const normalizeHtmlSpacing = (html: string) => {
+    return (
+      html
+        // Replace paragraphs that only contain <br> with a single <br>
+        .replace(/<p>\s*(?:<br\s*\/?\s*)+<\/p>/gi, "<br/>")
+        // Collapse multiple consecutive <br> into one
+        .replace(/(?:<br\s*\/?\s*){2,}/gi, "<br/>")
+    );
+  };
+
   return blocks.map((block, index) => {
-    const content =
+    const rawContent =
       locale === "ar" && block.arabicContent
         ? block.arabicContent
         : block.textHtml || "";
+    const content = normalizeHtmlSpacing(rawContent);
 
     switch (block.type) {
       case "text":

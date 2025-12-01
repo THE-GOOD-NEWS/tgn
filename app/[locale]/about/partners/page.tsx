@@ -455,12 +455,12 @@ export default function PartnersPage() {
           src: "/partners/case studies/case11.jpeg",
           caption: "Collaboration post with H.E. Dr. Ashraf Sobhy",
         },
-        {
-          type: "image",
-          src: "/partners/case studies/ministry-case-2.jpg",
-          caption:
-            "Founder meeting by H.E. Dr. Ashraf Sobhy for innovative ideas of youth empowerment",
-        },
+        // {
+        //   type: "image",
+        //   src: "/partners/case studies/ministry-case-2.jpg",
+        //   caption:
+        //     "Founder meeting by H.E. Dr. Ashraf Sobhy for innovative ideas of youth empowerment",
+        // },
       ],
     },
     {
@@ -593,6 +593,30 @@ export default function PartnersPage() {
             </motion.div>
           </section>
         ))}
+        <section className="my-20 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h3
+              className={`text-2xl md:text-3xl font-bold ${
+                isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              } text-carbon mb-6`}
+            >
+              {t("becomePartner")}
+            </h3>
+            <p className="mb-8 max-w-2xl mx-auto text-gray-600">
+              {t("becomePartnerDescription")}
+            </p>
+            <a href={`/${locale}/contact/partner`} className="inline-block">
+              <button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
+                {t("becomePartnerButton")}
+              </button>
+            </a>
+          </motion.div>
+        </section>
         <h2 className="text-4xl md:text-5xl font-bold text-hot-pink mb-2">
           {t("caseStudiesTitle")}
         </h2>
@@ -695,30 +719,6 @@ export default function PartnersPage() {
         </section>
 
         {/* Become a Partner Section */}
-        <section className="mt-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h3
-              className={`text-2xl md:text-3xl font-bold ${
-                isRTL ? "font-arabic-subheading" : "font-english-subheading"
-              } text-carbon mb-6`}
-            >
-              {t("becomePartner")}
-            </h3>
-            <p className="mb-8 max-w-2xl mx-auto text-gray-600">
-              {t("becomePartnerDescription")}
-            </p>
-            <a href={`/${locale}/contact/partner`} className="inline-block">
-              <button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
-                {t("becomePartnerButton")}
-              </button>
-            </a>
-          </motion.div>
-        </section>
       </section>
     </div>
   );

@@ -208,7 +208,8 @@
       "email": "Email",
       "memberSince": "Member Since",
       "edit": "Edit Profile",
-      "photo": "Profile Photo"
+      "photo": "Profile Photo",
+      "newsletter": "Subscribe to our newsletter"
     },
     "subscription": {
       "title": "Subscription Status",

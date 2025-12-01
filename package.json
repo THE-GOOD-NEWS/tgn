@@ -88,6 +88,7 @@
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/uuid": "^10.0.0"
   }

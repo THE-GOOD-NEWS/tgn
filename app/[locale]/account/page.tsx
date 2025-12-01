@@ -20,6 +20,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { UploadButton } from "@uploadthing/react";
 import type { FileRouterType } from "@/app/api/uploadthing/core";
 import {
@@ -119,7 +120,23 @@ export default function AccountPage() {
   const locale = useLocale();
   const router = useRouter();
   const [activeSection, setActiveSection] = useState("profile");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNewsletterSubscribed, setIsNewsletterSubscribed] = useState(false);
+
+  React.useEffect(() => {
+    const email = session?.user?.email;
+    if (!email) return;
+    (async () => {
+      try {
+        const res = await fetch(
+          `/api/newsletter?email=${encodeURIComponent(email)}`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          setIsNewsletterSubscribed(Boolean(data?.subscribed));
+        }
+      } catch (_) {}
+    })();
+  }, [session?.user?.email]);
 
   if (status === "loading") {
     return (
@@ -142,7 +159,7 @@ export default function AccountPage() {
   };
 
   const ProfileSection = () => (
-    <Card dir={locale === "ar" ? "rtl" : "ltr"}>
+    <Card className="min-h-[60vh] h-auto" dir={locale === "ar" ? "rtl" : "ltr"}>
       <CardHeader>
         <CardTitle className="flex items-center space-x-2 rtl:space-x-reverse">
           <User className="w-5 h-5" />
@@ -194,6 +211,40 @@ export default function AccountPage() {
               {session?.user?.email || ""}
             </div>
           </div>
+        </div>
+
+        <div
+          dir={locale === "ar" ? "rtl" : "ltr"}
+          className={`flex items-center gap-3 `}
+        >
+          <label
+            htmlFor="newsletter"
+            className={`text-sm ${
+              locale === "ar" ? "text-right" : "text-left"
+            }`}
+          >
+            {t("profile.newsletter")}
+          </label>
+          <Checkbox
+            id="newsletter"
+            checked={isNewsletterSubscribed}
+            disabled={!session?.user?.email}
+            onCheckedChange={async (checked) => {
+              const isChecked = checked === true;
+              const email = session?.user?.email;
+              if (!email) return;
+              try {
+                const res = await fetch("/api/newsletter", {
+                  method: isChecked ? "POST" : "DELETE",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ email }),
+                });
+                if (res.ok) {
+                  setIsNewsletterSubscribed(isChecked);
+                }
+              } catch (_) {}
+            }}
+          />
         </div>
 
         <Dialog>
@@ -448,7 +499,7 @@ export default function AccountPage() {
     }, []);
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 min-h-[60vh] h-auto">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-foreground">
             {t("articles.title")}
@@ -476,7 +527,7 @@ export default function AccountPage() {
   };
 
   const SettingsSection = () => (
-    <Card>
+    <Card className="min-h-[60vh] h-auto">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2 rtl:space-x-reverse">
           <Settings className="w-5 h-5" />
@@ -582,13 +633,38 @@ export default function AccountPage() {
         userRole={mockUserData.isSubscriber ? "subscriber" : "user"}
       /> */}
 
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
+      {/* Mobile Horizontal Navigation */}
+      <div className="lg:hidden sticky top-20 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="overflow-x-auto">
+            <nav className="flex items-center gap-2 whitespace-nowrap py-2">
+              {menuItems.map((item) => (
+                <Button
+                  key={item.id}
+                  variant="ghost"
+                  className={`rounded-none px-3 py-2 border-b-2 transition-colors rtl:space-x-reverse whitespace-nowrap ${
+                    activeSection === item.id
+                      ? "border-hot-pink text-foreground"
+                      : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted"
+                  }`}
+                  onClick={() => setActiveSection(item.id)}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </Button>
+              ))}
+              {/* <Button
+                variant="ghost"
+                className="rounded-none px-3 py-2 border-b-2 border-transparent text-red-600 hover:text-red-700 whitespace-nowrap"
+                onClick={handleSignOut}
+              >
+                <LogOut className="w-5 h-5" />
+                <span>{t("navigation.signOut")}</span>
+              </Button> */}
+            </nav>
+          </div>
+        </div>
+      </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
@@ -632,75 +708,22 @@ export default function AccountPage() {
                       <span>{item.label}</span>
                     </Button>
                   ))}
-                  <Button
+                  {/* <Button
                     variant="ghost"
                     className="w-full justify-start space-x-2 rtl:space-x-reverse text-red-600 hover:text-red-700"
                     onClick={handleSignOut}
                   >
                     <LogOut className="w-5 h-5" />
                     <span>{t("navigation.signOut")}</span>
-                  </Button>
+                  </Button> */}
                 </nav>
               </CardContent>
             </Card>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="mb-4"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-4 h-4" />
-              ) : (
-                <Menu className="w-4 h-4" />
-              )}
-              <span className="ml-2">Menu</span>
-            </Button>
-          </div>
+          {/* Mobile Menu Button removed in favor of horizontal nav */}
 
-          {/* Mobile Navigation */}
-          {isMobileMenuOpen && (
-            <div className="lg:hidden fixed inset-x-0 top-20 z-50 mx-4">
-              <Card className="shadow-lg">
-                <CardContent className="p-4">
-                  <nav className="space-y-2">
-                    {menuItems.map((item) => (
-                      <Button
-                        key={item.id}
-                        variant={
-                          activeSection === item.id ? "default" : "ghost"
-                        }
-                        className={`w-full justify-start space-x-2 rtl:space-x-reverse ${
-                          activeSection === item.id
-                            ? "bg-gradient-to-r from-hot-pink to-bright-yellow text-black"
-                            : ""
-                        }`}
-                        onClick={() => {
-                          setActiveSection(item.id);
-                          setIsMobileMenuOpen(false);
-                        }}
-                      >
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </Button>
-                    ))}
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start space-x-2 rtl:space-x-reverse text-red-600 hover:text-red-700"
-                      onClick={handleSignOut}
-                    >
-                      <LogOut className="w-5 h-5" />
-                      <span>{t("navigation.signOut")}</span>
-                    </Button>
-                  </nav>
-                </CardContent>
-              </Card>
-            </div>
-          )}
+          {/* Mobile Navigation replaced by horizontal scroll bar above */}
 
           {/* Main Content */}
           <div className="flex-1 min-w-0">

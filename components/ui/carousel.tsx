@@ -154,10 +154,13 @@ const CarouselContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  const { carouselRef, orientation } = useCarousel();
+  const { carouselRef, orientation, opts } = useCarousel();
+
+  // Respect RTL/LTR direction on the viewport so Embla calculates positions correctly
+  const dir = (opts as any)?.direction as string | undefined;
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    <div ref={carouselRef} className="overflow-hidden" dir={dir}>
       <div
         ref={ref}
         className={cn(
