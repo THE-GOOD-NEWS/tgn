@@ -23,6 +23,7 @@ declare module "next-auth" {
       image?: string | null;
       isSubscribed: boolean;
       subscriptionExpiryDate?: Date | null;
+      role?: "admin" | "moderator" | "customer";
       // loyaltyPoints?: number;
       sessionId?: string; // Add sessionId here
       // deviceFingerprint?: string; // Add device fingerprint
@@ -33,6 +34,7 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     isSubscribed?: boolean;
+    role?: "admin" | "moderator" | "customer";
     // loyaltyPoints?: number;
     sessionId?: string; // Add sessionId here
     deviceFingerprint?: string; // Add device fingerprint
@@ -187,6 +189,15 @@ export const authOptions: NextAuthOptions = {
         //     : null;
         //   // token.loyaltyPoints = await calculateLoyaltyPoints(email);
         // }
+        // Attach user role to token for easy session access
+        if (token.sub) {
+          try {
+            const dbUser = await UserModel.findById(token.sub).select("role");
+            token.role = dbUser?.role || token.role || "customer";
+          } catch (err) {
+            console.error("Error fetching user role for JWT:", err);
+          }
+        }
       } catch (error) {
         console.error("JWT callback error:", error);
       }
@@ -221,6 +232,7 @@ export const authOptions: NextAuthOptions = {
             session.user.lastName = userData.lastName || "";
             session.user.image =
               userData.imageURL || session.user.image || null;
+            session.user.role = (userData.role as any) || (token.role as any) || "customer";
           }
         } catch (error) {
           console.error("Error fetching user data for session:", error);

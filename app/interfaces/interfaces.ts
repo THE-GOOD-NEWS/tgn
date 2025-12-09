@@ -32,7 +32,37 @@ export interface VideoComment {
   replies?: VideoReply[]; // Array of replies to this comment
   createdAt: Date;
 }
+export interface CommentUser {
+  _id?: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  imageURL?: string;
+}
 
+export interface ArticleReply {
+  _id: string;
+  userId: CommentUser;
+  username: string; // Kept for backward compatibility
+  text: string;
+  firstName?: string;
+  lastName?: string;
+  userImage?: string;
+  likes?: (CommentUser | string)[]; // Array of users or user IDs who liked this reply
+  createdAt: Date;
+}
+export interface ArticleComment {
+  _id?: string;
+  userId: CommentUser;
+  username: string; // Kept for backward compatibility
+  text: string;
+  firstName?: string;
+  lastName?: string;
+  userImage?: string;
+  likes?: (CommentUser | string)[]; // Array of users or user IDs who liked this comment
+  replies?: ArticleReply[]; // Array of replies to this comment
+  createdAt: Date;
+}
 export interface Video {
   _id?: string;
   title: string;

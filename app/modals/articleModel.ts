@@ -76,6 +76,24 @@ export interface IArticle {
   updatedAt: Date;
 }
 
+const ArticleReplySchema = new Schema({
+  userId: { type: Schema.Types.ObjectId, ref: "users", required: true },
+  username: { type: String, required: true }, // Keep for backward compatibility
+  text: { type: String, required: true },
+  likes: [{ type: Schema.Types.ObjectId, ref: "users" }], // Array of user references who liked this reply
+  createdAt: { type: Date, default: Date.now },
+});
+
+// Define the VideoComment schema
+const ArticleCommentSchema = new Schema({
+  userId: { type: Schema.Types.ObjectId, ref: "users", required: true },
+  username: { type: String, required: true }, // Keep for backward compatibility
+  text: { type: String, required: true },
+  likes: [{ type: Schema.Types.ObjectId, ref: "users" }], // Array of user references who liked this comment
+  replies: [ArticleReplySchema], // Array of replies to this comment
+  createdAt: { type: Date, default: Date.now },
+});
+
 // Define the Article schema
 const ArticleSchema = new Schema(
   {
@@ -178,6 +196,8 @@ const ArticleSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    likes: [{ type: Schema.Types.ObjectId, ref: "users" }], // Array of user references who liked the video
+    comments: [ArticleCommentSchema],
   } as any,
   {
     timestamps: true,

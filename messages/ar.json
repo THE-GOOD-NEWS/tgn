@@ -546,5 +546,27 @@
       "reach": "الوصول"
     },
     "intro": "نقدّم لكم.."
+  },
+  "comments": {
+    "title": "التعليقات",
+    "noComments": "لا توجد تعليقات بعد. كن أول من يعلق!",
+    "addCommentPlaceholder": "أضف تعليقاً...",
+    "submitComment": "تعليق",
+    "loginToComment": "يرجى <link>تسجيل الدخول</link> للتعليق.",
+    "reply": "رد",
+    "delete": "حذف",
+    "showMore": "عرض المزيد",
+    "showLess": "عرض أقل",
+    "viewReplies": "عرض {count} {count, plural, one {رد} other {ردود}}",
+    "hideReplies": "إخفاء {count} {count, plural, one {رد} other {ردود}}",
+    "replyPlaceholder": "أضف رداً...",
+    "cancel": "إلغاء",
+    "replying": "جاري الرد...",
+    "submitReply": "رد",
+    "beFirstToLove": "كن أول من يعجب بهذا المقال.",
+    "personLoves": "{count} {count, plural, one {شخص يعجبه} other {أشخاص يعجبهم}} هذا المقال",
+    "peopleLovedTitle": "الأشخاص الذين أعجبهم هذا المقال",
+    "noLikesYet": "لا توجد إعجابات بعد"
   }
 }
+

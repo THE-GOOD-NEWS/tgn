@@ -541,5 +541,26 @@
       "reach": "Reach"
     },
     "intro": "Introducing.."
+  },
+  "comments": {
+    "title": "Comments",
+    "noComments": "No comments yet. Be the first to comment!",
+    "addCommentPlaceholder": "Add a comment...",
+    "submitComment": "Comment",
+    "loginToComment": "Please <link>sign in</link> to comment.",
+    "reply": "Reply",
+    "delete": "Delete",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "viewReplies": "View {count} {count, plural, one {reply} other {replies}}",
+    "hideReplies": "Hide {count} {count, plural, one {reply} other {replies}}",
+    "replyPlaceholder": "Add a reply...",
+    "cancel": "Cancel",
+    "replying": "Replying...",
+    "submitReply": "Reply",
+    "beFirstToLove": "Be the first one to love this article.",
+    "personLoves": "{count} {count, plural, one {person loves} other {people love}} this article",
+    "peopleLovedTitle": "People who loved this article",
+    "noLikesYet": "No likes yet"
   }
 }

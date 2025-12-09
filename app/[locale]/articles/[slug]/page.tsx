@@ -24,6 +24,7 @@ import {
   CarouselNext,
   CarouselIndicators,
 } from "@/components/ui/carousel";
+import CommentSection from "../../components/CommentSection";
 
 interface PopulatedArticle {
   _id: string;
@@ -55,7 +56,7 @@ interface PopulatedArticle {
     titleAr: string;
     slug: string;
   }>;
-  publishedAt?: Date;
+  createdAt?: Date;
   viewCount: number;
   featured: boolean;
   readingTime?: number;
@@ -336,8 +337,8 @@ export default async function ArticlePage({ params }: any) {
               <div className="flex items-center space-x-2 rtl:space-x-reverse">
                 <Calendar className="h-4 w-4" />
                 <span>
-                  {article.publishedAt
-                    ? new Date(article.publishedAt).toLocaleDateString(locale, {
+                  {article.createdAt
+                    ? new Date(article.createdAt).toLocaleDateString(locale, {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
@@ -388,6 +389,7 @@ export default async function ArticlePage({ params }: any) {
           </div>
 
           {/* Article Footer */}
+          <CommentSection ArticleSlug={article.slug} />
           <div className="mt-12 pt-8 border-t border-border">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center space-x-2 rtl:space-x-reverse">
@@ -405,7 +407,6 @@ export default async function ArticlePage({ params }: any) {
                   ))}
                 </div>
               </div>
-
               {/* <div className="flex items-center space-x-4 rtl:space-x-reverse">
                 <button className="text-sm text-muted-foreground hover:text-hot-pink transition-colors">
                   {isArabic ? "إعجاب" : "Like"}

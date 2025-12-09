@@ -2,12 +2,15 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/utils/mongodb";
 import ArticleModel from "@/app/modals/articleModel";
 
-export async function GET(request: any, { params }: any) {
+export async function GET(
+  request: any,
+  { params }: { params: Promise<{ slug: string }> }
+) {
   try {
     await connectToDatabase();
-
+    const { slug } = await params;
     const article = await ArticleModel.findOne({
-      slug: params.slug,
+      slug: slug,
       status: "published",
     })
       .populate("categories", "titleEn titleAr slug")
