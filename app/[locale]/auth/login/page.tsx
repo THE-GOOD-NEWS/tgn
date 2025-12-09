@@ -11,6 +11,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Loader2, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { Separator } from "@/components/ui/separator";
@@ -30,9 +38,53 @@ export default function LoginPage() {
     password: "",
   });
 
+  // Forgot Password States
+  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
+  const [isForgotPasswordLoading, setIsForgotPasswordLoading] = useState(false);
+  const [forgotPasswordMessage, setForgotPasswordMessage] = useState({
+    type: "",
+    text: "",
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleForgotPasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsForgotPasswordLoading(true);
+    setForgotPasswordMessage({ type: "", text: "" });
+
+    try {
+      const response = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: forgotPasswordEmail, locale }),
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        setForgotPasswordMessage({
+          type: "success",
+          text: "Reset link sent to your email!",
+        });
+        setForgotPasswordEmail("");
+      } else {
+        setForgotPasswordMessage({
+          type: "error",
+          text: data.message || "Something went wrong.",
+        });
+      }
+    } catch (error) {
+      setForgotPasswordMessage({
+        type: "error",
+        text: "An error occurred. Please try again.",
+      });
+    } finally {
+      setIsForgotPasswordLoading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -158,9 +210,102 @@ export default function LoginPage() {
 
                 {/* Password Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-sm font-medium">
-                    {t("password")}
-                  </Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="password" className="text-sm font-medium">
+                      {t("password")}
+                    </Label>
+                    <Dialog
+                      open={isForgotPasswordOpen}
+                      onOpenChange={setIsForgotPasswordOpen}
+                    >
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="link"
+                          className="p-0 h-auto font-normal text-xs text-hot-pink"
+                        >
+                          {t("forgotPassword")}
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-md">
+                        <DialogHeader>
+                          <DialogTitle>
+                            {t("forgotPasswordModal.title")}
+                          </DialogTitle>
+                          {forgotPasswordMessage.type !== "success" && (
+                            <DialogDescription>
+                              {t("forgotPasswordModal.description")}
+                            </DialogDescription>
+                          )}
+                        </DialogHeader>
+                        <form
+                          onSubmit={handleForgotPasswordSubmit}
+                          className="space-y-4 pt-4"
+                        >
+                          {forgotPasswordMessage.text && (
+                            <Alert
+                              variant={
+                                forgotPasswordMessage.type === "error"
+                                  ? "destructive"
+                                  : "default"
+                              }
+                              className={
+                                forgotPasswordMessage.type === "success"
+                                  ? "bg-green-50 text-green-700 border-green-200"
+                                  : ""
+                              }
+                            >
+                              <AlertDescription>
+                                {forgotPasswordMessage.text}
+                              </AlertDescription>
+                            </Alert>
+                          )}
+                          {forgotPasswordMessage.type !== "success" && (
+                            <>
+                              <div className="space-y-2">
+                                <Label htmlFor="reset-email">
+                                  {t("forgotPasswordModal.emailLabel")}
+                                </Label>
+                                <Input
+                                  id="reset-email"
+                                  type="email"
+                                  placeholder="you@example.com"
+                                  value={forgotPasswordEmail}
+                                  onChange={(e) =>
+                                    setForgotPasswordEmail(e.target.value)
+                                  }
+                                  required
+                                />
+                              </div>
+                              <div className="flex justify-end space-x-2">
+                                <Button
+                                  type="button"
+                                  variant="outline"
+                                  onClick={() => setIsForgotPasswordOpen(false)}
+                                  disabled={isForgotPasswordLoading}
+                                >
+                                  {t("forgotPasswordModal.cancel")}
+                                </Button>
+                                <Button
+                                  type="submit"
+                                  disabled={isForgotPasswordLoading}
+                                  className="bg-hot-pink hover:bg-hot-pink-dark text-white"
+                                >
+                                  {isForgotPasswordLoading ? (
+                                    <>
+                                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                      {t("forgotPasswordModal.sending")}
+                                    </>
+                                  ) : (
+                                    t("forgotPasswordModal.submit")
+                                  )}
+                                </Button>
+                              </div>
+                            </>
+                          )}
+                        </form>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
                   <div className="relative">
                     <Lock className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                     <Input

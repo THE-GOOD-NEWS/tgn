@@ -133,7 +133,18 @@
       "password": "Password",
       "button": "Sign In",
       "noAccount": "Don't have an account?",
-      "signUp": "Sign up here"
+      "signUp": "Sign up here",
+      "forgotPassword": "Forgot password?",
+      "forgotPasswordModal": {
+        "title": "Reset Password",
+        "description": "Enter your email address and we'll send you a link to reset your password.",
+        "emailLabel": "Email",
+        "cancel": "Cancel",
+        "submit": "Send Reset Link",
+        "sending": "Sending...",
+        "success": "Reset link sent to your email!",
+        "error": "Something went wrong."
+      }
     },
     "signup": {
       "title": "Join THE GOOD NEWS",
