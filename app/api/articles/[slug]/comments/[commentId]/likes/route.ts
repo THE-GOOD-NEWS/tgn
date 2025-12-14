@@ -91,7 +91,7 @@ export async function POST(
       if (comment.userId.toString() !== userId) {
         await InteractionsModel.create({
           userId: userId,
-          notifyUserId: comment.userId,
+          // notifyUserId: comment.userId,
           broadcast: false,
           targetId: commentId,
           targetType: "comment",

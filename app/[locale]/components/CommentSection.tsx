@@ -713,7 +713,7 @@ const CommentSection = ({ ArticleSlug }: CommentSectionProps) => {
               placeholder={t("addCommentPlaceholder")}
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              className="min-h-[80px] bg-creamey text-lovely placeholder:text-lovely/50"
+              className="min-h-[80px] bg-white text-black placeholder:text-gray/80"
               dir={isRTL ? "rtl" : "ltr"}
               // disabled={!session.user.isSubscribed}
             />
@@ -721,7 +721,7 @@ const CommentSection = ({ ArticleSlug }: CommentSectionProps) => {
               <Button
                 onClick={handleCommentSubmit}
                 disabled={loading || !newComment.trim()}
-                className={`bg-ninja-crimson text-ninja-white hover:bg-lovely/90 `}
+                className={`bg-hot-pink text-white hover:bg-lovely/90 `}
                 // title={!session.user.isSubscribed ? "Subscribe to comment" : ""}
               >
                 <Send className={`${isRTL ? "ml-2" : "mr-2"} h-4 w-4`} />
@@ -857,7 +857,7 @@ const CommentSection = ({ ArticleSlug }: CommentSectionProps) => {
                               : comment._id || ""
                           );
                         }}
-                        className={`flex items-center text-sm text-lovely/60 hover:text-lovely `}
+                        className={`flex items-center  text-sm text-lovely/60 hover:text-lovely `}
                         disabled={!session?.user}
                         // title={
                         //   !session?.user
@@ -899,7 +899,7 @@ const CommentSection = ({ ArticleSlug }: CommentSectionProps) => {
                         placeholder={t("replyPlaceholder")}
                         value={replyText}
                         onChange={(e) => setReplyText(e.target.value)}
-                        className="min-h-[60px] bg-creamey text-lovely placeholder:text-lovely/50"
+                        className="min-h-[60px] bg-white text-black placeholder:text-gray/80"
                         dir={isRTL ? "rtl" : "ltr"}
                       />
                       <div className="flex justify-end gap-2">
@@ -915,7 +915,7 @@ const CommentSection = ({ ArticleSlug }: CommentSectionProps) => {
                           disabled={
                             !replyText.trim() || replyLoading === comment._id
                           }
-                          className="bg-lovely text-creamey hover:bg-lovely/90"
+                          className="bg-hot-pink text-white hover:bg-lovely/90"
                         >
                           {replyLoading === comment._id ? (
                             <>

@@ -1,4 +1,24 @@
 {
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "description": "At The Good News, we value your privacy. This policy explains what information we collect and how we use it.",
+    "collection": {
+      "title": "Information Collection",
+      "content": "We only collect the information necessary to provide our services. This includes account information when you register and your email address when you subscribe to our newsletter."
+    },
+    "usage": {
+      "title": "How We Use Your Information",
+      "content": "We use your account information to manage your access to the platform. We use your email address to send you our newsletter if you have subscribed. We do not sell your data to third parties."
+    }
+  },
+  "termsOfService": {
+    "title": "Terms and Conditions",
+    "description": "Welcome to The Good News. By using our website, you agree to these simple terms.",
+    "rules": {
+      "title": "General Rules",
+      "content": "We aim to provide positive and inspiring news. Please be respectful when interacting with our community. We reserve the right to remove any content or accounts that violate our community standards."
+    }
+  },
   "newsletter": {
     "title": "Stay Updated",
     "subtitle": "Wanna join our good movement? Subscribe to our good newsletter!",

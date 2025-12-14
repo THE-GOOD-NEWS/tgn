@@ -29,6 +29,7 @@ export async function DELETE(
     }
 
     const userId = session.user.id;
+    const userRole = session.user.role;
     const { slug, commentId, replyId } = await params;
 
     // Validate IDs
@@ -66,8 +67,8 @@ export async function DELETE(
       return NextResponse.json({ error: "Reply not found" }, { status: 404 });
     }
 
-    // Check if the user is the owner of the reply
-    if (reply.userId.toString() !== userId) {
+    // Check if the user is the owner of the reply or has admin role
+    if (reply.userId.toString() !== userId && userRole !== "admin") {
       return NextResponse.json(
         { error: "You can only delete your own replies" },
         { status: 403 }
