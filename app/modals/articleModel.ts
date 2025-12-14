@@ -74,9 +74,28 @@ export interface IArticle {
   featured: boolean;
   createdAt: Date;
   updatedAt: Date;
+  likes: mongoose.Types.ObjectId[];
+  comments: IArticleComment[];
 }
 
-const ArticleReplySchema = new Schema({
+export interface IArticleReply {
+  userId: mongoose.Types.ObjectId;
+  username: string;
+  text: string;
+  likes: mongoose.Types.ObjectId[];
+  createdAt: Date;
+}
+
+export interface IArticleComment {
+  userId: mongoose.Types.ObjectId;
+  username: string;
+  text: string;
+  likes: mongoose.Types.ObjectId[];
+  replies: IArticleReply[];
+  createdAt: Date;
+}
+
+const ArticleReplySchema = new Schema<IArticleReply>({
   userId: { type: Schema.Types.ObjectId, ref: "users", required: true },
   username: { type: String, required: true }, // Keep for backward compatibility
   text: { type: String, required: true },
@@ -84,8 +103,8 @@ const ArticleReplySchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-// Define the VideoComment schema
-const ArticleCommentSchema = new Schema({
+// Define the ArticleComment schema
+const ArticleCommentSchema = new Schema<IArticleComment>({
   userId: { type: Schema.Types.ObjectId, ref: "users", required: true },
   username: { type: String, required: true }, // Keep for backward compatibility
   text: { type: String, required: true },
