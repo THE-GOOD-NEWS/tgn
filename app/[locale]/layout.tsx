@@ -7,6 +7,7 @@ import { Navigation } from "@/components/navigation";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Footer } from "@/components/footer";
 import { AuthProvider } from "../providers/AuthProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 type Props = {
   children: React.ReactNode;
@@ -64,6 +65,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <Navigation />
           <div className="overflow-x-hidden">{children}</div>
           <Footer />
+          <Toaster />
         </AuthProvider>
       </NextIntlClientProvider>
     </ThemeProvider>

@@ -348,7 +348,9 @@
       "email": "البريد الإلكتروني",
       "subject": "الموضوع",
       "message": "الرسالة",
-      "sendMessage": "إرسال الرسالة"
+      "sendMessage": "إرسال الرسالة",
+      "successMessage": "تم إرسال الرسالة بنجاح!",
+      "errorMessage": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
     }
   },
   "partner": {
@@ -404,6 +406,10 @@
     "joinForm": {
       "title": "تريد أن تكون جزءًا من ذاجودنيوز؟",
       "subtitle": "املأ النموذج!",
+      "form": {
+        "successMessage": "تم تقديم طلبك بنجاح!",
+        "errorMessage": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+      },
       "fullName": "الاسم الكامل",
       "email": "البريد الإلكتروني",
       "phoneNumber": "رقم الهاتف",
@@ -598,5 +604,16 @@
     "personLoves": "{count} {count, plural, one {شخص يعجبه} other {أشخاص يعجبهم}} هذا المقال",
     "peopleLovedTitle": "الأشخاص الذين أعجبهم هذا المقال",
     "noLikesYet": "لا توجد إعجابات بعد"
+  },
+  "share": {
+    "title": "مشاركة",
+    "share": "مشاركة",
+    "copyLink": "نسخ الرابط",
+    "copied": "تم نسخ الرابط!",
+    "failed": "فشل النسخ",
+    "facebook": "فيسبوك",
+    "twitter": "تويتر",
+    "linkedin": "لينكد إن",
+    "whatsapp": "واتساب"
   }
 }

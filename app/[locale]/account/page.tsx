@@ -21,8 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { UploadButton } from "@uploadthing/react";
-import type { FileRouterType } from "@/app/api/uploadthing/core";
+import { UploadButton } from "@/utils/uploadthing";
 import {
   User,
   CreditCard,
@@ -319,7 +318,7 @@ export default function AccountPage() {
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <UploadButton<FileRouterType, "avatar">
+                <UploadButton
                   endpoint="avatar"
                   onClientUploadComplete={async () => {
                     await update?.();

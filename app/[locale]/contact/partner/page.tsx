@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
+import { toast } from "sonner";
 
 export default function PartnerPage() {
   const t = useTranslations("partner");
@@ -11,11 +12,67 @@ export default function PartnerPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Here you would typically handle the form submission
-    // For now, we'll just simulate a successful submission
-    setFormSubmitted(true);
+    setIsSubmitting(true);
+    setFormError(false);
+    setFormSubmitted(false);
+
+    const formData = new FormData(e.currentTarget);
+
+    // Handle checkboxes for contact method
+    const contactMethods: string[] = [];
+    if (formData.get("contactEmailMethod")) contactMethods.push("email");
+    if (formData.get("contactPhoneMethod")) contactMethods.push("phone");
+    if (formData.get("contactWhatsappMethod")) contactMethods.push("whatsapp");
+
+    const data = {
+      formType: "partner",
+      businessName: formData.get("businessName"),
+      industry: formData.get("industry"),
+      collaborationIdea: formData.get("collaborationIdea"),
+      campaignDetails: formData.get("campaignDetails"),
+      socialMediaAccounts: formData.get("socialMediaAccounts"),
+      contactName: formData.get("contactName"),
+      contactNumber: formData.get("contactNumber"),
+      contactEmail: formData.get("contactEmail"),
+      contactMethod: contactMethods,
+    };
+
+    const promise = fetch("/api/forms/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(async (response) => {
+      if (!response.ok) throw new Error("Submission failed");
+      return response;
+    });
+
+    toast.promise(promise, {
+      loading: "Submitting...",
+      success: () => {
+        setFormSubmitted(true);
+        (e.target as HTMLFormElement).reset();
+        return t("form.successMessage") || "Submission successful!";
+      },
+      error: (error) => {
+        console.error(error);
+        setFormError(true);
+        return t("form.errorMessage") || "Submission failed. Please try again.";
+      },
+    });
+
+    try {
+      await promise;
+    } catch (error) {
+      // Error handled in toast
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClearForm = () => {
@@ -90,6 +147,7 @@ export default function PartnerPage() {
               <span className="text-hot-pink">*</span>
             </label>
             <input
+              name="businessName"
               type="text"
               className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink ${
                 isRTL ? "text-right" : "text-left"
@@ -97,6 +155,7 @@ export default function PartnerPage() {
               required
               placeholder={t("form.placeholder")}
               dir={isRTL ? "rtl" : "ltr"}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -111,6 +170,7 @@ export default function PartnerPage() {
               <span className="text-hot-pink">*</span>
             </label>
             <input
+              name="industry"
               type="text"
               className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink ${
                 isRTL ? "text-right" : "text-left"
@@ -118,6 +178,7 @@ export default function PartnerPage() {
               required
               placeholder={t("form.placeholder")}
               dir={isRTL ? "rtl" : "ltr"}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -132,12 +193,14 @@ export default function PartnerPage() {
               <span className="text-hot-pink">*</span>
             </label>
             <textarea
+              name="collaborationIdea"
               className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink h-32 ${
                 isRTL ? "text-right" : "text-left"
               }`}
               required
               placeholder={t("form.placeholder")}
               dir={isRTL ? "rtl" : "ltr"}
+              disabled={isSubmitting}
             ></textarea>
           </div>
 
@@ -158,11 +221,13 @@ export default function PartnerPage() {
               {t("form.campaignDetailsHint")}
             </p>
             <textarea
+              name="campaignDetails"
               className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink h-32 ${
                 isRTL ? "text-right" : "text-left"
               }`}
               placeholder={t("form.placeholder")}
               dir={isRTL ? "rtl" : "ltr"}
+              disabled={isSubmitting}
             ></textarea>
           </div>
 
@@ -177,6 +242,7 @@ export default function PartnerPage() {
               <span className="text-hot-pink">*</span>
             </label>
             <input
+              name="socialMediaAccounts"
               type="text"
               className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink ${
                 isRTL ? "text-right" : "text-left"
@@ -184,6 +250,7 @@ export default function PartnerPage() {
               required
               placeholder={t("form.placeholder")}
               dir={isRTL ? "rtl" : "ltr"}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -198,6 +265,7 @@ export default function PartnerPage() {
               <span className="text-hot-pink">*</span>
             </label>
             <input
+              name="contactName"
               type="text"
               className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink ${
                 isRTL ? "text-right" : "text-left"
@@ -205,6 +273,7 @@ export default function PartnerPage() {
               required
               placeholder={t("form.placeholder")}
               dir={isRTL ? "rtl" : "ltr"}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -219,6 +288,7 @@ export default function PartnerPage() {
               <span className="text-hot-pink">*</span>
             </label>
             <input
+              name="contactNumber"
               type="tel"
               className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink ${
                 isRTL ? "text-right" : "text-left"
@@ -226,6 +296,7 @@ export default function PartnerPage() {
               required
               placeholder={t("form.placeholder")}
               dir={isRTL ? "rtl" : "ltr"}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -240,6 +311,7 @@ export default function PartnerPage() {
               <span className="text-hot-pink">*</span>
             </label>
             <input
+              name="contactEmail"
               type="email"
               className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink ${
                 isRTL ? "text-right" : "text-left"
@@ -247,6 +319,7 @@ export default function PartnerPage() {
               required
               placeholder={t("form.placeholder")}
               dir={isRTL ? "rtl" : "ltr"}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -263,25 +336,31 @@ export default function PartnerPage() {
             <div className="space-y-2">
               <div className="flex items-center">
                 <input
+                  name="contactEmailMethod"
                   type="checkbox"
                   id="contactEmail"
                   className="mr-2 rtl:ml-2 rtl:mr-0 h-4 w-4 text-hot-pink focus:ring-hot-pink"
+                  disabled={isSubmitting}
                 />
                 <label htmlFor="contactEmail">{t("form.email")}</label>
               </div>
               <div className="flex items-center">
                 <input
+                  name="contactPhoneMethod"
                   type="checkbox"
                   id="contactPhone"
                   className="mr-2 rtl:ml-2 rtl:mr-0 h-4 w-4 text-hot-pink focus:ring-hot-pink"
+                  disabled={isSubmitting}
                 />
                 <label htmlFor="contactPhone">{t("form.phone")}</label>
               </div>
               <div className="flex items-center">
                 <input
+                  name="contactWhatsappMethod"
                   type="checkbox"
                   id="contactWhatsapp"
                   className="mr-2 rtl:ml-2 rtl:mr-0 h-4 w-4 text-hot-pink focus:ring-hot-pink"
+                  disabled={isSubmitting}
                 />
                 <label htmlFor="contactWhatsapp">{t("form.whatsapp")}</label>
               </div>
@@ -292,14 +371,16 @@ export default function PartnerPage() {
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
             <button
               type="submit"
-              className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-3 px-8 rounded-md text-lg shadow-lg transition-all duration-300 transform hover:scale-105"
+              disabled={isSubmitting}
+              className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-3 px-8 rounded-md text-lg shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {t("form.submit")}
+              {isSubmitting ? "Sending..." : t("form.submit")}
             </button>
             <button
               type="button"
               onClick={handleClearForm}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-8 rounded-md text-lg shadow-lg transition-all duration-300"
+              disabled={isSubmitting}
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-8 rounded-md text-lg shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {t("form.clear")}
             </button>

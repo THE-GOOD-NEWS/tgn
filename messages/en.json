@@ -339,6 +339,10 @@
     "joinForm": {
       "title": "want to be part of TGN?",
       "subtitle": "Fill out the form!",
+      "form": {
+        "successMessage": "Application submitted successfully!",
+        "errorMessage": "Something went wrong. Please try again."
+      },
       "fullName": "Full Name",
       "email": "Email",
       "phoneNumber": "Phone Number",
@@ -426,7 +430,9 @@
       "email": "Email",
       "subject": "Subject",
       "message": "Message",
-      "sendMessage": "Send Message"
+      "sendMessage": "Send Message",
+      "successMessage": "Message sent successfully!",
+      "errorMessage": "Something went wrong. Please try again."
     }
   },
   "about": {
@@ -456,7 +462,9 @@
       "uploadInstructions": "Click or drag files to upload (photos or videos)",
       "name": "Name",
       "email": "Email",
-      "submit": "Submit"
+      "submit": "Submit",
+      "successMessage": "Story submitted successfully!",
+      "errorMessage": "Something went wrong. Please try again."
     }
   },
   "workshops": {
@@ -593,5 +601,16 @@
     "personLoves": "{count} {count, plural, one {person loves} other {people love}} this article",
     "peopleLovedTitle": "People who loved this article",
     "noLikesYet": "No likes yet"
+  },
+  "share": {
+    "title": "Share",
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "copied": "Copied to clipboard!",
+    "failed": "Failed to copy",
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn",
+    "whatsapp": "WhatsApp"
   }
 }

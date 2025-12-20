@@ -8,43 +8,69 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
+import { UploadButton } from "@/utils/uploadthing";
+import { toast } from "sonner";
 
 export default function ShareNewsPage() {
   const t = useTranslations("shareNews");
   const locale = useLocale();
   const isRTL = locale === "ar";
 
-  const [formData, setFormData] = useState({
-    story: "",
-    name: "",
-    email: "",
-    files: null as FileList | null,
-  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mediaUrls, setMediaUrls] = useState<string[]>([]);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFormData({
-        ...formData,
-        files: e.target.files,
-      });
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
-    // Reset form or show success message
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      formType: "share_news",
+      story: formData.get("story"),
+      name: formData.get("name"),
+      email: formData.get("email"),
+      mediaUrls: mediaUrls,
+    };
+
+    const promise = fetch("/api/forms/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(async (response) => {
+      if (!response.ok) throw new Error("Submission failed");
+      return response;
+    });
+
+    toast.promise(promise, {
+      loading: "Submitting...",
+      success: () => {
+        setSubmitStatus("success");
+        (e.target as HTMLFormElement).reset();
+        setMediaUrls([]);
+        return t("form.successMessage") || "Story submitted successfully!";
+      },
+      error: (error) => {
+        console.error(error);
+        setSubmitStatus("error");
+        return (
+          t("form.errorMessage") || "Something went wrong. Please try again."
+        );
+      },
+    });
+
+    try {
+      await promise;
+    } catch (error) {
+      // Error handled in toast
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -82,6 +108,18 @@ export default function ShareNewsPage() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="bg-white  rounded-xl shadow-lg p-6 md:p-8"
         >
+          {/* {submitStatus === "success" && (
+            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6 text-center">
+              {t("form.successMessage") || "Story submitted successfully!"}
+            </div>
+          )}
+          {submitStatus === "error" && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6 text-center">
+              {t("form.errorMessage") ||
+                "Something went wrong. Please try again."}
+            </div>
+          )} */}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-3">
               <Label htmlFor="story" className="text-base font-medium">
@@ -90,11 +128,10 @@ export default function ShareNewsPage() {
               <Textarea
                 id="story"
                 name="story"
-                value={formData.story}
-                onChange={handleInputChange}
                 rows={5}
                 className="w-full resize-y border border-gray-400"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
@@ -103,24 +140,56 @@ export default function ShareNewsPage() {
                 {t("form.attachment")}
               </Label>
               <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6 text-center">
-                <input
-                  id="file-upload"
-                  name="file-upload"
-                  type="file"
-                  className="sr-only"
-                  onChange={handleFileChange}
-                  multiple
-                  accept="image/*,video/*"
-                />
-                <label
-                  htmlFor="file-upload"
-                  className="cursor-pointer flex flex-col items-center justify-center"
-                >
-                  <Upload className="h-10 w-10 text-hot-pink mb-3" />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                {mediaUrls.length > 0 ? (
+                  <div className="mb-4">
+                    <p className="text-green-600 font-bold mb-2">
+                      {mediaUrls.length} file(s) uploaded
+                    </p>
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {mediaUrls.map((url, idx) => (
+                        <div key={idx} className="relative">
+                          <a
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-hot-pink underline"
+                          >
+                            File {idx + 1}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setMediaUrls([])}
+                      className="text-xs text-red-500 underline mt-2"
+                    >
+                      Remove All
+                    </button>
+                  </div>
+                ) : (
+                  <UploadButton
+                    endpoint="newsMedia"
+                    onClientUploadComplete={(res) => {
+                      if (res) {
+                        setMediaUrls(res.map((file) => file.url));
+                      }
+                    }}
+                    onUploadError={(error: Error) => {
+                      alert(`ERROR! ${error.message}`);
+                    }}
+                    appearance={{
+                      button:
+                        "bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-2 px-4 rounded-md transition-colors",
+                      allowedContent: "text-gray-500 text-sm",
+                    }}
+                  />
+                )}
+                {!mediaUrls.length && (
+                  <p className="text-sm text-gray-600 mt-2">
                     {t("form.uploadInstructions")}
-                  </span>
-                </label>
+                  </p>
+                )}
               </div>
             </div>
 
@@ -132,10 +201,9 @@ export default function ShareNewsPage() {
                 <Input
                   id="name"
                   name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
                   className="w-full border border-gray-400"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -147,10 +215,9 @@ export default function ShareNewsPage() {
                   id="email"
                   name="email"
                   type="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
                   className="w-full border border-gray-400"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -158,9 +225,10 @@ export default function ShareNewsPage() {
             <div className="pt-4">
               <Button
                 type="submit"
-                className="bg-hot-pink hover:bg-hot-pink/90 text-white font-medium py-2 px-6 rounded-md transition-colors w-full md:w-auto"
+                disabled={isSubmitting}
+                className="bg-hot-pink hover:bg-hot-pink/90 text-white font-medium py-2 px-6 rounded-md transition-colors w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {t("form.submit")}
+                {isSubmitting ? "Submitting..." : t("form.submit")}
               </Button>
             </div>
           </form>

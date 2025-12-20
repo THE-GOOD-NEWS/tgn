@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, User, Clock, Share2 } from "lucide-react";
+import { Calendar, User, Clock } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { connectToDatabase } from "@/utils/mongodb";
 import ArticleModel from "@/app/modals/articleModel";
@@ -25,6 +25,7 @@ import {
   CarouselIndicators,
 } from "@/components/ui/carousel";
 import CommentSection from "../../components/CommentSection";
+import { ShareMenu } from "@/components/share-menu";
 
 interface PopulatedArticle {
   _id: string;
@@ -407,17 +408,23 @@ export default async function ArticlePage({ params }: any) {
                   ))}
                 </div>
               </div>
-              {/* <div className="flex items-center space-x-4 rtl:space-x-reverse">
-                <button className="text-sm text-muted-foreground hover:text-hot-pink transition-colors">
+              <div className="flex items-center space-x-4 rtl:space-x-reverse">
+                {/* <button className="text-sm text-muted-foreground hover:text-hot-pink transition-colors">
                   {isArabic ? "إعجاب" : "Like"}
                 </button>
                 <button className="text-sm text-muted-foreground hover:text-hot-pink transition-colors">
                   {isArabic ? "تعليق" : "Comment"}
-                </button>
-                <button className="text-sm text-muted-foreground hover:text-hot-pink transition-colors">
-                  {isArabic ? "مشاركة" : "Share"}
-                </button>
-              </div> */}
+                </button> */}
+                <ShareMenu
+                  title={title}
+                  url={`/${locale}/articles/${article.slug}`}
+                  trigger={
+                    <button className="text-sm text-muted-foreground hover:text-hot-pink transition-colors">
+                      {isArabic ? "مشاركة" : "Share"}
+                    </button>
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
