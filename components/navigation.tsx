@@ -195,20 +195,20 @@ export function Navigation({}: NavigationProps) {
       label: t("involved"),
       type: "dropdown",
       items: [
-        { href: `/${locale}/contact`, label: t("contact") },
-
-        {
-          href: `/${locale}/contact/share-news`,
-          label: t("contactSubItems.shareGoodNews"),
-        },
         {
           href: `/${locale}/contact/partner`,
           label: t("contactSubItems.beOurPartner"),
         },
         {
-          href: `/${locale}/#newsletter`,
-          label: t("newsletter"),
+          href: `/${locale}/contact/share-news`,
+          label: t("contactSubItems.shareGoodNews"),
         },
+        { href: `/${locale}/contact`, label: t("contact") },
+
+        // {
+        //   href: `/${locale}/#newsletter`,
+        //   label: t("newsletter"),
+        // },
       ],
     },
     // {

@@ -143,7 +143,9 @@
     "loadMore": "Load More",
     "exclusive": "Exclusive",
     "headerSubtitle": "Explore our collection of inspiring stories, exclusive interviews, and thought-provoking articles that celebrate the beauty of life",
-    "moreComing": "More inspiring stories coming soon..."
+    "moreComing": "More inspiring stories coming soon...",
+    "prevPage": "Previous",
+    "nextPage": "Next"
   },
   "auth": {
     "login": {

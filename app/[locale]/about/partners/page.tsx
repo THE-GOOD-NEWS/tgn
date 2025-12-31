@@ -607,7 +607,10 @@ export default function PartnersPage() {
             >
               {t("becomePartner")}
             </h3>
-            <p className="mb-8 max-w-2xl mx-auto text-gray-600">
+            <p
+              dir={locale === "ar" ? "rtl" : "ltr"}
+              className="mb-8 max-w-2xl mx-auto text-center text-gray-600"
+            >
               {t("becomePartnerDescription")}
             </p>
             <a href={`/${locale}/contact/partner`} className="inline-block">

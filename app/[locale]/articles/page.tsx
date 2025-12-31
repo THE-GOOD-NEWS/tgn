@@ -9,14 +9,19 @@ import ArticleModel from "@/app/modals/articleModel";
 import ArticleCategoryModel from "@/app/modals/articleCategoryModel";
 import mongoose from "mongoose";
 import UserModel from "@/app/modals/userModel";
+import { ArticlesPagination } from "@/components/articles-pagination";
 
 export default async function ArticlesPage({ params, searchParams }: any) {
   const locale = params.locale;
   const t = await getTranslations("articles");
   const isRTL = locale === "ar";
   const categoryParam = searchParams?.category || null;
+  const page = Number(searchParams?.page) || 1;
+  const limit = 6;
+  const skip = (page - 1) * limit;
 
   await connectToDatabase();
+
   let categoryDisplay: string | null = null;
   let categoryFilterId: mongoose.Types.ObjectId | null = null;
   if (categoryParam && categoryParam !== "all") {
@@ -38,18 +43,24 @@ export default async function ArticlesPage({ params, searchParams }: any) {
       categoryDisplay = humanizeSlug(categoryParam);
     }
   }
-  console.log("registering" + UserModel + ArticleCategoryModel);
-  const articlesFromDb = await ArticleModel.find({
+
+  const query = {
     status: "published",
     ...(categoryFilterId ? { categories: categoryFilterId } : {}),
-  })
+  };
+
+  const totalArticles = await ArticleModel.countDocuments(query);
+  const totalPages = Math.ceil(totalArticles / limit);
+
+  const articlesFromDb = await ArticleModel.find(query)
     .sort({ publishedAt: -1 })
+    .skip(skip)
+    .limit(limit)
     .populate("categories", "titleEn titleAr slug")
     .populate("author", "firstName lastName username email")
     .lean({ virtuals: true });
-  console.log(articlesFromDb[0].author.firstName + "firstName");
+
   const articles: Article[] = (articlesFromDb || []).map((a: any) => {
-    console.log(a.author?.firstName + "authorFirstName");
     const firstCategory =
       Array.isArray(a.categories) && a.categories.length > 0
         ? a.categories[0]
@@ -89,7 +100,6 @@ export default async function ArticlesPage({ params, searchParams }: any) {
       <Navigation />
 
       <main className="min-h-screen pt-20">
-        {/* Page Header */}
         <section className="pt-16 pb-8 bg-mint-green">
           <div className="container mx-auto px-4">
             <div className="text-center">
@@ -111,28 +121,27 @@ export default async function ArticlesPage({ params, searchParams }: any) {
           </div>
         </section>
 
-        {/* Articles Grid (filtered by category via searchParams) */}
         <section className="">
           <div className="container mx-auto px-4">
             <ArticlesGrid articles={articles} />
           </div>
         </section>
 
-        {/* Load More Section */}
-        <section className="py-8 bg-mint-green">
-          <div className="container mx-auto px-4 text-center">
-            <div>
-              <p
-                className={`text-gray-600 text-lg mb-4 ${
-                  isRTL ? "font-body-ar" : "font-body-en"
-                }`}
-              >
-                {t("moreComing")}
-              </p>
-              <div className="w-16 h-1 bg-black mx-auto"></div>
+        {totalPages > 1 && (
+          <section className="py-8 bg-mint-green">
+            <div className="container mx-auto px-4">
+              <ArticlesPagination
+                currentPage={page}
+                totalPages={totalPages}
+                category={categoryParam}
+                locale={locale}
+                isRTL={isRTL}
+                prevLabel={t("prevPage")}
+                nextLabel={t("nextPage")}
+              />
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
     </div>
   );
@@ -151,5 +160,3 @@ function humanizeSlug(slug: string) {
     .map((word) => (word ? word[0].toUpperCase() + word.slice(1) : word))
     .join(" ");
 }
-
-// Client-side filtered sample articles removed; now using DB-backed fetch above
