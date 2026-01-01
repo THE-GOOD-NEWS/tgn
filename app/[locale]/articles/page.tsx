@@ -10,6 +10,7 @@ import ArticleCategoryModel from "@/app/modals/articleCategoryModel";
 import mongoose from "mongoose";
 import UserModel from "@/app/modals/userModel";
 import { ArticlesPagination } from "@/components/articles-pagination";
+import categoriesModel from "@/app/modals/bannersModel";
 
 export default async function ArticlesPage({ params, searchParams }: any) {
   const locale = params.locale;
@@ -51,7 +52,7 @@ export default async function ArticlesPage({ params, searchParams }: any) {
 
   const totalArticles = await ArticleModel.countDocuments(query);
   const totalPages = Math.ceil(totalArticles / limit);
-
+  console.log("registering" + UserModel + ArticleCategoryModel);
   const articlesFromDb = await ArticleModel.find(query)
     .sort({ publishedAt: -1 })
     .skip(skip)
