@@ -28,8 +28,9 @@ import {
 interface NavigationProps {}
 
 interface NavSubItem {
-  href: string;
+  href?: string;
   label: string;
+  children?: NavSubItem[];
 }
 
 interface NavLinkItem {
@@ -143,6 +144,7 @@ export function Navigation({}: NavigationProps) {
     //     },
     //   ],
     // },
+
     {
       label: t("about"),
       type: "dropdown",
@@ -150,13 +152,18 @@ export function Navigation({}: NavigationProps) {
         { href: `/${locale}/about/story`, label: t("aboutSubItems.ourStory") },
         { href: `/${locale}/about/team`, label: t("aboutSubItems.team") },
         {
+          label: t("projects"),
+          children: [
+            {
+              href: `/${locale}/goodIntern`,
+              label: t("opportunitiesSubItems.theGoodIntern"),
+            },
+          ],
+        },
+        {
           href: `/${locale}/about/partners`,
           label: t("aboutSubItems.partners"),
         },
-        // {
-        //   href: `/${locale}/about/partners`,
-        //   label: t("aboutSubItems.partners"),
-        // },
         {
           href: `/${locale}/about/mediaPresence`,
           label: t("aboutSubItems.mediaPresence"),
@@ -185,11 +192,6 @@ export function Navigation({}: NavigationProps) {
       type: "link",
     },
 
-    {
-      href: `/${locale}/goodIntern`,
-      label: t("opportunitiesSubItems.theGoodIntern"),
-      type: "link",
-    },
     {
       // label: t("contact"),
       label: t("involved"),
@@ -297,23 +299,79 @@ export function Navigation({}: NavigationProps) {
                     {/* Dropdown Menu */}
                     <div className="absolute top-full left-0 mt-2 w-56 bg-background border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="py-2">
-                        {item.items?.map((subItem, subIndex) => (
-                          <Link
-                            key={subIndex}
-                            href={subItem.href}
-                            className={`block px-4 py-2 text-sm transition-colors hover:bg-muted hover:text-foreground ${
-                              locale === "ar"
-                                ? "font-body-ar text-right"
-                                : "font-body-en text-left"
-                            } ${
-                              pathname === subItem.href
-                                ? "text-foreground bg-muted"
-                                : "text-muted-foreground"
-                            }`}
-                          >
-                            {subItem.label}
-                          </Link>
-                        ))}
+                        {item.items?.map((subItem, subIndex) =>
+                          subItem.children && subItem.children.length ? (
+                            <div key={subIndex} className="px-4 py-2 group/sub">
+                              <button
+                                className={`text-xs font-semibold text-muted-foreground mb-1 w-full flex items-center justify-between hover:text-foreground transition-colors ${
+                                  locale === "ar"
+                                    ? "font-body-ar text-right"
+                                    : "font-body-en text-left"
+                                }`}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  const element = document.getElementById(
+                                    `desktop-sub-dropdown-${index}-${subIndex}`
+                                  );
+                                  const icon = document.getElementById(
+                                    `desktop-sub-icon-${index}-${subIndex}`
+                                  );
+                                  if (element) {
+                                    element.classList.toggle("hidden");
+                                  }
+                                  if (icon) {
+                                    icon.classList.toggle("rotate-180");
+                                  }
+                                }}
+                              >
+                                {subItem.label}
+                                <ChevronDown
+                                  id={`desktop-sub-icon-${index}-${subIndex}`}
+                                  className="h-3 w-3 transition-transform duration-200"
+                                />
+                              </button>
+                              <div
+                                id={`desktop-sub-dropdown-${index}-${subIndex}`}
+                                className="hidden space-y-1 mt-1"
+                              >
+                                {subItem.children.map((child, childIndex) => (
+                                  <Link
+                                    key={childIndex}
+                                    href={child.href || "#"}
+                                    className={`block px-2 py-1 text-sm rounded transition-colors hover:bg-muted hover:text-foreground ${
+                                      locale === "ar"
+                                        ? "font-body-ar text-right"
+                                        : "font-body-en text-left"
+                                    } ${
+                                      pathname === child.href
+                                        ? "text-foreground bg-muted"
+                                        : "text-muted-foreground"
+                                    }`}
+                                  >
+                                    {child.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            <Link
+                              key={subIndex}
+                              href={subItem.href || "#"}
+                              className={`block px-4 py-2 text-sm transition-colors hover:bg-muted hover:text-foreground ${
+                                locale === "ar"
+                                  ? "font-body-ar text-right"
+                                  : "font-body-en text-left"
+                              } ${
+                                pathname === subItem.href
+                                  ? "text-foreground bg-muted"
+                                  : "text-muted-foreground"
+                              }`}
+                            >
+                              {subItem.label}
+                            </Link>
+                          )
+                        )}
                       </div>
                     </div>
                   </>
@@ -466,24 +524,71 @@ export function Navigation({}: NavigationProps) {
                         id={`mobile-dropdown-${index}`}
                         className="hidden pl-4 rtl:pl-0 rtl:pr-4 space-y-2 mt-2"
                       >
-                        {item.items?.map((subItem, subIndex) => (
-                          <Link
-                            key={subIndex}
-                            href={subItem.href}
-                            className={`text-sm py-1 block transition-colors ${
-                              locale === "ar"
-                                ? "font-body-ar text-right"
-                                : "font-body-en text-left"
-                            } ${
-                              pathname === subItem.href
-                                ? "text-foreground"
-                                : "text-muted-foreground hover:text-foreground"
-                            }`}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            {subItem.label}
-                          </Link>
-                        ))}
+                        {item.items?.map((subItem, subIndex) =>
+                          subItem.children && subItem.children.length ? (
+                            <div key={subIndex}>
+                              <button
+                                className={`text-xs font-semibold text-muted-foreground mb-1 w-full flex items-center justify-between ${
+                                  locale === "ar"
+                                    ? "font-body-ar text-right"
+                                    : "font-body-en text-left"
+                                }`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  const element = document.getElementById(
+                                    `mobile-sub-dropdown-${index}-${subIndex}`
+                                  );
+                                  if (element) {
+                                    element.classList.toggle("hidden");
+                                  }
+                                }}
+                              >
+                                {subItem.label}
+                                <ChevronDown className="h-3 w-3" />
+                              </button>
+                              <div
+                                id={`mobile-sub-dropdown-${index}-${subIndex}`}
+                                className="hidden pl-3 rtl:pl-0 rtl:pr-3 space-y-1"
+                              >
+                                {subItem.children.map((child, childIndex) => (
+                                  <Link
+                                    key={childIndex}
+                                    href={child.href || "#"}
+                                    className={`text-sm py-1 block transition-colors ${
+                                      locale === "ar"
+                                        ? "font-body-ar text-right"
+                                        : "font-body-en text-left"
+                                    } ${
+                                      pathname === child.href
+                                        ? "text-foreground"
+                                        : "text-muted-foreground hover:text-foreground"
+                                    }`}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                  >
+                                    {child.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            <Link
+                              key={subIndex}
+                              href={subItem.href || "#"}
+                              className={`text-sm py-1 block transition-colors ${
+                                locale === "ar"
+                                  ? "font-body-ar text-right"
+                                  : "font-body-en text-left"
+                              } ${
+                                pathname === subItem.href
+                                  ? "text-foreground"
+                                  : "text-muted-foreground hover:text-foreground"
+                              }`}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {subItem.label}
+                            </Link>
+                          )
+                        )}
                       </div>
                     </div>
                   )}

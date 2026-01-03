@@ -24,8 +24,16 @@ export default function ShareNewsPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setSubmitStatus("idle");
+
+    if (!mediaUrls || mediaUrls.length === 0) {
+      toast.error(
+        t("form.attachmentRequired") || "Please upload at least one file."
+      );
+      return;
+    }
+
+    setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
     const data = {
@@ -125,6 +133,8 @@ export default function ShareNewsPage() {
               <Label htmlFor="story" className="text-base font-medium">
                 {t("form.story")}
               </Label>
+              <span className="text-hot-pink">*</span>
+
               <Textarea
                 id="story"
                 name="story"
@@ -138,7 +148,9 @@ export default function ShareNewsPage() {
             <div className="space-y-3">
               <Label htmlFor="file-upload" className="text-base font-medium">
                 {t("form.attachment")}
+                <span className="text-hot-pink">*</span>
               </Label>
+
               <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6 text-center">
                 {mediaUrls.length > 0 ? (
                   <div className="mb-4">
@@ -197,6 +209,7 @@ export default function ShareNewsPage() {
               <div className="space-y-3">
                 <Label htmlFor="name" className="text-base font-medium">
                   {t("form.name")}
+                  <span className="text-hot-pink">*</span>
                 </Label>
                 <Input
                   id="name"
@@ -210,6 +223,7 @@ export default function ShareNewsPage() {
               <div className="space-y-3">
                 <Label htmlFor="email" className="text-base font-medium">
                   {t("form.email")}
+                  <span className="text-hot-pink">*</span>
                 </Label>
                 <Input
                   id="email"

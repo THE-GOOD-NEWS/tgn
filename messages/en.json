@@ -466,7 +466,8 @@
       "email": "Email",
       "submit": "Submit",
       "successMessage": "Story submitted successfully!",
-      "errorMessage": "Something went wrong. Please try again."
+      "errorMessage": "Something went wrong. Please try again.",
+      "attachmentRequired": "Please upload at least one file."
     }
   },
   "workshops": {

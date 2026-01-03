@@ -115,6 +115,14 @@ export default function ContactPage() {
         >
           {/* Name */}
           <div className="form-group">
+            <label
+              className={`block text-carbon font-bold mb-2 ${
+                isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              }`}
+            >
+              {t("form.name")}
+              <span className="text-hot-pink">*</span>
+            </label>
             <input
               name="name"
               type="text"
@@ -127,6 +135,14 @@ export default function ContactPage() {
 
           {/* Email */}
           <div className="form-group">
+            <label
+              className={`block text-carbon font-bold mb-2 ${
+                isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              }`}
+            >
+              {t("form.email")}
+              <span className="text-hot-pink">*</span>
+            </label>
             <input
               name="email"
               type="email"
@@ -139,6 +155,14 @@ export default function ContactPage() {
 
           {/* Subject */}
           <div className="form-group">
+            <label
+              className={`block text-carbon font-bold mb-2 ${
+                isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              }`}
+            >
+              {t("form.subject")}
+              <span className="text-hot-pink">*</span>
+            </label>
             <input
               name="subject"
               type="text"
@@ -151,6 +175,14 @@ export default function ContactPage() {
 
           {/* Message */}
           <div className="form-group">
+            <label
+              className={`block text-carbon font-bold mb-2 ${
+                isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              }`}
+            >
+              {t("form.message")}
+              <span className="text-hot-pink">*</span>
+            </label>
             <textarea
               name="message"
               placeholder={t("form.message")}

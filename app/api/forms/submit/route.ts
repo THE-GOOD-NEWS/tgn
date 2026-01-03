@@ -25,6 +25,18 @@ export async function POST(req: NextRequest) {
 
     // Basic validation based on formType could be added here
     // For now, we trust the frontend validation + mongoose schema
+    if (formType === "share_news") {
+      if (
+        !data.mediaUrls ||
+        !Array.isArray(data.mediaUrls) ||
+        data.mediaUrls.length === 0
+      ) {
+        return NextResponse.json(
+          { error: "At least one file is required for share_news" },
+          { status: 400 }
+        );
+      }
+    }
 
     const submission = await FormSubmissionModel.create({
       formType,
