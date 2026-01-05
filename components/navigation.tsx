@@ -155,6 +155,10 @@ export function Navigation({}: NavigationProps) {
           label: t("projects"),
           children: [
             {
+              href: `/${locale}/the-good-project`,
+              label: t("projectsSubItems.theGoodProject"),
+            },
+            {
               href: `/${locale}/goodIntern`,
               label: t("opportunitiesSubItems.theGoodIntern"),
             },

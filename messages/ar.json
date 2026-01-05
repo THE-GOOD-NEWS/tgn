@@ -82,7 +82,7 @@
     },
     "projectsSubItems": {
       "bigSisterTalks": "بودكاست Big Sister Talks",
-      "theGoodProject": "مشروعات التخرج",
+      "theGoodProject": "The Good Project",
       "interviews": "مقابلات"
     },
     "opportunitiesSubItems": {
@@ -103,6 +103,21 @@
     },
     "multimediaSubItems": {
       "mariamVideos": "فيديوهات مريم"
+    },
+    "theGoodProject": {
+      "title": "THE GOOD PROJECT",
+      "description": "حملة هدفها انها تدي فرصة لمشاريع التخرج لأقسام الإعلام من جميع الجامعات مصر من خلال توفير TGN كمنصة بتساعد في توصيل رؤية الفريق ومشروعه لمزيد من الجماهير.",
+      "stats": {
+        "title": "أرقامنا",
+        "audienceVal": "٨٣ ألف+",
+        "audienceLabel": "وصلنا لأكتر من ٨٣ ألف متابع",
+        "projectsVal": "١٣٥+",
+        "projectsLabel": "عرضنا أكتر من ١٣٥مشروع",
+        "universitiesVal": "٤٠+",
+        "universitiesLabel": "من أكتر من ٤٠ جامعة",
+        "studentsVal": "٨١٠+",
+        "studentsLabel": "لأكتر من ٨١٠ طالب"
+      }
     }
   },
   "home": {
@@ -446,6 +461,44 @@
       "resumeAs": "السيرة الذاتية باسم (اسمك - المنصب)",
       "notes": "ملاحظات",
       "submit": "إرسال"
+    }
+  },
+  "joinTheGoodProject": {
+    "title": "انضم إلى The Good Project",
+    "subtitle": "كن جزءًا من التغيير",
+    "form": {
+      "email": "البريد الإلكتروني",
+      "studentName": "اسم الطالب",
+      "studentEmail": "البريد الإلكتروني للطالب",
+      "projectName": "اسم المشروع",
+      "faculty": "الكلية",
+      "university": "الجامعة",
+      "academicYear": "السنة الدراسية",
+      "aboutProject": "عن المشروع",
+      "projectCategory": "فئة المشروع",
+      "projectLogo": "شعار المشروع",
+      "teamPhoto": "صورة الفريق",
+      "projectPageLink": "رابط صفحة المشروع",
+      "submit": "إرسال",
+      "successMessage": "تم إرسال الطلب بنجاح!",
+      "errorMessage": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+      "uploadInstructions": "بحد أقصى 16 ميجابايت (صورة/فيديو)",
+      "years": {
+        "1st": "الأولى",
+        "2nd": "الثانية",
+        "3rd": "الثالثة",
+        "4th": "الرابعة",
+        "other": "أخرى"
+      },
+      "categories": {
+        "environmental": "بيئي",
+        "social": "اجتماعي",
+        "health": "صحي",
+        "travelTourism": "سفر وسياحة",
+        "cultural": "ثقافي",
+        "technologyAI": "تكنولوجيا وذكاء اصطناعي",
+        "other": "أخرى"
+      }
     }
   },
   "roles": {

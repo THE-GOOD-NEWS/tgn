@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IFormSubmission extends Document {
-  formType: "join_team" | "contact" | "partner" | "share_news";
+  formType: "join_team" | "contact" | "partner" | "share_news" | "join_good_project";
   status: "pending" | "reviewed" | "archived";
   
   // Common Fields
@@ -36,6 +36,19 @@ export interface IFormSubmission extends Document {
   story?: string;
   mediaUrls?: string[];
 
+  // Join Good Project Fields
+  studentName?: string;
+  studentEmail?: string;
+  projectName?: string;
+  faculty?: string;
+  university?: string;
+  academicYear?: string;
+  aboutProject?: string;
+  projectCategory?: string;
+  projectLogoUrl?: string;
+  teamPhotoUrl?: string;
+  projectPageLink?: string;
+
   createdAt: Date;
   updatedAt: Date;
 }
@@ -45,7 +58,7 @@ const FormSubmissionSchema = new Schema<IFormSubmission>(
     formType: {
       type: String,
       required: true,
-      enum: ["join_team", "contact", "partner", "share_news"],
+      enum: ["join_team", "contact", "partner", "share_news", "join_good_project"],
       index: true,
     },
     status: {
@@ -85,6 +98,19 @@ const FormSubmissionSchema = new Schema<IFormSubmission>(
     // Share News
     story: { type: String },
     mediaUrls: { type: [String] },
+
+    // Join Good Project
+    studentName: { type: String },
+    studentEmail: { type: String },
+    projectName: { type: String },
+    faculty: { type: String },
+    university: { type: String },
+    academicYear: { type: String },
+    aboutProject: { type: String },
+    projectCategory: { type: String },
+    projectLogoUrl: { type: String },
+    teamPhotoUrl: { type: String },
+    projectPageLink: { type: String },
   },
   {
     timestamps: true,

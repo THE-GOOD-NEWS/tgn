@@ -102,6 +102,21 @@
       "beOurPartner": "Be our partner",
       "shareGoodNews": "Share your good news"
     },
+    "theGoodProject": {
+      "title": "THE GOOD PROJECT",
+      "description": "THE GOOD PROJECT is a campaign that aims to give voice to the graduation projects of Mass Communication departments across the country. As these projects need publicity, TGN provides a platform to help connect their vision to more audiences.",
+      "stats": {
+        "title": "OUR SUCCESS IN NUMBERS",
+        "audienceVal": "83K+",
+        "audienceLabel": "Audience Reached",
+        "projectsVal": "135+",
+        "projectsLabel": "Projects Showcased",
+        "universitiesVal": "40+",
+        "universitiesLabel": "Universities",
+        "studentsVal": "810+",
+        "studentsLabel": "Students Showcased"
+      }
+    },
     "multimediaSubItems": {
       "mariamVideos": "Mariam's Videos"
     }
@@ -379,6 +394,44 @@
       "resumeAs": "Resume as (Your Name - Position)",
       "notes": "Notes",
       "submit": "Submit"
+    }
+  },
+  "joinTheGoodProject": {
+    "title": "Join The Good Project",
+    "subtitle": "Be part of the change",
+    "form": {
+      "email": "Email",
+      "studentName": "Student Name",
+      "studentEmail": "Student Email",
+      "projectName": "Name of the project",
+      "faculty": "Faculty",
+      "university": "University",
+      "academicYear": "Academic Year",
+      "aboutProject": "About the Project",
+      "projectCategory": "Project Category",
+      "projectLogo": "Project Logo",
+      "teamPhoto": "Team Photo",
+      "projectPageLink": "Project Page Link",
+      "submit": "Submit",
+      "successMessage": "Application submitted successfully!",
+      "errorMessage": "Something went wrong. Please try again.",
+      "uploadInstructions": "Max 16MB (Image/Video)",
+      "years": {
+        "1st": "1st",
+        "2nd": "2nd",
+        "3rd": "3rd",
+        "4th": "4th",
+        "other": "Other"
+      },
+      "categories": {
+        "environmental": "Environmental",
+        "social": "Social",
+        "health": "Health",
+        "travelTourism": "Travel & Tourism",
+        "cultural": "Cultural",
+        "technologyAI": "Technology & AI",
+        "other": "Other"
+      }
     }
   },
   "roles": {
