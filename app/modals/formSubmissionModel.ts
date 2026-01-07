@@ -1,14 +1,20 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IFormSubmission extends Document {
-  formType: "join_team" | "contact" | "partner" | "share_news" | "join_good_project";
+  formType:
+    | "join_team"
+    | "contact"
+    | "partner"
+    | "share_news"
+    | "join_good_project"
+    | "testimonial";
   status: "pending" | "reviewed" | "archived";
-  
+
   // Common Fields
   name?: string;
   email?: string;
   phoneNumber?: string;
-  
+
   // Join Team Fields
   interestedFields?: string[];
   experience?: string;
@@ -49,6 +55,20 @@ export interface IFormSubmission extends Document {
   teamPhotoUrl?: string;
   projectPageLink?: string;
 
+  // Testimonial Fields
+  companyName?: string;
+  role?: string;
+  campaignPurpose?: string;
+  professionalismRating?: number;
+  clarityRating?: number;
+  adaptabilityRating?: number;
+  responsivenessRating?: number;
+  overallRating?: number;
+  continueWorkingRating?: number;
+  recommendRating?: number;
+  testimonialComment?: string;
+  agreeToShare?: boolean;
+
   createdAt: Date;
   updatedAt: Date;
 }
@@ -58,7 +78,14 @@ const FormSubmissionSchema = new Schema<IFormSubmission>(
     formType: {
       type: String,
       required: true,
-      enum: ["join_team", "contact", "partner", "share_news", "join_good_project"],
+      enum: [
+        "join_team",
+        "contact",
+        "partner",
+        "share_news",
+        "join_good_project",
+        "testimonial",
+      ],
       index: true,
     },
     status: {
@@ -66,12 +93,12 @@ const FormSubmissionSchema = new Schema<IFormSubmission>(
       default: "pending",
       enum: ["pending", "reviewed", "archived"],
     },
-    
+
     // Common
     name: { type: String },
     email: { type: String },
     phoneNumber: { type: String },
-    
+
     // Join Team
     interestedFields: { type: [String] },
     experience: { type: String },
@@ -111,6 +138,20 @@ const FormSubmissionSchema = new Schema<IFormSubmission>(
     projectLogoUrl: { type: String },
     teamPhotoUrl: { type: String },
     projectPageLink: { type: String },
+
+    // Testimonial
+    companyName: { type: String },
+    role: { type: String },
+    campaignPurpose: { type: String },
+    professionalismRating: { type: Number },
+    clarityRating: { type: Number },
+    adaptabilityRating: { type: Number },
+    responsivenessRating: { type: Number },
+    overallRating: { type: Number },
+    continueWorkingRating: { type: Number },
+    recommendRating: { type: Number },
+    testimonialComment: { type: String },
+    agreeToShare: { type: Boolean },
   },
   {
     timestamps: true,

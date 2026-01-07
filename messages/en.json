@@ -434,6 +434,36 @@
       }
     }
   },
+  "testimonial": {
+    "title": "Feedback Form",
+    "subtitle": "We value your feedback",
+    "form": {
+      "name": "Your Name",
+      "companyName": "Company Name",
+      "role": "Your Role",
+      "campaignPurpose": "Campaign Purpose",
+      "professionalism": "Professionalism",
+      "clarity": "Clarity and Communication",
+      "adaptability": "Understanding Your Needs and Adaptability",
+      "responsiveness": "Responsiveness",
+      "overallSatisfaction": "Overall Satisfaction",
+      "continueWorking": "How likely are you to continue working with us?",
+      "recommend": "How likely are you to recommend us to others?",
+      "comment": "Leave us a nice comment describing your experience",
+      "agreeToShare": "Note : This testimonial is to be used in TGN's social media platforms",
+      "submit": "Submit",
+      "successMessage": "Thank you for your feedback!",
+      "errorMessage": "Something went wrong. Please try again.",
+      "ratings": {
+        "professionalism": { "1": "Very Rude", "5": "Professional" },
+        "clarity": { "1": "Very Vague", "5": "Clear" },
+        "adaptability": { "1": "Not Flexible", "5": "Flexible" },
+        "responsiveness": { "1": "Very Slow", "5": "Immediate" },
+        "satisfaction": { "1": "Very Dissatisfied", "5": "Very Satisfied" },
+        "likelihood": { "1": "Very Unlikely", "5": "Very Likely" }
+      }
+    }
+  },
   "roles": {
     "founderCeoPresenter": {
       "line1": "Founder, CEO and",
@@ -557,6 +587,54 @@
     "pitchingDescription": "Learn to craft standout business pitches and sustain audience trust through authenticity in partnerships.",
     "monetizationTitle": "Monetization and Income",
     "monetizationDescription": "Explore diverse monetization streams and strategies for consistent, effortless cash flow."
+  },
+  "partners": {
+    "title": "Our Partners",
+    "subtitle": "COLLABORATING FOR IMPACT",
+    "description": "We are proud to work with organizations that share our vision for positive change and impactful storytelling. Our partners help us amplify good news and create meaningful content across various sectors.",
+    "categories": {
+      "humanitarian": "Humanitarian & NGOs",
+      "events": "Events",
+      "governate": "Government",
+      "privateSector": "Private Sector"
+    }
+  },
+  "feedback": {
+    "title": "We Value Your Feedback",
+    "subtitle": "Help us improve by sharing your experience",
+    "form": {
+      "name": "Your Name",
+      "namePlaceholder": "Enter your name",
+      "companyName": "Company Name",
+      "companyNamePlaceholder": "Enter your company name",
+      "role": "Your Role",
+      "rolePlaceholder": "Enter your role",
+      "campaignPurpose": "Campaign Purpose",
+      "campaignPurposePlaceholder": "Enter campaign purpose",
+      "comment": "Leave us a nice comment describing your experience",
+      "commentPlaceholder": "Tell us more...",
+      "agreeToShare": "Note : This testimonial is to be used in TGN's social media platforms",
+      "submit": "Submit Feedback"
+    },
+    "ratings": {
+      "title": "Rate Your Experience",
+      "professionalism": "Professionalism",
+      "professionalismDesc": "(1 very rude - 5 professional)",
+      "clarity": "Clarity and Communication",
+      "clarityDesc": "(1 very vague and confusing - 5 clear)",
+      "adaptability": "Understanding Your Needs and Adaptability",
+      "adaptabilityDesc": "(1 did not understand/not flexible - 5 flexibility and understanding)",
+      "responsiveness": "Responsiveness",
+      "responsivenessDesc": "(1 very slow - 5 immediate)",
+      "overall": "Overall Satisfaction",
+      "overallDesc": "(1 very dissatisfied - 5 very satisfied)",
+      "continueWorking": "How likely are you to continue working with us",
+      "continueWorkingDesc": "(1 very unlikely - 5 very likely)",
+      "recommend": "How likely are you to recommend us to others",
+      "recommendDesc": "(1 very unlikely - 5 very likely)"
+    },
+    "successMessage": "Thank you for your feedback!",
+    "errorMessage": "Something went wrong. Please try again."
   },
   "partners": {
     "title": "Our Partners",
