@@ -14,6 +14,21 @@ export default function JoinTeamPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cvUrl, setCvUrl] = useState<string>("");
+  const [selectedFields, setSelectedFields] = useState<string[]>([]);
+
+  const handleFieldChange = (field: string) => {
+    setSelectedFields((prev) => {
+      if (prev.includes(field)) {
+        return prev.filter((f) => f !== field);
+      } else {
+        if (prev.length < 2) {
+          return [...prev, field];
+        }
+        return prev;
+      }
+    });
+  };
+
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
@@ -231,164 +246,47 @@ export default function JoinTeamPage() {
               {t("interestedFields")}
               <span className="text-hot-pink">*</span>
             </label>
-            <div className="space-y-2">
-              <div className="flex items-start">
-                <input
-                  name="scriptwriting"
-                  type="checkbox"
-                  id="scriptwriting"
-                  className="mt-1 mr-2"
-                  disabled={isSubmitting}
-                />
-                <label
-                  htmlFor="scriptwriting"
-                  className={`${
-                    isRTL ? "font-arabic-body" : "font-english-body"
-                  }`}
-                >
-                  {t("fields.scriptwriting")}
-                </label>
-              </div>
-              <div className="flex items-start">
-                <input
-                  name="graphicDesign"
-                  type="checkbox"
-                  id="graphicDesign"
-                  className="mt-1 mr-2"
-                  disabled={isSubmitting}
-                />
-                <label
-                  htmlFor="graphicDesign"
-                  className={`${
-                    isRTL ? "font-arabic-body" : "font-english-body"
-                  }`}
-                >
-                  {t("fields.graphicDesign")}
-                </label>
-              </div>
-              <div className="flex items-start">
-                <input
-                  name="contentCreation"
-                  type="checkbox"
-                  id="contentCreation"
-                  className="mt-1 mr-2"
-                  disabled={isSubmitting}
-                />
-                <label
-                  htmlFor="contentCreation"
-                  className={`${
-                    isRTL ? "font-arabic-body" : "font-english-body"
-                  }`}
-                >
-                  {t("fields.contentCreation")}
-                </label>
-              </div>
-              <div className="flex items-start">
-                <input
-                  name="videoEditing"
-                  type="checkbox"
-                  id="videoEditing"
-                  className="mt-1 mr-2"
-                  disabled={isSubmitting}
-                />
-                <label
-                  htmlFor="videoEditing"
-                  className={`${
-                    isRTL ? "font-arabic-body" : "font-english-body"
-                  }`}
-                >
-                  {t("fields.videoEditing")}
-                </label>
-              </div>
-              <div className="flex items-start">
-                <input
-                  name="socialMedia"
-                  type="checkbox"
-                  id="socialMedia"
-                  className="mt-1 mr-2"
-                  disabled={isSubmitting}
-                />
-                <label
-                  htmlFor="socialMedia"
-                  className={`${
-                    isRTL ? "font-arabic-body" : "font-english-body"
-                  }`}
-                >
-                  {t("fields.socialMedia")}
-                </label>
-              </div>
-              <div className="flex items-start">
-                <input
-                  name="businessDevelopment"
-                  type="checkbox"
-                  id="businessDevelopment"
-                  className="mt-1 mr-2"
-                  disabled={isSubmitting}
-                />
-                <label
-                  htmlFor="businessDevelopment"
-                  className={`${
-                    isRTL ? "font-arabic-body" : "font-english-body"
-                  }`}
-                >
-                  {t("fields.businessDevelopment")}
-                </label>
-              </div>
-              <div className="flex items-start">
-                <input
-                  name="finance"
-                  type="checkbox"
-                  id="finance"
-                  className="mt-1 mr-2"
-                  disabled={isSubmitting}
-                />
-                <label
-                  htmlFor="finance"
-                  className={`${
-                    isRTL ? "font-arabic-body" : "font-english-body"
-                  }`}
-                >
-                  {t("fields.finance")}
-                </label>
-              </div>
-              <div className="flex items-start">
-                <input
-                  name="editorialWriting"
-                  type="checkbox"
-                  id="editorialWriting"
-                  className="mt-1 mr-2"
-                  disabled={isSubmitting}
-                />
-                <label
-                  htmlFor="editorialWriting"
-                  className={`${
-                    isRTL ? "font-arabic-body" : "font-english-body"
-                  }`}
-                >
-                  {t("fields.editorialWriting")}
-                </label>
-              </div>
-              <div className="flex items-start">
-                <input
-                  name="communityManagement"
-                  type="checkbox"
-                  id="communityManagement"
-                  className="mt-1 mr-2"
-                  disabled={isSubmitting}
-                />
-                <label
-                  htmlFor="communityManagement"
-                  className={`${
-                    isRTL ? "font-arabic-body" : "font-english-body"
-                  }`}
-                >
-                  {t("fields.communityManagement")}
-                </label>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500 mt-2">
+                        <p className="text-sm text-gray-500 mt-2">
               {t("fields.selectMax")}
             </p>
+            <div className="space-y-2">
+              {[
+                "scriptwriting",
+                "graphicDesign",
+                "contentCreation",
+                "videoEditing",
+                "socialMedia",
+                "businessDevelopment",
+                "finance",
+                "editorialWriting",
+                "communityManagement",
+              ].map((field) => (
+                <div key={field} className="flex items-start">
+                  <input
+                    name={field}
+                    type="checkbox"
+                    id={field}
+                    className="mt-1 mr-2"
+                    checked={selectedFields.includes(field)}
+                    onChange={() => handleFieldChange(field)}
+                    disabled={
+                      isSubmitting ||
+                      (selectedFields.length >= 2 &&
+                        !selectedFields.includes(field))
+                    }
+                  />
+                  <label
+                    htmlFor={field}
+                    className={`${
+                      isRTL ? "font-arabic-body" : "font-english-body"
+                    }`}
+                  >
+                    {t(`fields.${field}`)}
+                  </label>
+                </div>
+              ))}
+            </div>
+
           </div>
 
           {/* Experience */}
