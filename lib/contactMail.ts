@@ -50,7 +50,7 @@ export async function sendContactMail({
 </html>
 `;
     const sendResult = await transport.sendMail({
-      from: `noreply@shopwifeyforlifey.com`,
+      from: `noreply@thegoodnews-me.com`,
       to,
       subject,
       html: emailContent,
