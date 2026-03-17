@@ -32,6 +32,14 @@ export default function WorkshopsPage() {
     endDate: string;
     images?: string[];
     availableSessions?: any[];
+    instructors: string[];
+    slots: number;
+    attendance: any[];
+    location?: {
+      altText: string;
+      link: string;
+      moreDescription?: string;
+    };
   }
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
 
@@ -145,8 +153,10 @@ export default function WorkshopsPage() {
             className="w-full"
           >
             <CarouselContent className="-ml-4 flex">
-              {workshops.map((ws) => (
-                <CarouselItem key={ws._id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+              {workshops.map((ws) => {
+                const isAvailable = ws.slots > (ws.attendance?.length || 0);
+                return (
+                <CarouselItem key={ws._id} className="basis-[85%] pl-4 md:basis-1/2 lg:basis-1/3">
                <Link key={ws._id} href={`/en/workshops/${ws.slug}`} className="block group">
                 <article className="h-[400px] md:h-[350px] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-gray-200 hover:-translate-y-1 flex flex-col">
                   <div className="grid grid-cols-1 md:grid-cols-2 flex-1">
@@ -178,12 +188,15 @@ export default function WorkshopsPage() {
                       )}
                       {/* Soft divider */}
                       <div className="absolute inset-y-0 right-0 w-1 bg-white/60" />
-                      {/* Price badge */}
-                      {/* <div className="absolute top-4 left-4">
-                        <Badge className="bg-white/95 backdrop-blur-sm text-gray-800 text-xs font-bold px-3 py-1 rounded-full border-0 shadow">
-                          {ws.price} EGP
-                        </Badge>
-                      </div> */}
+                      
+                      {/* Availability Badge */}
+                      <div className="absolute top-3 left-3 z-20">
+                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm ${
+                          isAvailable ? "bg-green-500 text-white" : "bg-orange-500 text-white"
+                        }`}>
+                          {isAvailable ? "Available" : "Waitlist"}
+                        </span>
+                      </div>
                     </div>
           
                     {/* Right: Details */}
@@ -201,6 +214,12 @@ export default function WorkshopsPage() {
                         <p className="text-xs md:text-sm line-clamp-3 md:line-clamp-5 leading-relaxed font-english text-left  text-purple-600">
                           {ws.briefy}
                         </p>
+                        {ws.instructors && ws.instructors.length > 0 && (
+                          <div className="mt-1 flex items-center gap-1.5">
+                            <span className="text-[10px] text-gray-400 font-medium">With</span>
+                            <span className="text-xs font-bold text-carbon">{ws.instructors.join(" & ")}</span>
+                          </div>
+                        )}
                           <p className="text-[10px] md:text-xs  rounded">
                             {ws.availableSessions?.length || 0} {ws.availableSessions?.length === 1 ? "Session" : "Sessions"}
                           </p>
@@ -231,7 +250,8 @@ export default function WorkshopsPage() {
                   </article>
                 </Link>
               </CarouselItem>
-              ))}
+                );
+              })}
             </CarouselContent>
             <CarouselPrevious className="hidden md:flex bg-white hover:bg-hot-pink transition hover:text-white" />
             <CarouselNext className="hidden md:flex bg-white hover:bg-hot-pink transition hover:text-white" />

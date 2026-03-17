@@ -64,7 +64,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <NextIntlClientProvider messages={messages}>
         <AuthProvider>
           <Navigation />
-          <div className="overflow-x-hidden">{children}</div>
+          <div>{children}</div>
           <NewsletterPopup />
           <Footer />
           <Toaster />

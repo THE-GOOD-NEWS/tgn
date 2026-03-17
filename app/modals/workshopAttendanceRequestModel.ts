@@ -9,6 +9,8 @@ export interface IWorkshopAttendanceRequest extends Document {
   type: "available" | "waitlist";
   instapayImage: string;
   status: "pending" | "approved" | "rejected";
+  notes?: string;
+  seen: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -39,6 +41,8 @@ const WorkshopAttendanceRequestSchema = new Schema<IWorkshopAttendanceRequest>(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
+    notes: { type: String, trim: true },
+    seen: { type: Boolean, default: false },
   },
   {
     timestamps: true,

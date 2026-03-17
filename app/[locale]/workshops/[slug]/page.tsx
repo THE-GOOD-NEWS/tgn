@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState, use } from "react";
+import { useEffect, useState, use, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { CldUploadWidget } from "next-cloudinary";
+import { CldUploadWidget, CldImage } from "next-cloudinary";
 import { toast } from "sonner"; // Using sonner for toasts as found in package.json
 import {
   Accordion,
@@ -11,6 +11,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ChevronLeft, ChevronRight, X, Maximize2, Copy, Check } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 
 interface Session {
   _id?: string;
@@ -34,6 +37,13 @@ interface Workshop {
   slots: number;
   attendance: any[];
   availableSessions?: Session[];
+  location?: {
+    altText: string;
+    link: string;
+    moreDescription?: string;
+  };
+  visits: number;
+  instructors?: string[];
 }
 
 export default function WorkshopDetailsPage({
@@ -46,6 +56,9 @@ export default function WorkshopDetailsPage({
   const [workshop, setWorkshop] = useState<Workshop | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [copied, setCopied] = useState(false);
+  const iban = "EG420010013400000100070320082";
   const isAvailable = workshop ? workshop.slots > (workshop.attendance?.length || 0) : true;
 
   // Form state
@@ -55,7 +68,49 @@ export default function WorkshopDetailsPage({
     phone: "",
     howDidYouKnow: "TGN",
     instapayImage: "",
+    notes: "",
   });
+
+  const visitedRef = useRef(false);
+
+  useEffect(() => {
+    if (visitedRef.current) return;
+    visitedRef.current = true;
+
+    async function recordVisit() {
+      try {
+        await fetch(`/api/workshops/${slug}`, { method: "PATCH" });
+      } catch (err) {
+        console.error("Error recording visit:", err);
+      }
+    }
+    recordVisit();
+  }, [slug]);
+
+  const handleCopyIBAN = () => {
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(iban);
+      setCopied(true);
+      toast.success("IBAN copied to clipboard!");
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const nextImage = () => {
+    if (workshop && workshop.images) {
+      setSelectedImageIndex((prev) => 
+        prev === workshop.images.length - 1 ? 0 : (prev || 0) + 1
+      );
+    }
+  };
+
+  const prevImage = () => {
+    if (workshop && workshop.images) {
+      setSelectedImageIndex((prev) => 
+        prev === 0 ? workshop.images.length - 1 : (prev || 0) - 1
+      );
+    }
+  };
 
   useEffect(() => {
     async function fetchWorkshop() {
@@ -107,8 +162,8 @@ export default function WorkshopDetailsPage({
 
       const data = await res.json();
       if (res.ok && data.success) {
-        toast.success(isAvailable ? "Checkout request submitted successfully! We will review it shortly." : "Waitlist request submitted successfully! We will notify you if a slot becomes available.");
-        router.push("/en/workshops");
+        toast.success(isAvailable ? "Booking request submitted successfully! We will review it shortly." : "Waiting list request submitted successfully! We will notify you if a slot becomes available.");
+        router.push(`/en/workshops/success?type=${isAvailable ? "booking" : "waitlist"}`);
       } else {
         toast.error(data.message || "Failed to submit request. Please try again.");
       }
@@ -138,29 +193,134 @@ export default function WorkshopDetailsPage({
           <h1 className="text-4xl md:text-5xl font-bold font-english-heading text-carbon mb-2">
             {workshop.title}
           </h1>
-                    {workshop.images && workshop.images.length > 0 && (
+          {workshop.instructors && workshop.instructors.length > 0 && (
+            <p className="text-gray-500 font-bold flex items-center gap-2 mb-2">
+              <span className="text-sm uppercase tracking-widest opacity-60">With</span>
+              <span className="text-lg">{workshop.instructors.join(" & ")}</span>
+            </p>
+          )}
+          {workshop.images && workshop.images.length > 0 && (
             <div className="grid grid-cols-2 gap-4">
               {workshop.images.map((img, idx) => (
-                <div key={idx} className="relative aspect-video rounded overflow-hidden">
-                  <Image src={img} alt="Workshop Image" fill className="object-cover" />
-                </div>
+                <motion.div 
+                  key={idx} 
+                  layoutId={`image-${idx}`}
+                  onClick={() => setSelectedImageIndex(idx)}
+                  className="relative aspect-square rounded-2xl overflow-hidden cursor-zoom-in group shadow-md hover:shadow-xl transition-all duration-300"
+                >
+                  <CldImage 
+                    src={img} 
+                    alt={`Workshop preview ${idx + 1}`} 
+                    fill 
+                    className="object-cover transition-transform duration-500 group-hover:scale-110" 
+                    crop="fill"
+                  />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <Maximize2 className="text-white w-8 h-8" />
+                  </div>
+                </motion.div>
               ))}
             </div>
           )}
-          <div className=" mt-2 md:mt-4  shadow-sm border-b border-gray-800 pb-2">
-            <p className="text-gray-600  whitespace-pre-wrap">{new Date(workshop.startDate).toLocaleDateString("en-US", {
-                              weekday: "short",
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            })} - {new Date(workshop.endDate).toLocaleDateString("en-US", {
-                              weekday: "short",
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            })}</p>
-            <p className="text-xl font-semibold mt-2 mb-2">Price: {workshop.price} EGP</p>
-          </div>
+
+          {/* Lightbox Modal */}
+          <AnimatePresence>
+            {selectedImageIndex !== null && workshop && workshop.images && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-xl flex items-center justify-center p-4 md:p-10"
+                onClick={() => setSelectedImageIndex(null)}
+              >
+                <button 
+                  className="absolute top-6 right-6 z-[110] bg-white/10 hover:bg-white/20 p-3 rounded-full text-white transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedImageIndex(null);
+                  }}
+                >
+                  <X className="w-6 h-6" />
+                </button>
+
+                <div className="relative w-full h-full max-w-5xl max-h-[80vh] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={selectedImageIndex}
+                      initial={{ opacity: 0, x: 20, scale: 0.95 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: -20, scale: 0.95 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="relative w-full h-full"
+                    >
+                      <CldImage
+                        src={workshop.images[selectedImageIndex]}
+                        alt="Viewing workshop image"
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Navigation Controls */}
+                  {workshop.images.length > 1 && (
+                    <>
+                      <button
+                        className="absolute left-4 md:-left-16 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 p-4 rounded-full text-white transition-all hover:scale-110 z-[110]"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          prevImage();
+                        }}
+                      >
+                        <ChevronLeft className="w-8 h-8" />
+                      </button>
+                      <button
+                        className="absolute right-4 md:-right-16 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 p-4 rounded-full text-white transition-all hover:scale-110 z-[110]"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          nextImage();
+                        }}
+                      >
+                        <ChevronRight className="w-8 h-8" />
+                      </button>
+
+                      {/* Mobile Navigation */}
+                      <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-6 md:hidden">
+                         <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="p-2 text-white">
+                           <ChevronLeft className="w-8 h-8" />
+                         </button>
+                         <span className="text-white font-bold tracking-widest text-sm">
+                           {selectedImageIndex + 1} / {workshop.images.length}
+                         </span>
+                         <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="p-2 text-white">
+                           <ChevronRight className="w-8 h-8" />
+                         </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          {isAvailable && (
+            <div className=" mt-2 md:mt-4  shadow-sm border-b border-gray-800 pb-2">
+              <p className="text-gray-600  whitespace-pre-wrap">{new Date(workshop.startDate).toLocaleDateString("en-US", {
+                                weekday: "short",
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              })} - {new Date(workshop.endDate).toLocaleDateString("en-US", {
+                                weekday: "short",
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              })}</p>
+                              <Link className="text-gray-600" href={workshop.location?.link || "#"}><p> {"At"+ " "+ workshop.location?.altText}</p></Link>
+                              <p className="text-gray-400">{workshop.location?.moreDescription}</p>
+              <p className="text-xl font-semibold mt-2 mb-2">Price: {workshop.price} EGP</p>
+            </div>
+          )}
           <Accordion type="single" collapsible className="w-full space-y-1 md:space-y-2 ">
             {/* 1. Description */}
             <AccordionItem value="description" className=" shadow-sm border-b border-black overflow-hidden ">
@@ -242,12 +402,38 @@ export default function WorkshopDetailsPage({
                 How to Join
               </AccordionTrigger>
               <AccordionContent className="pb-4 text-gray-600 mt-2">
-                <ol className="list-decimal list-inside space-y-2">
+                {isAvailable ? (
+                <ol className="list-decimal list-inside space-y-4">
                   <li>Fill the request to join form with your information.</li>
-                  <li>Make the transaction amount on Instapay.</li>
+                  <li>
+                    Open Instapay, choose "Send Money", then "Bank Account" and use the IBAN below:
+                    <div className="mt-2 p-4 bg-cream rounded-2xl border border-gray-200 flex flex-col gap-2">
+                      <span className="text-[10px] uppercase font-black text-gray-400 tracking-widest">IBAN Number</span>
+                      <div className="flex items-center justify-between gap-4">
+                        <code className="text-sm font-mono text-carbon font-bold break-all select-all">{iban}</code>
+                        <button 
+                          onClick={handleCopyIBAN}
+                          className="flex-shrink-0 p-2.5 bg-white hover:bg-gray-50 rounded-xl transition-all shadow-sm border border-gray-100 active:scale-95"
+                          title="Copy IBAN"
+                        >
+                          {copied ? (
+                            <Check className="w-4 h-4 text-green-500" />
+                          ) : (
+                            <Copy className="w-4 h-4 text-hot-pink" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </li>
                   <li>Attach the screenshot of your transaction along with your filled data.</li>
                   <li>Submit to finalize your checkout request!</li>
                 </ol>
+                ) : (
+                  <ol className="list-decimal list-inside space-y-4">
+                    <li>Fill the form with your details to join the waitlist.</li>
+                    <li>We will notify you via email if a slot becomes available or when the next cohort opens!</li>
+                  </ol>
+                )}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -256,10 +442,18 @@ export default function WorkshopDetailsPage({
         </div>
 
         {/* Checkout Form Section */}
-        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 h-fit sticky top-28">
-          <h2 className="text-2xl font-bold font-english-heading text-hot-pink mb-6">
+        <div className="lg:h-full">
+          <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 h-fit sticky top-28 mt-4 lg:mt-0">
+          <h2 className="text-2xl font-bold font-english-heading text-hot-pink mb-2">
             {isAvailable ? "Request to Join" : "Join the Waitlist"}
+            {!isAvailable && (
+              <span className="text-sm text-gray-500 ml-2">(No payment is needed)</span>
+            )}
           </h2>
+          {!isAvailable && (
+            <p className="text-sm text-gray-500 mb-4">
+Joining the waitlist is free and very important for us to know how many people are interested in the workshop so we can prepare for the next cohort.            </p>
+          )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-semibold mb-1">Full Name</label>
@@ -369,6 +563,17 @@ export default function WorkshopDetailsPage({
               </div>
             )}
 
+            <div className="mt-4">
+              <label className="block text-sm font-semibold mb-1">Notes (Optional)</label>
+              <textarea
+                name="notes"
+                value={formData.notes}
+                onChange={(e) => setFormData((prev) => ({ ...prev, notes: e.target.value }))}
+                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink min-h-[100px]"
+                placeholder="Any special requests or information you'd like to share?"
+              />
+            </div>
+
             <button
               type="submit"
               disabled={submitting}
@@ -377,6 +582,7 @@ export default function WorkshopDetailsPage({
               {submitting ? "Submitting..." : isAvailable ? "Submit Checkout" : "Join Waitlist"}
             </button>
           </form>
+        </div>
         </div>
       </div>
     </div>

@@ -23,7 +23,11 @@ export interface IWorkshop extends Document {
   slug: string;
   instructors: string[];
   images: string[];     // ordered Cloudinary URLs
-  location: string;
+  location: {
+    altText: string;
+    link: string;
+    moreDescription?: string;
+  };
   briefy: string;
   description: string;
   policy?: string;
@@ -33,6 +37,8 @@ export interface IWorkshop extends Document {
   slots: number;
   attendance: IAttendance[];
   availableSessions: ISession[];
+  visits: number;
+  notes?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -73,7 +79,11 @@ const WorkshopSchema = new Schema<IWorkshop>(
     },
     instructors: { type: [String], default: [] },
     images: { type: [String], default: [] },
-    location: { type: String, required: false, trim: true },
+    location: {
+      altText: { type: String, trim: true },
+      link: { type: String, trim: true },
+      moreDescription: { type: String, trim: true },
+    },
     briefy: { type: String, required: true, trim: true },
     description: { type: String, required: true },
     policy: { type: String },
@@ -83,6 +93,8 @@ const WorkshopSchema = new Schema<IWorkshop>(
     slots: { type: Number, required: true, min: 0, default: 0 },
     attendance: { type: [AttendanceSchema], default: [] },
     availableSessions: { type: [SessionSchema], default: [] },
+    notes: { type: String },
+    visits: { type: Number, default: 0 },
   },
   {
     timestamps: true,

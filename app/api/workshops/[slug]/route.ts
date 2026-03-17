@@ -9,7 +9,6 @@ export async function GET(req: Request, { params }: Props) {
   try {
     await connectToDatabase();
     const { slug } = await params;
-    // ensure slug exists
     if (!slug) {
        return NextResponse.json(
          { success: false, message: "Missing slug" },
@@ -29,5 +28,29 @@ export async function GET(req: Request, { params }: Props) {
       { success: false, error: error.message },
       { status: 500 }
     );
+  }
+}
+
+export async function PATCH(req: Request, { params }: Props) {
+  try {
+    await connectToDatabase();
+    const { slug } = await params;
+    if (!slug) {
+      return NextResponse.json({ success: false, message: "Missing slug" }, { status: 400 });
+    }
+
+    const workshop = await WorkshopModel.findOneAndUpdate(
+      { slug: slug },
+      { $inc: { visits: 1 } },
+      { new: true }
+    );
+
+    if (!workshop) {
+      return NextResponse.json({ success: false, message: "Workshop not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, data: { visits: workshop.visits } });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
