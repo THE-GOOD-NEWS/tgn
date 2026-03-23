@@ -243,7 +243,9 @@ export function Navigation({}: NavigationProps) {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full  transition-all duration-500 ease-in-out ${
+      className={`fixed top-0 z-50 w-full transition-all duration-500 ease-in-out ${
+        pathname.includes("/the-good-space") ? "theme-good-space" : ""
+      } ${
         scrolled ? "backdrop-blur-md bg-background/60" : "bg-transparent"
       }`}
     >
@@ -264,8 +266,8 @@ export function Navigation({}: NavigationProps) {
               <Image
                 alt="The Good News Logo"
                 fill
-                className="object-cover"
-                src={"/logos/TGN_LOGOS_PNG-03.png"}
+                className="object-contain"
+                src={pathname.includes("/the-good-space") ? "/goodSpace/1.png" : "/logos/TGN_LOGOS_PNG-03.png"}
               ></Image>
             </div>
           </Link>
@@ -282,7 +284,9 @@ export function Navigation({}: NavigationProps) {
                     } ${pathname === item.href ? "text-foreground" : ""}`}
                   >
                     {item.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-hot-pink transition-all duration-300 group-hover:w-full" />
+                    <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                      pathname.includes("/the-good-space") ? "bg-primary" : "bg-hot-pink"
+                    }`} />
                   </Link>
                 ) : (
                   <>
@@ -439,7 +443,11 @@ export function Navigation({}: NavigationProps) {
                 </Button>
                 <Button
                   asChild
-                  className="button-glow bg-gradient-to-r from-hot-pink to-bright-yellow hover:shadow-lg"
+                  className={`button-glow hover:shadow-lg ${
+                    pathname.includes("/the-good-space") 
+                      ? "bg-primary text-primary-foreground" 
+                      : "bg-gradient-to-r from-hot-pink to-bright-yellow"
+                  }`}
                 >
                   <Link href={`/${locale}/auth/signup`}>{t("signup")}</Link>
                 </Button>
@@ -464,7 +472,7 @@ export function Navigation({}: NavigationProps) {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden px-4 sm:px-6 lg:px-8 w-full bg-cream border-t py-4 animate-slide-up">
+          <div className="md:hidden px-4 sm:px-6 lg:px-8 w-full bg-background border-t py-4 animate-slide-up">
             <div className="flex flex-col space-y-4">
               {/* Mobile Search */}
               {/* <div className="relative">
@@ -607,8 +615,12 @@ export function Navigation({}: NavigationProps) {
                   </Button>
                   <Button
                     asChild
-                    className="button-glow bg-gradient-to-r from-hot-pink to-bright-yellow"
-                  >
+                    className={`button-glow ${
+                      pathname.includes("/the-good-space") 
+                        ? "bg-primary text-primary-foreground" 
+                        : "bg-gradient-to-r from-hot-pink to-bright-yellow"
+                    }`}
+             >
                     <Link href={`/${locale}/auth/signup`}>{t("signup")}</Link>
                   </Button>
                 </div>

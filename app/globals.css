@@ -168,6 +168,28 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   } */
+
+  .theme-good-space {
+    --background: 32 36% 92%; /* #F2EAE1 */
+    --foreground: 358 53% 23%;   /* #3D3D3D */
+    --card: 29 33% 77%;       /* #D9C5B2 */
+    --card-foreground: 0 0% 24%;
+    --popover: 32 36% 92%;
+    --popover-foreground: 0 0% 24%;
+    --primary: 358 53% 23%;    /* #5B1C1E */
+    --primary-foreground: 32 36% 92%;
+    --secondary: 130 5% 53%;   /* #828E84 */
+    --secondary-foreground: 32 36% 92%;
+    --muted: 140 13% 26%;     /* #3A4C40 */
+    --muted-foreground: 0 0% 24%;
+    --accent: 6 24% 61%;      /* #B48A85 */
+    --accent-foreground: 32 36% 92%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 29 33% 77%;
+    --input: 29 33% 77%;
+    --ring: 358 53% 23%;
+  }
 }
 
 @layer base {

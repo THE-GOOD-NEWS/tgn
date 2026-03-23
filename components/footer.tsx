@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Facebook,
@@ -18,6 +19,7 @@ import { FaTiktok } from "react-icons/fa";
 
 export function Footer() {
   const locale = useLocale();
+  const pathname = usePathname() || "";
   const t = useTranslations("footer");
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState("");
@@ -58,7 +60,11 @@ export function Footer() {
   const isRTL = locale === "ar";
 
   return (
-    <footer className="bg-gradient-to-br from-cream/20 to-hot-pink/10 border-t">
+    <footer className={`border-t ${
+      pathname.includes("/the-good-space") 
+        ? "theme-good-space bg-background" 
+        : "bg-gradient-to-br from-cream/20 to-hot-pink/10"
+    }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div
           dir={isRTL ? "rtl" : "ltr"}
@@ -74,14 +80,14 @@ export function Footer() {
                 <Image
                   alt="The Good News Logo"
                   fill
-                  className="object-cover"
-                  src="/logos/TGN_LOGOS_PNG-03.png"
+                  className="object-contain"
+                  src={pathname.includes("/the-good-space") ? "/goodSpace/1.png" : "/logos/TGN_LOGOS_PNG-03.png"}
                 />
               </div>
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+           { !pathname.includes("/the-good-space") &&<p className="text-sm text-muted-foreground leading-relaxed">
               {t("brand.description")}
-            </p>
+            </p>}
             <div className="flex space-x-4 rtl:space-x-reverse">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
@@ -89,7 +95,7 @@ export function Footer() {
                   <Link
                     key={social.label}
                     href={social.href}
-                    className="text-muted-foreground hover:text-hot-pink transition-colors transform hover:scale-110 duration-200"
+                    className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
                     aria-label={social.label}
                   >
                     <Icon className="h-5 w-5" />
@@ -125,7 +131,7 @@ export function Footer() {
             </h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3 rtl:space-x-reverse text-sm text-muted-foreground">
-                <Mail className="h-4 w-4 text-hot-pink" />
+                <Mail className="h-4 w-4 text-primary" />
                 <span>info@thegoodnews-me.com</span>
               </div>
               {/* <div className="flex items-center space-x-3 rtl:space-x-reverse text-sm text-muted-foreground">
@@ -185,12 +191,16 @@ export function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t("newsletter.placeholder")}
-                  className="flex-1 px-3 py-2 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink/50"
+                  className="flex-1 px-3 py-2 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="px-4 py-2 bg-gradient-to-r from-hot-pink to-bright-yellow text-white text-sm font-medium rounded-md hover:shadow-lg transition-all duration-300 button-glow disabled:opacity-70"
+                  className={`px-4 py-2 text-white text-sm font-medium rounded-md hover:shadow-lg transition-all duration-300 button-glow disabled:opacity-70 ${
+                    pathname.includes("/the-good-space") 
+                      ? "bg-primary text-primary-foreground" 
+                      : "bg-gradient-to-r from-hot-pink to-bright-yellow"
+                  }`}
                 >
                   {status === "loading" ? (locale === "ar" ? "جارٍ الاشتراك..." : "Subscribing...") : t("newsletter.subscribe")}
                 </button>
