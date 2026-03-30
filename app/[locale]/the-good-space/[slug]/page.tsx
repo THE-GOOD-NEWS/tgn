@@ -101,9 +101,9 @@ export default function WorkshopDetailsPage({
 
   const handleCopyIBAN = () => {
     if (typeof window !== "undefined") {
-      navigator.clipboard.writeText(iban);
+      navigator.clipboard.writeText("100070320082");
       setCopied(true);
-      toast.success("IBAN copied to clipboard!");
+      toast.success("Account Number copied to clipboard!");
       setTimeout(() => setCopied(false), 2000);
     }
   };
@@ -353,11 +353,11 @@ export default function WorkshopDetailsPage({
                 <ol className="list-decimal list-inside space-y-4">
                   <li>Fill the request to join form with your information.</li>
                   <li>
-                    Open Instapay, choose "Send Money", then "Bank Account" and use the IBAN below:
+                    Open Instapay, choose "Send Money", then "Bank Account" and use the Account Number below:
                     <div className="mt-2 p-4 bg-background rounded-2xl border border-gray-200 flex flex-col gap-2">
-                      <span className="text-[10px] uppercase font-black text-gray-400 tracking-widest">IBAN Number</span>
+                      <span className="text-[10px] uppercase font-black text-gray-400 tracking-widest">Account Number</span>
                       <div className="flex items-center justify-between gap-4">
-                        <code className="text-sm font-mono text-foreground font-bold break-all select-all">{iban}</code>
+                        <code className="text-sm font-mono text-foreground font-bold break-all select-all">{100070320082}</code>
                         <button 
                           onClick={handleCopyIBAN}
                           className="flex-shrink-0 p-2.5 bg-white hover:bg-gray-50 rounded-xl transition-all shadow-sm border border-gray-100 active:scale-95"
@@ -370,6 +370,7 @@ export default function WorkshopDetailsPage({
                           )}
                         </button>
                       </div>
+                      <span className="text-[10px] uppercase font-black text-gray-400 tracking-widest">Select CIB and Write GOOD MEDIA GROUP in receiver</span>
                     </div>
                   </li>
                   <li>Attach the screenshot of your transaction along with your filled data.</li>
@@ -524,11 +525,11 @@ Joining the waitlist is free and very important for us to know how many people a
               <div>
                 <label className="block text-sm font-semibold mb-2">Instapay Transaction Status / Image</label>
                                   <li>
-                    Open Instapay, choose "Send Money", then "Bank Account" and use the IBAN below:
+                    Open Instapay, choose "Send Money", then "Bank Account" and use the Account Number below:
                     <div className="mt-2 p-4 bg-background rounded-2xl border border-gray-200 flex flex-col gap-2">
-                      <span className="text-[10px] uppercase font-black text-gray-400 tracking-widest">IBAN Number</span>
+                      <span className="text-[10px] uppercase font-black text-gray-400 tracking-widest">Account Number</span>
                       <div className="flex items-center justify-between gap-4">
-                        <code className="text-sm font-mono text-foreground font-bold break-all select-all">{iban}</code>
+                        <code className="text-sm font-mono text-foreground font-bold break-all select-all">100070320082</code>
                         <button 
                           onClick={handleCopyIBAN}
                           className="flex-shrink-0 p-2.5 bg-white hover:bg-gray-50 rounded-xl transition-all shadow-sm border border-gray-100 active:scale-95"
@@ -541,6 +542,7 @@ Joining the waitlist is free and very important for us to know how many people a
                           )}
                         </button>
                       </div>
+                      <span className="text-[10px] uppercase font-black text-gray-400 tracking-widest">Select CIB and Write GOOD MEDIA GROUP in receiver</span>
                     </div>
                   </li>
                 {formData.instapayImage ? (
