@@ -255,6 +255,8 @@ export default function TheGoodSpacePage() {
           <p className="text-center text-gray-500 font-english py-10">Check back soon for upcoming sessions!</p>
         )}
       </section>
+      
+      
       {/* Intro Context */}
       <section className="max-w-4xl mx-auto mb-24 px-6 md:px-12 py-12 bg-primary/10 rounded-[2rem] border-2 border-dashed border-primary/20 relative overflow-hidden shadow-sm">
         <div className="absolute top-0 left-0 w-24 h-24 bg-primary/5 rounded-full -translate-x-12 -translate-y-12"></div>

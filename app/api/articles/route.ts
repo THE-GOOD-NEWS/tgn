@@ -23,7 +23,7 @@ export async function GET(request: Request) {
     const articles = await ArticleModel.find(query)
       .populate("categories", "titleEn titleAr slug")
       .populate("author", "firstName lastName username email")
-      .sort({ publishedAt: -1, createdAt: -1 })
+      .sort({  createdAt: -1 })
       .limit(limit);
 
     return NextResponse.json({ articles });
