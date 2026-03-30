@@ -374,7 +374,7 @@ export default function TheGoodSpacePage() {
       </section>
 
       {/* Pilot Phase Section */}
-      {/* <section className="max-w-6xl mx-auto mb-24">
+       <section className="max-w-6xl mx-auto mb-24">
         <div className="bg-white text-black rounded-[3rem] p-10 md:p-16 relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full translate-x-32 -translate-y-32"></div>
           
@@ -384,7 +384,7 @@ export default function TheGoodSpacePage() {
                 <Home size={16} />
                 PILOT PHASE
               </div>
-              <h2 className="text-4xl md:text-5xl font-black font-english-heading mb-6 tracking-tight">
+              <h2 className="text-4xl md:text-5xl text-primary font-english-heading mb-6 tracking-tight">
                 Our First Home
               </h2>
               <p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-english italic">
@@ -393,18 +393,17 @@ export default function TheGoodSpacePage() {
             </div>
             <div className="w-full md:w-1/3 flex justify-center">
                <div className="relative w-48 h-48 md:w-64 md:h-64">
-                  <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse blur-3xl opacity-20"></div>
-                  <div className="relative z-10 w-full h-full border-4 border-primary rounded-full flex items-center justify-center p-8 bg-foreground shadow-2xl">
-                     <div className="text-center">
-                        <span className="block text-4xl md:text-5xl font-black text-white">B87</span>
-                        <span className="block text-primary font-bold mt-1">SPACE</span>
-                     </div>
-                  </div>
+                  <Image
+                    src="/goodSpace/b87/B87Artboard 1.png"
+                    alt="B87 Logo"
+                    fill
+                    className="object-contain"
+                  />
                </div>
             </div>
           </div>
         </div>
-      </section> */}
+      </section> 
 
       {/* Our Belief Section */}
       <section className="max-w-4xl mx-auto mb-24 text-center">

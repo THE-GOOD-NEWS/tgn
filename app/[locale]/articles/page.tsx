@@ -54,9 +54,9 @@ export default async function ArticlesPage({ params, searchParams }: any) {
   const totalPages = Math.ceil(totalArticles / limit);
   console.log("registering" + UserModel + ArticleCategoryModel);
   const articlesFromDb = await ArticleModel.find(query)
-    .sort({ publishedAt: -1 })
     .skip(skip)
     .limit(limit)
+    .sort({ createdAt: -1 })
     .populate("categories", "titleEn titleAr slug")
     .populate("author", "firstName lastName username email")
     .lean({ virtuals: true });

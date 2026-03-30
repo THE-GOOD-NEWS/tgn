@@ -192,7 +192,7 @@ export function Navigation({}: NavigationProps) {
     // },
     {
       href: `/${locale}/the-good-space`,
-      label: "the Good Space",
+      label: "The Good Space",
       type: "link",
     },
 
@@ -347,7 +347,7 @@ export function Navigation({}: NavigationProps) {
                                   <Link
                                     key={childIndex}
                                     href={child.href || "#"}
-                                    className={`block px-2 py-1 text-sm rounded transition-colors hover:bg-muted hover:text-foreground ${
+                                    className={`block px-2 py-1 text-sm rounded transition-colors hover:bg-cream hover:text-foreground ${
                                       locale === "ar"
                                         ? "font-body-ar text-right"
                                         : "font-body-en text-left"
@@ -366,7 +366,7 @@ export function Navigation({}: NavigationProps) {
                             <Link
                               key={subIndex}
                               href={subItem.href || "#"}
-                              className={`block px-4 py-2 text-sm transition-colors hover:bg-muted hover:text-foreground ${
+                              className={`block px-4 py-2 text-sm transition-colors hover:bg-cream hover:text-foreground ${
                                 locale === "ar"
                                   ? "font-body-ar text-right"
                                   : "font-body-en text-left"
