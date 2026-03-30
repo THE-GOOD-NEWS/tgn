@@ -591,7 +591,7 @@ export default function BeFacilitatorPage() {
               className="opacity-50 grayscale hover:grayscale-0 transition-all cursor-pointer"
            />
            <p className="text-xs text-gray-400 font-bold tracking-widest uppercase">
-             The Good Space © 2024 — Growth Doesn't Have To Be Loud
+             The Good Space © 2026 — Growth Doesn't Have To Be Loud
            </p>
         </motion.div>
       </div>

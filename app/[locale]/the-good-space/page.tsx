@@ -392,14 +392,14 @@ export default function TheGoodSpacePage() {
               </p>
             </div>
             <div className="w-full md:w-1/3 flex justify-center">
-               <div className="relative w-48 h-48 md:w-64 md:h-64">
+               <Link href="https://b87spaces.com/" target="_blank" className="relative w-48 h-48 md:w-64 md:h-64">
                   <Image
                     src="/goodSpace/b87/B87Artboard 1.png"
                     alt="B87 Logo"
                     fill
                     className="object-contain"
                   />
-               </div>
+               </Link>
             </div>
           </div>
         </div>
