@@ -156,7 +156,7 @@ export default function WorkshopDetailsPage({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.phone || (isAvailable && !formData.instapayImage)) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.notes || (isAvailable && !formData.instapayImage)) {
       toast.error(isAvailable ? "Please fill all fields and upload the instapay receipt." : "Please fill all fields.");
       return;
     }
@@ -595,13 +595,14 @@ Joining the waitlist is free and very important for us to know how many people a
             )}
 
             <div className="mt-4">
-              <label className="block text-sm font-semibold mb-1">What do you expect to learn from this workshop? (Optional)</label>
+              <label className="block text-sm font-semibold mb-1">What do you expect to learn from this workshop? (Mandatory)</label>
               <textarea
                 name="notes"
+                required
                 value={formData.notes}
                 onChange={(e) => setFormData((prev) => ({ ...prev, notes: e.target.value }))}
                 className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary min-h-[100px]"
-                placeholder="Any special requests or information you'd like to share?"
+                placeholder=""
               />
             </div>
 
