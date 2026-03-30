@@ -191,8 +191,8 @@ export function Navigation({}: NavigationProps) {
     //   type: "link",
     // },
     {
-      href: `/${locale}/workshops`,
-      label: t("opportunitiesSubItems.workshops"),
+      href: `/${locale}/the-good-space`,
+      label: "the Good Space",
       type: "link",
     },
 
