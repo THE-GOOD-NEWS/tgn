@@ -361,7 +361,7 @@ export default function WorkshopDetailsPage({
                         <button 
                           onClick={handleCopyIBAN}
                           className="flex-shrink-0 p-2.5 bg-white hover:bg-gray-50 rounded-xl transition-all shadow-sm border border-gray-100 active:scale-95"
-                          title="Copy IBAN"
+                          title="Copy Account Number"
                         >
                           {copied ? (
                             <Check className="w-4 h-4 text-green-500" />
@@ -533,7 +533,7 @@ Joining the waitlist is free and very important for us to know how many people a
                         <button 
                           onClick={handleCopyIBAN}
                           className="flex-shrink-0 p-2.5 bg-white hover:bg-gray-50 rounded-xl transition-all shadow-sm border border-gray-100 active:scale-95"
-                          title="Copy IBAN"
+                          title="Copy Account Number"
                         >
                           {copied ? (
                             <Check className="w-4 h-4 text-green-500" />
