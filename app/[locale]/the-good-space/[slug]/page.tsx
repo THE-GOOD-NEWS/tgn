@@ -36,6 +36,7 @@ interface Workshop {
   images: string[];
   slots: number;
   attendance: any[];
+  pendingRequests?: number;
   availableSessions?: Session[];
   location?: {
     altText: string;
@@ -59,7 +60,18 @@ export default function WorkshopDetailsPage({
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
   const iban = "EG420010013400000100070320082";
-  const isAvailable = workshop ? workshop.slots > (workshop.attendance?.length || 0) : true;
+  const isAvailable = workshop ? workshop.slots > (workshop.attendance?.length || 0) + (workshop.pendingRequests || 0) : true;
+
+  const formatDuration = (minutes: number) => {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    
+    const parts = [];
+    if (hours > 0) parts.push(`${hours} hour${hours > 1 ? 's' : ''}`);
+    if (remainingMinutes > 0) parts.push(`${remainingMinutes} minute${remainingMinutes > 1 ? 's' : ''}`);
+    
+    return parts.join(" ");
+  };
 
   // Form state
   const [formData, setFormData] = useState({
@@ -121,10 +133,10 @@ export default function WorkshopDetailsPage({
           if (data.success) {
             setWorkshop(data.data);
           } else {
-            router.push("/en/workshops");
+            router.push("/en/the-good-space");
           }
         } else {
-          router.push("/en/workshops");
+          router.push("/en/the-good-space");
         }
       } catch (err) {
         console.error("Error fetching workshop:", err);
@@ -163,7 +175,7 @@ export default function WorkshopDetailsPage({
       const data = await res.json();
       if (res.ok && data.success) {
         toast.success(isAvailable ? "Booking request submitted successfully! We will review it shortly." : "Waiting list request submitted successfully! We will notify you if a slot becomes available.");
-        router.push(`/en/workshops/success?type=${isAvailable ? "booking" : "waitlist"}`);
+        router.push(`/en/the-good-space/success?type=${isAvailable ? "booking" : "waitlist"}`);
       } else {
         toast.error(data.message || "Failed to submit request. Please try again.");
       }
@@ -331,73 +343,8 @@ export default function WorkshopDetailsPage({
                 <p className="text-gray-600 whitespace-pre-wrap mt-2">{workshop.description}</p>
               </AccordionContent>
             </AccordionItem>
-
-            {/* 2. Sessions */}
-            {workshop.availableSessions && workshop.availableSessions.length > 0 && (
-              <AccordionItem value="sessions" className="  shadow-sm border-b border-black overflow-hidden ">
-                <AccordionTrigger className="text-xl font-bold font-english-heading hover:no-underline hover:text-primary transition-colors">
-                  Sessions
-                </AccordionTrigger>
-                <AccordionContent className="pb-4">
-                  <Accordion type="single" collapsible className="w-full space-y-4 mt-2">
-                    {workshop.availableSessions.map((session, idx) => (
-                      <AccordionItem
-                        key={session._id || idx.toString()}
-                        value={session._id || idx.toString()}
-                        className=" shadow-sm   overflow-hidden "
-                      >
-                        <AccordionTrigger className="text-lg font-semibold py-4 hover:no-underline hover:text-primary transition-colors">
-                          {session.title}
-                        </AccordionTrigger>
-                        <AccordionContent className="pb-4 text-sm text-gray-600 space-y-1">
-                          <p>
-                            <span className="font-semibold text-foreground">Date:</span>{" "}
-                            {new Date(session.sessionStartDate).toLocaleDateString("en-US", {
-                              weekday: "short",
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            })}
-                            {session.startTime && ` at ${session.startTime}`}
-                          </p>
-                          {session.duration && session.duration > 0 && (
-                            <p>
-                              <span className="font-semibold text-foreground">Duration:</span> {session.duration} minutes
-                            </p>
-                          )}
-                          {session.includes && session.includes.length > 0 && (
-                            <div className="mt-2">
-                              <span className="font-semibold text-foreground">Includes:</span>
-                              <ul className="list-disc list-inside ml-2 mt-1 space-y-1">
-                                {session.includes.map((item, i) => (
-                                  <li key={i}>{item}</li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                          {session.description && (
-                            <p className="mt-3 text-gray-700">{session.description}</p>
-                          )}
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                </AccordionContent>
-              </AccordionItem>
-            )}
-
-            {/* 3. Refund Policy */}
-            <AccordionItem value="refund-policy" className=" shadow-sm border-b border-black overflow-hidden ">
-              <AccordionTrigger className="text-xl font-bold font-english-heading hover:no-underline hover:text-primary transition-colors">
-                Refund Policy
-              </AccordionTrigger>
-              <AccordionContent className="pb-4 text-gray-600 mt-2">
-                Contact us to cancel your appointment three days before the workshop starts.
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* 4. How to Join */}
-            <AccordionItem value="how-to-join" className=" rounded-lg shadow-sm border border-gray-100 overflow-hidden ">
+                      {/* 4. How to Join */}
+            <AccordionItem value="how-to-join" className="  shadow-sm  border-primary border-b overflow-hidden ">
               <AccordionTrigger className="text-xl font-bold font-english-heading hover:no-underline hover:text-primary transition-colors">
                 How to Join
               </AccordionTrigger>
@@ -436,6 +383,70 @@ export default function WorkshopDetailsPage({
                 )}
               </AccordionContent>
             </AccordionItem>
+            {/* 2. Sessions */}
+            {workshop.availableSessions && workshop.availableSessions.length > 0 && (
+              <AccordionItem value="sessions" className="  shadow-sm border-b border-black overflow-hidden ">
+                <AccordionTrigger className="text-xl font-bold font-english-heading hover:no-underline hover:text-primary transition-colors">
+                  Sessions
+                </AccordionTrigger>
+                <AccordionContent className="pb-4">
+                  <Accordion type="single" collapsible className="w-full space-y-4 mt-2">
+                    {workshop.availableSessions.map((session, idx) => (
+                      <AccordionItem
+                        key={session._id || idx.toString()}
+                        value={session._id || idx.toString()}
+                        className=" shadow-sm   overflow-hidden "
+                      >
+                        <AccordionTrigger className="text-lg font-semibold py-4 hover:no-underline hover:text-primary transition-colors">
+                          {session.title}
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-4 text-sm text-gray-600 space-y-1">
+                          <p>
+                            <span className="font-semibold text-foreground">Date:</span>{" "}
+                            {new Date(session.sessionStartDate).toLocaleDateString("en-US", {
+                              weekday: "short",
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })}
+                            {session.startTime && ` at ${session.startTime}`}
+                          </p>
+                          {session.duration && session.duration > 0 && (
+                            <p>
+                              <span className="font-semibold text-foreground">Duration:</span> {formatDuration(session.duration)}
+                            </p>
+                          )}
+                          {session.includes && session.includes.length > 0 && (
+                            <div className="mt-2">
+                              <span className="font-semibold text-foreground">Includes:</span>
+                              <ul className="list-disc list-inside ml-2 mt-1 space-y-1">
+                                {session.includes.map((item, i) => (
+                                  <li key={i}>{item}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {session.description && (
+                            <p className="mt-3 text-gray-700">{session.description}</p>
+                          )}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </AccordionContent>
+              </AccordionItem>
+            )}
+
+            {/* 3. Refund Policy */}
+            <AccordionItem value="refund-policy" className=" shadow-sm border-b border-black overflow-hidden ">
+              <AccordionTrigger className="text-xl font-bold font-english-heading hover:no-underline hover:text-primary transition-colors">
+                Refund Policy
+              </AccordionTrigger>
+              <AccordionContent className="pb-4 text-gray-600 mt-2">
+Life happens. If you need to cancel, we offer a full refund up to 5 days before your workshop — or you can transfer your seat to any upcoming Good Space session instead. After the 5 day window, only the transfer option is available.              </AccordionContent>
+            </AccordionItem>
+
+
           </Accordion>
 
 
@@ -512,6 +523,26 @@ Joining the waitlist is free and very important for us to know how many people a
             {isAvailable && (
               <div>
                 <label className="block text-sm font-semibold mb-2">Instapay Transaction Status / Image</label>
+                                  <li>
+                    Open Instapay, choose "Send Money", then "Bank Account" and use the IBAN below:
+                    <div className="mt-2 p-4 bg-background rounded-2xl border border-gray-200 flex flex-col gap-2">
+                      <span className="text-[10px] uppercase font-black text-gray-400 tracking-widest">IBAN Number</span>
+                      <div className="flex items-center justify-between gap-4">
+                        <code className="text-sm font-mono text-foreground font-bold break-all select-all">{iban}</code>
+                        <button 
+                          onClick={handleCopyIBAN}
+                          className="flex-shrink-0 p-2.5 bg-white hover:bg-gray-50 rounded-xl transition-all shadow-sm border border-gray-100 active:scale-95"
+                          title="Copy IBAN"
+                        >
+                          {copied ? (
+                            <Check className="w-4 h-4 text-green-500" />
+                          ) : (
+                            <Copy className="w-4 h-4 text-primary" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </li>
                 {formData.instapayImage ? (
                   <div className="relative w-full aspect-video border rounded-md overflow-hidden bg-background">
                     <Image src={formData.instapayImage} alt="Instapay receipt" fill className="object-contain" />
@@ -553,7 +584,7 @@ Joining the waitlist is free and very important for us to know how many people a
                       <button
                         type="button"
                         onClick={() => open()}
-                        className="w-full py-4 border-2 border-dashed border-gray-300 rounded-md text-gray-500 hover:border-primary hover:text-primary transition-colors focus:outline-none"
+                        className="w-full py-4 mt-2 border-2 border-dashed border-primary/80 rounded-md text-gray-500 hover:border-primary hover:text-primary transition-colors focus:outline-none"
                       >
                         Click to upload Instapay receipt
                       </button>
@@ -564,7 +595,7 @@ Joining the waitlist is free and very important for us to know how many people a
             )}
 
             <div className="mt-4">
-              <label className="block text-sm font-semibold mb-1">Notes (Optional)</label>
+              <label className="block text-sm font-semibold mb-1">What do you expect to learn from this workshop? (Optional)</label>
               <textarea
                 name="notes"
                 value={formData.notes}

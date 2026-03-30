@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Footer } from "@/components/footer";
 import { AuthProvider } from "../providers/AuthProvider";
 import { Toaster } from "@/components/ui/sonner";
-import NewsletterPopup from "./components/NewsletterPopup";
+import PopupManager from "./components/PopupManager";
 
 type Props = {
   children: React.ReactNode;
@@ -65,7 +65,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <AuthProvider>
           <Navigation />
           <div>{children}</div>
-          <NewsletterPopup />
+          <PopupManager />
           <Footer />
           <Toaster />
         </AuthProvider>

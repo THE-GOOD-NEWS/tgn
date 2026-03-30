@@ -61,6 +61,47 @@
   font-display: swap;
 }
 
+/* Good Space Fonts */
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/theGoodSpace/CormorantGaramond-VariableFont_wght.ttf") format("truetype");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/theGoodSpace/Lato/Lato-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/theGoodSpace/Lato/Lato-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/theGoodSpace/Lato/Lato-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/theGoodSpace/Lato/Lato-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Font utility classes for internationalization */
 @layer utilities {
   /* Arabic Font Classes */
@@ -189,6 +230,19 @@
     --border: 29 33% 77%;
     --input: 29 33% 77%;
     --ring: 358 53% 23%;
+
+    /* Theme Fonts */
+    --font-heading: "Cormorant Garamond", serif;
+    --font-subheading: "Lato", sans-serif;
+  }
+
+  /* Apply theme fonts to headings and subheadings within the theme */
+  .theme-good-space .font-english-heading {
+    font-family: var(--font-heading) !important;
+  }
+
+  .theme-good-space .font-english-subheading {
+    font-family: var(--font-subheading) !important;
   }
 }
 
@@ -219,6 +273,13 @@
   [dir="rtl"] .ltr-content {
     direction: ltr;
     text-align: left;
+  }
+
+  /* Prevent browser from automatically darkening inputs in dark mode */
+  input, textarea, select {
+    color-scheme: light !important;
+    background-color: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
   }
 }
 

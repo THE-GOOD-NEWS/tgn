@@ -61,6 +61,17 @@ export default function WorkshopDetailsPage({
   const iban = "EG420010013400000100070320082";
   const isAvailable = workshop ? workshop.slots > (workshop.attendance?.length || 0) : true;
 
+  const formatDuration = (minutes: number) => {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    
+    const parts = [];
+    if (hours > 0) parts.push(`${hours} hour${hours > 1 ? 's' : ''}`);
+    if (remainingMinutes > 0) parts.push(`${remainingMinutes} minute${remainingMinutes > 1 ? 's' : ''}`);
+    
+    return parts.join(" ");
+  };
+
   // Form state
   const [formData, setFormData] = useState({
     name: "",
@@ -362,7 +373,7 @@ export default function WorkshopDetailsPage({
                           </p>
                           {session.duration && session.duration > 0 && (
                             <p>
-                              <span className="font-semibold text-carbon">Duration:</span> {session.duration} minutes
+                              <span className="font-semibold text-carbon">Duration:</span> {formatDuration(session.duration)}
                             </p>
                           )}
                           {session.includes && session.includes.length > 0 && (

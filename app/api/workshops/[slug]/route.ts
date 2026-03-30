@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/utils/mongodb";
 import WorkshopModel from "@/app/modals/workshopModel";
+import WorkshopAttendanceRequestModel from "@/app/modals/workshopAttendanceRequestModel";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -15,14 +16,25 @@ export async function GET(req: Request, { params }: Props) {
          { status: 400 }
        );
     }
-    const workshop = await WorkshopModel.findOne({ slug: slug });
+    const workshop = (await WorkshopModel.findOne({ slug: slug }).lean()) as any;
     if (!workshop) {
       return NextResponse.json(
         { success: false, message: "Workshop not found" },
         { status: 404 }
       );
     }
-    return NextResponse.json({ success: true, data: workshop });
+
+    // Fetch counts of pending "available" requests for this workshop
+    const pendingCount = await WorkshopAttendanceRequestModel.countDocuments({
+      workshopId: workshop._id,
+      status: "pending",
+      type: "available"
+    });
+
+    return NextResponse.json({ 
+      success: true, 
+      data: { ...workshop, pendingRequests: pendingCount } 
+    });
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message },

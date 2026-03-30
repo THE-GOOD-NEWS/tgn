@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const email = (body?.email || "").trim().toLowerCase();
+    const subject = body?.subject || null;
 
     if (!email || !isValidEmail(email)) {
       return NextResponse.json({ error: "invalid_email" }, { status: 400 });
@@ -46,15 +47,23 @@ export async function POST(request: NextRequest) {
 
     let brevo = { ok: false } as { ok: boolean; status?: number; data?: any };
 
-    if (apiKey && listId) {
+    if (apiKey && (listId || subject === "the good space")) {
       try {
+        const listIds = [];
+        if (listId) listIds.push(listId);
+        if (subject === "the good space") listIds.push(12);
+
         const res = await fetch("https://api.brevo.com/v3/contacts", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "api-key": apiKey,
           },
-          body: JSON.stringify({ email, listIds: [listId], updateEnabled: true }),
+          body: JSON.stringify({
+            email,
+            listIds: listIds,
+            updateEnabled: true,
+          }),
         });
 
         const data = await res.json().catch(() => undefined);
