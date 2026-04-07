@@ -41,6 +41,7 @@ export interface IWorkshop extends Document {
   notes?: string;
   createdAt: Date;
   updatedAt: Date;
+  status: "active" | "archived" | "coming soon" | "draft";
 }
 
 // ─── Session Schema ───────────────────────────────────────────────────────────
@@ -95,6 +96,11 @@ const WorkshopSchema = new Schema<IWorkshop>(
     availableSessions: { type: [SessionSchema], default: [] },
     notes: { type: String },
     visits: { type: Number, default: 0 },
+    status: {
+      type: String,
+      enum: ["active", "archived", "coming soon", "draft"],
+      default: "draft",
+    },
   },
   {
     timestamps: true,

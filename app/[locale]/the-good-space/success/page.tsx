@@ -11,6 +11,7 @@ function SuccessContent() {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
   const isWaitlist = type === "waitlist";
+  const isComingSoon = type === "coming soon";
   const isFacilitator = type === "be_facilitator";
 
   return (
@@ -40,11 +41,13 @@ function SuccessContent() {
           </div>
 
           <h1 className="text-4xl md:text-5xl font-black font-english-heading text-primary mb-4 tracking-tight text-center">
-            {isWaitlist ? "Request Received" : isFacilitator ? "Application Received" : "Thank You!"}
+            {isComingSoon ? "Request Received" : isWaitlist ? "Request Received" : isFacilitator ? "Application Received" : "Thank You!"}
           </h1>
 
           <p className="text-lg md:text-xl text-foreground/80 leading-relaxed font-english  max-w-lg">
-            {isWaitlist 
+            {isComingSoon 
+              ? "Your request has been submitted and we will notify you when it's available"
+              : isWaitlist 
               ? "Your request for the waiting list has been submitted successfully. We'll notify you if a slot becomes available!"
               : isFacilitator 
               ? "Your facilitator application has been submitted successfully. We'll review your details and get back to you soon!"

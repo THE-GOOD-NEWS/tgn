@@ -16,7 +16,7 @@ export async function GET(req: Request, { params }: Props) {
          { status: 400 }
        );
     }
-    const workshop = (await WorkshopModel.findOne({ slug: slug }).lean()) as any;
+    const workshop = (await WorkshopModel.findOne({ slug: slug, status: { $in: ["active", "coming soon"] } }).lean()) as any;
     if (!workshop) {
       return NextResponse.json(
         { success: false, message: "Workshop not found" },

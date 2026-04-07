@@ -6,7 +6,8 @@ import WorkshopAttendanceRequestModel from "@/app/modals/workshopAttendanceReque
 export async function GET() {
   try {
     await connectToDatabase();
-    const workshops = await WorkshopModel.find({test:false}).sort({ startDate: 1 }).lean();
+
+    const workshops = await WorkshopModel.find({ status: { $in: ["active", "coming soon"] } }).sort({ createdAt: -1 }).lean();
     
     // Fetch counts of pending "available" requests for each workshop
     const workshopsWithPending = await Promise.all(
