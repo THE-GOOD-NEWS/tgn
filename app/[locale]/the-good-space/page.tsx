@@ -41,11 +41,14 @@ interface Workshop {
     link: string;
     moreDescription?: string;
   };
+  status?: string;
 }
 
 export default function TheGoodSpacePage() {
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
   const [loadingWorkshops, setLoadingWorkshops] = useState(true);
+  const [packages, setPackages] = useState<any[]>([]);
+  const [loadingPackages, setLoadingPackages] = useState(true);
 
   useEffect(() => {
     async function fetchWorkshops() {
@@ -64,6 +67,25 @@ export default function TheGoodSpacePage() {
       }
     }
     fetchWorkshops();
+  }, []);
+
+  useEffect(() => {
+    async function fetchPackages() {
+      try {
+        const res = await fetch("/api/workshop-packages");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            setPackages(data.data);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch packages", err);
+      } finally {
+        setLoadingPackages(false);
+      }
+    }
+    fetchPackages();
   }, []);
 
   const container = {
@@ -188,11 +210,17 @@ export default function TheGoodSpacePage() {
                           
                           {/* Availability Badge */}
                           <div className="absolute top-3 left-3 z-20">
-                            <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm ${
-                              isAvailable ? "bg-muted text-white" : "bg-accent text-white"
-                            }`}>
-                              {isAvailable ? "Available" : "Waitlist"}
-                            </span>
+                            {ws.status === "coming soon" ? (
+                              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm bg-orange-500 text-white">
+                                Coming Soon
+                              </span>
+                            ) : (
+                              <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm ${
+                                isAvailable ? "bg-muted text-white" : "bg-accent text-white"
+                              }`}>
+                                {isAvailable ? "Available" : "Waitlist"}
+                              </span>
+                            )}
                           </div>
                         </div>
 
@@ -255,7 +283,106 @@ export default function TheGoodSpacePage() {
           <p className="text-center text-gray-500 font-english py-10">Check back soon for upcoming sessions!</p>
         )}
       </section>
-      
+
+
+
+      {/* Workshop Packages Section */}
+      <section className="max-w-6xl mx-auto mb-24 px-4 overflow-hidden">
+        {loadingPackages ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2].map((n) => (
+              <div key={n} className="h-[350px] rounded-3xl bg-white border border-gray-100 animate-pulse overflow-hidden flex flex-col">
+                <div className="flex-1 bg-gray-200" />
+                <div className="p-6 space-y-3">
+                  <div className="h-6 bg-gray-200 rounded w-3/4" />
+                  <div className="h-4 bg-gray-200 rounded w-1/2" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : packages.length > 0 ? (
+          <Carousel
+            opts={{ align: "start", loop: false }}
+            className="w-full relative"
+          >
+            <CarouselContent className="-ml-4">
+              {packages.map((pkg) => (
+                <CarouselItem key={pkg._id} className="basis-[85%] pl-4 md:basis-1/2 lg:basis-1/3">
+                  <Link href={`/en/the-good-space/packages/${pkg.slug}`} className="block group">
+                    <article className="h-[450px] md:h-[350px] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-border hover:border-primary/20 hover:-translate-y-1 flex flex-col bg-white">
+                      <div className="grid grid-cols-1 md:grid-cols-2 flex-1 relative">
+                        {/* Left: Image */}
+                        <div className="relative bg-secondary/10 min-h-[200px] md:min-h-full overflow-hidden">
+                          {pkg.thumbnail ? (
+                            <Image
+                              src={pkg.thumbnail}
+                              alt={pkg.title}
+                              fill
+                              className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                          ) : (
+                            <div className="w-full h-full min-h-[220px] md:min-h-[200px] bg-gradient-to-br from-yellow-400 via-red-400 to-pink-400 flex items-center justify-center">
+                              <span className="text-5xl text-white/80">📦</span>
+                            </div>
+                          )}
+                          <div className="absolute inset-y-0 right-0 w-1 bg-white/30 hidden md:block" />
+                                                      <div className="absolute top-3 left-3 z-20">
+                            <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm ${
+                             "bg-primary text-white"
+                            }`}>
+                              Package
+                            </span>
+                          </div>
+
+                        </div>
+
+                        {/* Right: Details */}
+                        <div className="relative bg-secondary/40 py-4 px-5 flex flex-col justify-between overflow-hidden">
+                          <div className="flex-1">
+                            <h3 className="text-lg text-muted font-extrabold leading-tight tracking-tight h-10 overflow-hidden font-english-heading text-left transition-colors">
+                              {pkg.title}
+                            </h3>
+                            <div className="flex flex-col gap-2 mt-2">
+                              <p className="text-sm line-clamp-3 leading-relaxed font-english text-left text-muted/80">
+                                {pkg.description}
+                              </p>
+                            </div>
+                          </div>
+                          <p className="text-sm font-bold text-gray-800 mt-2">
+                            {pkg.price} EGP
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Bottom CTA section */}
+                      <div className="bg-secondary/50 border-t border-border px-6 py-4 flex items-center justify-between flex-shrink-0">
+                        <div className="flex items-center gap-2">
+                          <Image
+                            src="/goodSpace/logos/9.png"
+                            alt="Logo"
+                            width={50}
+                            height={20}
+                            className="object-contain opacity-70"
+                          />
+                        </div>
+                        <div className="flex items-center gap-2 text-primary-foreground bg-muted rounded-full px-4 py-4 group-hover:bg-muted transition-colors">
+                          <span className="text-xs font-bold uppercase tracking-wider">Select Package</span>
+                          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="hidden md:block">
+              <CarouselPrevious className="bg-white hover:bg-primary hover:text-white border-none shadow-md -left-4" />
+              <CarouselNext className="bg-white hover:bg-primary hover:text-white border-none shadow-md -right-4" />
+            </div>
+          </Carousel>
+        ) : null}
+      </section>
       
       {/* Intro Context */}
       <section className="max-w-4xl mx-auto mb-24 px-6 md:px-12 py-12 bg-primary/10 rounded-[2rem] border-2 border-dashed border-primary/20 relative overflow-hidden shadow-sm">

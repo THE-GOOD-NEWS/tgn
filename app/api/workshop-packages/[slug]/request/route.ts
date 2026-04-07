@@ -1,16 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/utils/mongodb";
-import WorkshopPackageModel from "@/app/modals/workshopPackageModel";
+import WorkshopPackageModel, {
+  IWorkshopPackage,
+} from "@/app/modals/workshopPackageModel";
 import WorkshopPackageRequestModel from "@/app/modals/workshopPackageRequestModel";
 import mongoose from "mongoose";
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     await connectToDatabase();
-    const pkg = await WorkshopPackageModel.findOne({ slug: params.slug }).lean();
+    const { slug } = await params;
+    const pkg = await WorkshopPackageModel.findOne({
+      slug: slug,
+    }).lean<IWorkshopPackage | null>();
     if (!pkg) {
       return NextResponse.json({ success: false, error: "Package not found" }, { status: 404 });
     }
@@ -45,7 +50,7 @@ export async function POST(
     }
 
     const created = await WorkshopPackageRequestModel.create({
-      packageId: new mongoose.Types.ObjectId(pkg._id),
+      packageId: new mongoose.Types.ObjectId(pkg._id as any),
       selectedWorkshops: selectedWorkshops.map((id: string) => new mongoose.Types.ObjectId(id)),
       name,
       phone,

@@ -45,6 +45,7 @@ interface Workshop {
   };
   visits: number;
   instructors?: string[];
+  status?: string;
 }
 
 export default function WorkshopDetailsPage({
@@ -60,7 +61,8 @@ export default function WorkshopDetailsPage({
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
   const iban = "EG420010013400000100070320082";
-  const isAvailable = workshop ? workshop.slots > (workshop.attendance?.length || 0) + (workshop.pendingRequests || 0) : true;
+  const isComingSoon = workshop?.status === "coming soon";
+  const isAvailable = workshop ? (workshop.slots > (workshop.attendance?.length || 0) + (workshop.pendingRequests || 0)) && !isComingSoon : true;
 
   const formatDuration = (minutes: number) => {
     const hours = Math.floor(minutes / 60);
@@ -168,14 +170,19 @@ export default function WorkshopDetailsPage({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          type: isAvailable ? "available" : "waitlist",
+          type: isAvailable && !isComingSoon ? "available" : "waitlist",
         }),
       });
 
       const data = await res.json();
       if (res.ok && data.success) {
-        toast.success(isAvailable ? "Booking request submitted successfully! We will review it shortly." : "Waiting list request submitted successfully! We will notify you if a slot becomes available.");
-        router.push(`/en/the-good-space/success?type=${isAvailable ? "booking" : "waitlist"}`);
+        const successMessage = isComingSoon 
+          ? "Your request has been submitted and we will notify you when it's available" 
+          : isAvailable 
+            ? "Booking request submitted successfully! We will review it shortly." 
+            : "Waiting list request submitted successfully! We will notify you if a slot becomes available.";
+        toast.success(successMessage);
+        router.push(`/en/the-good-space/success?type=${isComingSoon ? "coming soon" : isAvailable ? "booking" : "waitlist"}`);
       } else {
         toast.error(data.message || "Failed to submit request. Please try again.");
       }
@@ -456,14 +463,18 @@ Life happens. If you need to cancel, we offer a full refund up to 5 days before 
         <div className="lg:h-full">
           <div className="bg-secondary/10 p-8 rounded-xl shadow-lg border border-secondary h-fit sticky top-28 mt-4 lg:mt-0">
           <h2 className="text-2xl font-bold font-english-heading text-primary mb-2">
-            {isAvailable ? "Request to Join" : "Join the Waitlist"}
-            {!isAvailable && (
+            {isComingSoon ? "Coming Soon" : isAvailable ? "Request to Join" : "Join the Waitlist"}
+            {(isComingSoon || !isAvailable) && (
               <span className="text-sm text-gray-500 ml-2">(No payment is needed)</span>
             )}
           </h2>
-          {!isAvailable && (
+          {!isAvailable && !isComingSoon && (
             <p className="text-sm text-gray-500 mb-4">
 Joining the waitlist is free and very important for us to know how many people are interested in the workshop so we can prepare for the next cohort.            </p>
+          )}
+          {isComingSoon && (
+            <p className="text-sm text-gray-500 mb-4">
+Complete the form and we will notify you when the workshop is available.            </p>
           )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -608,10 +619,11 @@ Joining the waitlist is free and very important for us to know how many people a
 
             <button
               type="submit"
+              
               disabled={submitting}
               className="w-full bg-primary text-primary-foreground font-bold text-lg py-3 rounded-md hover:bg-opacity-90 disabled:opacity-50 transition"
             >
-              {submitting ? "Submitting..." : isAvailable ? "Submit" : "Join Waitlist"}
+              {submitting ? "Submitting..." : isComingSoon ? "Notify Me" : isAvailable ? "Submit" : "Join Waitlist"}
             </button>
           </form>
         </div>
