@@ -19,6 +19,8 @@ export default function JoinTheGoodProjectPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [projectLogoUrl, setProjectLogoUrl] = useState<string>("");
   const [teamPhotoUrl, setTeamPhotoUrl] = useState<string>("");
+  const [instagramLinks, setInstagramLinks] = useState<string[]>([]);
+  const [currentLink, setCurrentLink] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,13 +32,17 @@ export default function JoinTheGoodProjectPage() {
       toast.error(t("form.errorMessage") + " (Team photo missing)");
       return;
     }
+    if (instagramLinks.length === 0) {
+      toast.error(t("form.errorMessage") + " (Please add at least one Instagram link)");
+      return;
+    }
 
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
     const data = {
       formType: "join_good_project",
-      email: formData.get("email"),
+      // email: formData.get("email"),
       studentName: formData.get("studentName"),
       studentEmail: formData.get("studentEmail"),
       projectName: formData.get("projectName"),
@@ -48,6 +54,7 @@ export default function JoinTheGoodProjectPage() {
       projectLogoUrl,
       teamPhotoUrl,
       projectPageLink: formData.get("projectPageLink"),
+      teamInstagramLinks: instagramLinks,
     };
 
     const promise = fetch("/api/forms/submit", {
@@ -67,6 +74,7 @@ export default function JoinTheGoodProjectPage() {
         (e.target as HTMLFormElement).reset();
         setProjectLogoUrl("");
         setTeamPhotoUrl("");
+        setInstagramLinks([]);
         return t("form.successMessage");
       },
       error: (error) => {
@@ -86,6 +94,7 @@ export default function JoinTheGoodProjectPage() {
 
   return (
     <div
+    dir={isRTL ? "rtl" : "ltr"}
       className={`px-6 md:px-10 lg:px-16 pb-12 md:pb-16 pt-20 md:pt-28 ${
         isRTL ? "text-right" : "text-left"
       }`}
@@ -104,13 +113,55 @@ export default function JoinTheGoodProjectPage() {
           >
             {t("title")}
           </div>
-          <div
+     {/*     <div
             className={`text-xl md:text-2xl font-bold mt-3 ${
               isRTL ? "font-arabic-subheading" : "font-english-subheading"
             } text-carbon`}
           >
             {t("subtitle")}
           </div>
+          */}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className={`mb-12 p-8 rounded-3xl bg-sand/20 border border-sand/30 shadow-sm relative overflow-hidden ${
+            isRTL ? "text-right" : "text-left"
+          }`}
+        >
+          <div className="relative z-10">
+            <h2
+              className={`text-2xl md:text-3xl font-bold mb-4 text-carbon ${
+                isRTL ? "font-arabic-header" : "font-english-heading"
+              }`}
+            >
+              {t("instructions.title")}
+            </h2>
+            <p className="mb-6 text-carbon/80 font-medium italic">
+              {t("instructions.warning")}
+            </p>
+            <ul className="space-y-4 mb-8">
+              {(t.raw("instructions.list") as string[]).map((item, index) => (
+                <li key={index} className="flex gap-4 items-start">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-hot-pink/10 text-hot-pink flex items-center justify-center font-bold text-sm">
+                    {index + 1}
+                  </span>
+                  <span className="text-carbon/90 leading-relaxed font-medium">{item}</span>
+                </li>
+              ))}
+            </ul>
+            {locale === "en" && (
+              <p className="text-lg md:text-xl font-bold text-hot-pink mt-4 italic">
+                {t("instructions.footer")}
+              </p>
+            )}
+          </div>
+
+          {/* Subtle decorative element */}
+          <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-hot-pink/5 rounded-full blur-3xl" />
+          <div className="absolute -top-12 -left-12 w-32 h-32 bg-sand/20 rounded-full blur-2xl" />
         </motion.div>
 
         <motion.form
@@ -121,7 +172,7 @@ export default function JoinTheGoodProjectPage() {
           onSubmit={handleSubmit}
         >
           {/* Email */}
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Label htmlFor="email">
               {t("form.email")} <span className="text-hot-pink">*</span>
             </Label>
@@ -132,7 +183,7 @@ export default function JoinTheGoodProjectPage() {
               required
               disabled={isSubmitting}
             />
-          </div>
+          </div> */}
 
           {/* Student Name */}
           <div className="space-y-2">
@@ -241,6 +292,7 @@ export default function JoinTheGoodProjectPage() {
               name="aboutProject"
               required
               disabled={isSubmitting}
+              placeholder={t("form.aboutProjectDescription")}
             />
           </div>
 
@@ -283,7 +335,10 @@ export default function JoinTheGoodProjectPage() {
           {/* Project Logo */}
           <div className="space-y-2">
             <Label>
-              {t("form.projectLogo")} <span className="text-hot-pink">*</span>
+              {t("form.projectLogo")} <span className="text-hot-pink">*</span>{" "}
+              <span className="text-gray-400 font-normal text-xs md:text-sm">
+                {t("form.logoResolutionHint")}
+              </span>
             </Label>
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
               {projectLogoUrl ? (
@@ -326,7 +381,10 @@ export default function JoinTheGoodProjectPage() {
           {/* Team Photo */}
           <div className="space-y-2">
             <Label>
-              {t("form.teamPhoto")} <span className="text-hot-pink">*</span>
+              {t("form.teamPhoto")} <span className="text-hot-pink">*</span>{" "}
+              <span className="text-gray-400 font-normal text-xs md:text-sm">
+                {t("form.teamPhotoHint")}
+              </span>
             </Label>
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
               {teamPhotoUrl ? (
@@ -364,6 +422,45 @@ export default function JoinTheGoodProjectPage() {
                 />
               )}
             </div>
+          </div>
+
+          {/* Team Instagram Links */}
+          <div className="space-y-2">
+            <Label htmlFor="teamInstagramLinks">
+              {t("form.teamInstagramLinks")}{" "}
+              <span className="text-hot-pink">*</span>
+            </Label>
+            <div className={`flex flex-wrap gap-2 mb-2 ${isRTL ? "justify-end" : "justify-start"}`}>
+              {instagramLinks.map((link, index) => (
+                <div key={index} className="bg-sand/30 px-3 py-1 rounded-full flex items-center gap-2 text-sm border border-sand/50">
+                  <span className="truncate max-w-[200px]">{link}</span>
+                  <button
+                    type="button"
+                    onClick={() => setInstagramLinks(instagramLinks.filter((_, i) => i !== index))}
+                    className="text-hot-pink hover:text-hot-pink/70 font-bold text-lg leading-none"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+            <Input
+              id="teamInstagramLinks"
+              type="url"
+              value={currentLink}
+              onChange={(e) => setCurrentLink(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  if (currentLink.trim()) {
+                    setInstagramLinks([...instagramLinks, currentLink.trim()]);
+                    setCurrentLink("");
+                  }
+                }
+              }}
+              disabled={isSubmitting}
+              placeholder={isRTL ? "الصق الرابط واضغط Enter..." : "Paste link and press Enter..."}
+            />
           </div>
 
           {/* Project Page Link */}

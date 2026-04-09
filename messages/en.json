@@ -399,6 +399,19 @@
   "joinTheGoodProject": {
     "title": "Join The Good Project",
     "subtitle": "Be part of the change",
+    "instructions": {
+      "title": "Thank you for your interest in THE GOOD PROJECT",
+      "warning": "Before you continue, please read these requirements carefully. If any of these are not met, the project will not be considered:",
+      "list": [
+        "You must be in your final year of university, and this must be your graduation project",
+        "The project must have a real, positive impact on the community",
+        "Your description must be clear, easy and in Arabic to understand so we can properly showcase it",
+        "Explain what your project is and its purpose in no more than 8 lines, using proper Arabic—otherwise, it will not be published",
+        "All team members must be following our page",
+        "Only one person from the team should fill out the form"
+      ],
+      "footer": "We’re excited to see the good you’re creating 💛"
+    },
     "form": {
       "email": "Email",
       "studentName": "Student Name",
@@ -408,9 +421,13 @@
       "university": "University",
       "academicYear": "Academic Year",
       "aboutProject": "About the Project",
+      "aboutProjectDescription": "* Explain what your project is and its purpose in no more than 8 lines, using proper Arabic—otherwise, it will not be published",
       "projectCategory": "Project Category",
       "projectLogo": "Project Logo",
+      "logoResolutionHint": "- Make sure that the logo is in High Resolution",
       "teamPhoto": "Team Photo",
+      "teamPhotoHint": "- Make sure that the picture is in High Resolution and Landscape orientation",
+      "teamInstagramLinks": "Add all your team members' Instagram account links:",
       "projectPageLink": "Project Page Link",
       "submit": "Submit",
       "successMessage": "Application submitted successfully!",
