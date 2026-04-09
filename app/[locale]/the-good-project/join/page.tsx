@@ -139,7 +139,7 @@ export default function JoinTheGoodProjectPage() {
             >
               {t("instructions.title")}
             </h2>
-            <p className="mb-6 text-carbon/80 font-medium italic">
+            <p className="mb-6 text-carbon/80 font-bold italic">
               {t("instructions.warning")}
             </p>
             <ul className="space-y-4 mb-8">
