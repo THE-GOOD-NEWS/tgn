@@ -10,6 +10,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { CheckCircle2 } from "lucide-react";
 
 export default function JoinTheGoodProjectPage() {
   const t = useTranslations("joinTheGoodProject");
@@ -21,6 +31,7 @@ export default function JoinTheGoodProjectPage() {
   const [teamPhotoUrl, setTeamPhotoUrl] = useState<string>("");
   const [instagramLinks, setInstagramLinks] = useState<string[]>([]);
   const [currentLink, setCurrentLink] = useState("");
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -75,6 +86,7 @@ export default function JoinTheGoodProjectPage() {
         setProjectLogoUrl("");
         setTeamPhotoUrl("");
         setInstagramLinks([]);
+        setShowSuccessDialog(true);
         return t("form.successMessage");
       },
       error: (error) => {
@@ -486,6 +498,30 @@ export default function JoinTheGoodProjectPage() {
             {isSubmitting ? "Submitting..." : t("form.submit")}
           </Button>
         </motion.form>
+
+        <AlertDialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+          <AlertDialogContent className="max-w-[400px] rounded-3xl p-8 border-none shadow-2xl">
+            <AlertDialogHeader className="flex flex-col items-center text-center space-y-4">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-2">
+                <CheckCircle2 size={48} />
+              </div>
+              <AlertDialogTitle className={`text-2xl font-bold ${isRTL ? "font-arabic-header" : "font-english-heading"}`}>
+                {t("form.successMessage")}
+              </AlertDialogTitle>
+              <AlertDialogDescription className={`text-lg text-carbon/80 font-medium leading-relaxed ${isRTL ? "font-arabic-subheading text-right" : "font-english-subheading"}`}>
+                {t("form.successPopup")}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter className="mt-8">
+              <AlertDialogAction 
+                onClick={() => setShowSuccessDialog(false)}
+                className="w-full bg-hot-pink hover:bg-hot-pink/90 text-white font-bold h-12 rounded-xl text-lg transition-all active:scale-95"
+              >
+                {locale === "ar" ? "حسناً" : "Got it!"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );

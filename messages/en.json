@@ -431,6 +431,7 @@
       "projectPageLink": "Project Page Link",
       "submit": "Submit",
       "successMessage": "Application submitted successfully!",
+      "successPopup": "Your project is submitted successfully and it will be reviewed in a week-3 weeks",
       "errorMessage": "Something went wrong. Please try again.",
       "uploadInstructions": "Max 16MB (Image/Video)",
       "years": {

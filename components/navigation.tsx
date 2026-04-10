@@ -210,7 +210,10 @@ export function Navigation({}: NavigationProps) {
           label: t("contactSubItems.shareGoodNews"),
         },
         { href: `/${locale}/contact`, label: t("contact") },
-
+        {
+          href: `/${locale}/the-good-project/join`,
+          label: "The Good Project",
+        },
         // {
         //   href: `/${locale}/#newsletter`,
         //   label: t("newsletter"),
