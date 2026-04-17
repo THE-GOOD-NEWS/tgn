@@ -29,8 +29,7 @@ export default function JoinTheGoodProjectPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [projectLogoUrl, setProjectLogoUrl] = useState<string>("");
   const [teamPhotoUrl, setTeamPhotoUrl] = useState<string>("");
-  const [instagramLinks, setInstagramLinks] = useState<string[]>([]);
-  const [currentLink, setCurrentLink] = useState("");
+  const [instagramLinks, setInstagramLinks] = useState<string[]>([""]);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +42,8 @@ export default function JoinTheGoodProjectPage() {
       toast.error(t("form.errorMessage") + " (Team photo missing)");
       return;
     }
-    if (instagramLinks.length === 0) {
+    const validLinks = instagramLinks.filter((link) => link.trim() !== "");
+    if (validLinks.length === 0) {
       toast.error(t("form.errorMessage") + " (Please add at least one Instagram link)");
       return;
     }
@@ -65,7 +65,7 @@ export default function JoinTheGoodProjectPage() {
       projectLogoUrl,
       teamPhotoUrl,
       projectPageLink: formData.get("projectPageLink"),
-      teamInstagramLinks: instagramLinks,
+      teamInstagramLinks: validLinks,
     };
 
     const promise = fetch("/api/forms/submit", {
@@ -85,7 +85,7 @@ export default function JoinTheGoodProjectPage() {
         (e.target as HTMLFormElement).reset();
         setProjectLogoUrl("");
         setTeamPhotoUrl("");
-        setInstagramLinks([]);
+        setInstagramLinks([""]);
         setShowSuccessDialog(true);
         return t("form.successMessage");
       },
@@ -436,43 +436,49 @@ export default function JoinTheGoodProjectPage() {
             </div>
           </div>
 
-          {/* Team Instagram Links */}
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="teamInstagramLinks">
               {t("form.teamInstagramLinks")}{" "}
               <span className="text-hot-pink">*</span>
             </Label>
-            <div className={`flex flex-wrap gap-2 mb-2 ${isRTL ? "justify-end" : "justify-start"}`}>
+            
+            <div className="space-y-3">
               {instagramLinks.map((link, index) => (
-                <div key={index} className="bg-sand/30 px-3 py-1 rounded-full flex items-center gap-2 text-sm border border-sand/50">
-                  <span className="truncate max-w-[200px]">{link}</span>
-                  <button
-                    type="button"
-                    onClick={() => setInstagramLinks(instagramLinks.filter((_, i) => i !== index))}
-                    className="text-hot-pink hover:text-hot-pink/70 font-bold text-lg leading-none"
-                  >
-                    ×
-                  </button>
+                <div key={index} className="flex gap-2 items-center">
+                  <Input
+                    type="url"
+                    value={link}
+                    onChange={(e) => {
+                      const newLinks = [...instagramLinks];
+                      newLinks[index] = e.target.value;
+                      setInstagramLinks(newLinks);
+                    }}
+                    placeholder={isRTL ? "رابط إنستجرام..." : "Instagram link..."}
+                    disabled={isSubmitting}
+                  />
+                  {instagramLinks.length > 1 && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setInstagramLinks(instagramLinks.filter((_, i) => i !== index))}
+                      className="text-red-500 hover:text-red-700 hover:bg-red-50 shrink-0"
+                    >
+                      <span className="text-xl">×</span>
+                    </Button>
+                  )}
                 </div>
               ))}
             </div>
-            <Input
-              id="teamInstagramLinks"
-              type="url"
-              value={currentLink}
-              onChange={(e) => setCurrentLink(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  if (currentLink.trim()) {
-                    setInstagramLinks([...instagramLinks, currentLink.trim()]);
-                    setCurrentLink("");
-                  }
-                }
-              }}
+
+            <button
+              type="button"
+              onClick={() => setInstagramLinks([...instagramLinks, ""])}
+              className="text-sm font-bold text-carbon/70 hover:text-hot-pink underline decoration-dotted transition-colors block"
               disabled={isSubmitting}
-              placeholder={isRTL ? "الصق الرابط واضغط Enter..." : "Paste link and press Enter..."}
-            />
+            >
+              {t("form.addMember")}
+            </button>
           </div>
 
           {/* Project Page Link */}
