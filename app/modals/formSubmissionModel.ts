@@ -34,9 +34,7 @@ export interface IFormSubmission extends Document {
   collaborationIdea?: string;
   campaignDetails?: string;
   socialMediaAccounts?: string;
-  contactName?: string;
   contactNumber?: string;
-  contactEmail?: string;
   contactMethod?: string[];
 
   // Share News Fields
@@ -134,9 +132,7 @@ const FormSubmissionSchema = new Schema<IFormSubmission>(
     collaborationIdea: { type: String },
     campaignDetails: { type: String },
     socialMediaAccounts: { type: String },
-    contactName: { type: String },
     contactNumber: { type: String },
-    contactEmail: { type: String },
     contactMethod: { type: [String] },
 
     // Share News

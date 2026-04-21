@@ -35,9 +35,9 @@ export default function PartnerPage() {
       collaborationIdea: formData.get("collaborationIdea"),
       campaignDetails: formData.get("campaignDetails"),
       socialMediaAccounts: formData.get("socialMediaAccounts"),
-      contactName: formData.get("contactName"),
+      name: formData.get("contactName"),
       contactNumber: formData.get("contactNumber"),
-      contactEmail: formData.get("contactEmail"),
+      email: formData.get("contactEmail"),
       contactMethod: contactMethods,
     };
 
