@@ -44,8 +44,6 @@ export interface IFormSubmission extends Document {
   mediaUrls?: string[];
 
   // Join Good Project Fields
-  studentName?: string;
-  studentEmail?: string;
   projectName?: string;
   faculty?: string;
   university?: string;
@@ -146,8 +144,6 @@ const FormSubmissionSchema = new Schema<IFormSubmission>(
     mediaUrls: { type: [String] },
 
     // Join Good Project
-    studentName: { type: String },
-    studentEmail: { type: String },
     projectName: { type: String },
     faculty: { type: String },
     university: { type: String },

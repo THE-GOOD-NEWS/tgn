@@ -53,9 +53,8 @@ export default function JoinTheGoodProjectPage() {
     const formData = new FormData(e.currentTarget);
     const data = {
       formType: "join_good_project",
-      // email: formData.get("email"),
-      studentName: formData.get("studentName"),
-      studentEmail: formData.get("studentEmail"),
+      name: formData.get("studentName"),
+      email: formData.get("studentEmail"),
       projectName: formData.get("projectName"),
       faculty: formData.get("faculty"),
       university: formData.get("university"),
