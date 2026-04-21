@@ -59,6 +59,8 @@ export default function JoinTheGoodProjectPage() {
       faculty: formData.get("faculty"),
       university: formData.get("university"),
       academicYear: formData.get("academicYear"),
+      graduationMonth: formData.get("graduationMonth"),
+      graduationDate: formData.get("graduationDate"),
       aboutProject: formData.get("aboutProject"),
       projectCategory: formData.get("projectCategory"),
       projectLogoUrl,
@@ -291,6 +293,46 @@ export default function JoinTheGoodProjectPage() {
                 </div>
               ))}
             </RadioGroup>
+          </div>
+          
+          {/* Graduation Month */}
+          <div className="space-y-2">
+            <Label>
+              {t("form.graduationMonth")} <span className="text-hot-pink">*</span>
+            </Label>
+            <RadioGroup
+              name="graduationMonth"
+              required
+              className="flex flex-col space-y-1 items-start"
+              dir={isRTL ? "rtl" : "ltr"}
+            >
+              {["april", "may", "june", "july"].map((month) => (
+                <div
+                  key={month}
+                  className={`flex items-center gap-2 ${
+                    isRTL ? "flex-row-reverse" : ""
+                  }`}
+                >
+                  <RadioGroupItem value={month} id={`month-${month}`} />
+                  <Label htmlFor={`month-${month}`} className="font-normal">
+                    {t(`form.months.${month}`)}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+
+          {/* Graduation Date */}
+          <div className="space-y-2">
+            <Label htmlFor="graduationDate">
+              {t("form.graduationDate")}
+            </Label>
+            <Input
+              id="graduationDate"
+              name="graduationDate"
+              type="date"
+              disabled={isSubmitting}
+            />
           </div>
 
           {/* About the Project */}

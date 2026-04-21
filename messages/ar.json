@@ -496,6 +496,14 @@
       "teamInstagramLinks": "روابط حسابات الفريق:",
       "addMember": "اضافة عضو اخر",
       "projectPageLink": "رابط صفحة المشروع",
+      "graduationMonth": "مناقشة مشروع تخرجك امتى؟",
+      "graduationDate": "تاريخ المناقشة لو متوفر",
+      "months": {
+        "april": "إبريل",
+        "may": "مايو",
+        "june": "يونيو",
+        "july": "يوليو"
+      },
       "submit": "إرسال",
       "successMessage": "تم إرسال الطلب بنجاح!",
       "successPopup": "تم تقديم مشروعك بنجاح وسيتم مراجعته خلال أسبوع إلى ٣ أسابيع",

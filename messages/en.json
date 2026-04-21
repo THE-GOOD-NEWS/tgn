@@ -430,6 +430,14 @@
       "teamInstagramLinks": "Add all your team members' Instagram account links:",
       "addMember": "add another member",
       "projectPageLink": "Project Page Link",
+      "graduationMonth": "When will be your graduation discussion?",
+      "graduationDate": "If you know the specific date, please verify.",
+      "months": {
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July"
+      },
       "submit": "Submit",
       "successMessage": "Application submitted successfully!",
       "successPopup": "Your project is submitted successfully and it will be reviewed in a week-3 weeks",
