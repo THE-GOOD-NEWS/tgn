@@ -481,6 +481,9 @@ export default function JoinTheGoodProjectPage() {
             <Label htmlFor="teamInstagramLinks">
               {t("form.teamInstagramLinks")}{" "}
               <span className="text-hot-pink">*</span>
+              <div className="text-gray-400 font-normal text-xs md:text-sm mt-1 italic">
+                {t("form.teamFollowPageNote")}
+              </div>
             </Label>
             
             <div className="space-y-3">
