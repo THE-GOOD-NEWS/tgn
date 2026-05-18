@@ -324,7 +324,7 @@ export default function WorkshopDetailsPage({
           </AnimatePresence>
           {isAvailable && (
             <div className=" mt-2 md:mt-4  shadow-sm border-b border-gray-800 pb-2">
-              <p className="text-gray-600  whitespace-pre-wrap">{new Date(workshop.startDate).toLocaleDateString("en-US", {
+              {/* <p className="text-gray-600  whitespace-pre-wrap">{new Date(workshop.startDate).toLocaleDateString("en-US", {
                                 weekday: "short",
                                 month: "short",
                                 day: "numeric",
@@ -334,10 +334,29 @@ export default function WorkshopDetailsPage({
                                 month: "short",
                                 day: "numeric",
                                 year: "numeric",
-                              })}</p>
+                              })}</p> */}
                               <Link className="text-gray-600" href={workshop.location?.link || "#"}><p> {"At"+ " "+ workshop.location?.altText}</p></Link>
                               <p className="text-gray-400">{workshop.location?.moreDescription}</p>
               <p className="text-xl font-semibold mt-2 mb-2">Price: {workshop.price} EGP</p>
+              {workshop.availableSessions && workshop.availableSessions.length > 0 && (
+                <div className="mt-3 space-y-1">
+                  <p className="text-sm font-semibold text-foreground">Sessions Date:</p>
+                  <ul className="list-disc list-inside space-y-1 pl-1">
+                    {workshop.availableSessions.map((session, idx) => (
+                      <li key={session._id || idx} className="text-sm text-gray-600">
+                        <span className="font-medium text-foreground">{session.title}:</span>{" "}
+                        {new Date(session.sessionStartDate).toLocaleDateString("en-US", {
+                          weekday: "short",
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                        {session.startTime && ` at ${session.startTime}`}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           )}
           <Accordion type="single" collapsible className="w-full space-y-1 md:space-y-2 ">
