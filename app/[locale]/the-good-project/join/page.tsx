@@ -177,6 +177,7 @@ export default function JoinTheGoodProjectPage() {
           <div className="absolute -top-12 -left-12 w-32 h-32 bg-sand/20 rounded-full blur-2xl" />
         </motion.div>
 
+        {false ? (
         <motion.form
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -548,6 +549,24 @@ export default function JoinTheGoodProjectPage() {
             {isSubmitting ? "Submitting..." : t("form.submit")}
           </Button>
         </motion.form>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-center p-12 bg-sand/20 border border-sand/30 rounded-3xl shadow-sm"
+          >
+            <h2
+              className={`text-2xl md:text-3xl font-bold text-carbon leading-relaxed ${
+                isRTL ? "font-arabic-header" : "font-english-heading"
+              }`}
+            >
+              {isRTL 
+                ? "عذراً، لم نعد نقبل مشاريع بعد الآن، نراكم العام القادم" 
+                : "Sorry we are not accepting projects anymore, see you next year"}
+            </h2>
+          </motion.div>
+        )}
 
         <AlertDialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
           <AlertDialogContent className="max-w-[400px] rounded-3xl p-8 border-none shadow-2xl">
