@@ -69,6 +69,11 @@ export async function isAuthenticated() {
 
 // Optimized for middleware with caching
 export function isAuthFromRequest(request: NextRequest) {
+  // Occasionally clean up expired items to prevent memory leaks
+  if (Math.random() < 0.05) {
+    cleanUpCache();
+  }
+
   const token = request.cookies.get("token")?.value;
   if (!token) {
     console.log("token" + "flase");
@@ -79,7 +84,6 @@ export function isAuthFromRequest(request: NextRequest) {
   const cached = tokenCache.get(token);
   if (cached && cached.expires > Date.now()) {
     console.log("token" + "true");
-
     return { isAuth: true, user: cached.user };
   }
 
@@ -99,12 +103,12 @@ export function isAuthFromRequest(request: NextRequest) {
   return { isAuth: true, user: decoded };
 }
 
-// Clear expired cache entries periodically
-setInterval(() => {
+// Clean up expired entries during cache access instead of using a background interval
+export function cleanUpCache() {
   const now = Date.now();
   Array.from(tokenCache.entries()).forEach(([token, data]) => {
     if (data.expires <= now) {
       tokenCache.delete(token);
     }
   });
-}, 60000); // Clean up every minute
+}
