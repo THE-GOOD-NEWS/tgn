@@ -98,10 +98,16 @@ export function Navigation({}: NavigationProps) {
     {
       label: t("news"),
       type: "dropdown",
-      items: articleCategories.map((cat) => ({
-        href: `/${locale}/articles?category=${cat.slug}`,
-        label: locale === "ar" ? cat.titleAr : cat.titleEn,
-      })),
+      items: [
+        {
+          href: `/${locale}/articles`,
+          label: locale === "ar" ? "كل المقالات" : "All Articles",
+        },
+        ...articleCategories.map((cat) => ({
+          href: `/${locale}/articles?category=${cat.slug}`,
+          label: locale === "ar" ? cat.titleAr : cat.titleEn,
+        })),
+      ],
     },
     // {
     //   label: t("projects"),
