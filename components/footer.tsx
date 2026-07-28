@@ -52,7 +52,7 @@ export function Footer() {
   const quickLinks = [
     { href: `/${locale}`, label: t("quickLinks.home") },
     { href: `/${locale}/articles`, label: t("quickLinks.articles") },
-    { href: `/${locale}/about`, label: t("quickLinks.about") },
+    { href: `/${locale}/about/story`, label: t("quickLinks.about") },
     { href: `/${locale}/contact`, label: t("quickLinks.contact") },
     { href: `/${locale}/privacy`, label: t("quickLinks.privacy") },
     { href: `/${locale}/terms`, label: t("quickLinks.terms") },
