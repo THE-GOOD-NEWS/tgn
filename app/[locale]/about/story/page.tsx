@@ -147,7 +147,7 @@ export default function StoryPage() {
               <div></div>
             </motion.div>
           </div>
-          <div>
+          {/* <div>
             <h2
               dir={isRTL ? "rtl" : "ltr"}
               className={`text-xl md:text-2xl lg:text-3xl ${
@@ -185,7 +185,7 @@ export default function StoryPage() {
                 {t("content2")}
               </motion.p>
             </div>
-          </div>
+          </div> */}
         </motion.div>
 
         <motion.div
@@ -285,7 +285,7 @@ export default function StoryPage() {
                   isRTL ? "font-arabic-header" : "font-english-heading"
                 }`}
               >
-                <Counter end="2,000+" duration={2000} />
+                <Counter end="2,500+" duration={2000} />
               </h3>
               <p
                 className={`text-lg text-center text-white ${

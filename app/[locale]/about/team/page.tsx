@@ -73,7 +73,7 @@ export default function TeamPage() {
                 roles("founderCeoPresenter.line1"),
                 roles("founderCeoPresenter.line2"),
               ]}
-              imageSrc="/team/mariamEdit.JPG"
+              imageSrc="/team/Mariam2.jpg"
             />
           </motion.div>
           <motion.div variants={item}>
@@ -83,7 +83,7 @@ export default function TeamPage() {
                 roles("projectManager.line1"),
                 roles("projectManager.line2"),
               ]}
-              imageSrc="/team/jannah.jpg"
+              imageSrc="/team/Jannah.jpg"
             />
           </motion.div>
         </motion.div>
@@ -108,26 +108,36 @@ export default function TeamPage() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-10 place-items-center"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 place-items-center"
         >
           <motion.div variants={item}>
             <TeamMemberCard
-              name="Roba Yasser"
+              name="Nayirah Abdelaziz"
               roleLines={[
                 roles("editorialManager.line1"),
                 roles("editorialManager.line2"),
               ]}
-              imageSrc="/team/robaEdit.JPEG"
+              imageSrc="/team/Nina2.jpg"
             />
           </motion.div>
           <motion.div variants={item}>
             <TeamMemberCard
               name="Yasmine Waleed"
               roleLines={[
+                roles("partnershipsExecutive.line1"),
+                roles("partnershipsExecutive.line2"),
+              ]}
+              imageSrc="/team/Yasmina2.jpg"
+            />
+          </motion.div>
+          <motion.div variants={item}>
+            <TeamMemberCard
+              name="Mariam Fawzy"
+              roleLines={[
                 roles("editorialExecutive.line1"),
                 roles("editorialExecutive.line2"),
               ]}
-              imageSrc="/team/yasmine.jpg"
+              imageSrc="/team/Fawzoz.jpg"
             />
           </motion.div>
           <motion.div variants={item}>
@@ -137,7 +147,7 @@ export default function TeamPage() {
                 roles("videoEditorAnimator.line1"),
                 roles("videoEditorAnimator.line2"),
               ]}
-              imageSrc="/team/youmna.jpg"
+              imageSrc="/team/Yoyo.jpg"
             />
           </motion.div>
         </motion.div>

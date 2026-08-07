@@ -52,113 +52,113 @@ const Billion = () => {
   const newsItems = [
     {
       id: 1,
-      url: "https://www.instagram.com/reel/DMLE6RlTjNZ/",
-      imageUrl: `/ourGoodNews/aswan.png`,
-      flex: 5,
+      url: "https://www.instagram.com/p/DWBkdMjDLrA/?img_index=1",
+      imageUrl: `/ourGoodNews/doctors.png`,
+      flex: 4,
     },
     {
       id: 2,
-      url: "https://www.instagram.com/reel/DNigRWMMM-D/",
-      imageUrl: `/ourGoodNews/bread.png`,
-      flex: 5,
+      url: "https://www.instagram.com/p/DYUY7AUoCak/",
+      imageUrl: `/ourGoodNews/farahTala.png`,
+      flex: 4,
     },
     {
       id: 3,
-      url: "https://www.instagram.com/reel/DNQU6lTNidI/",
-      imageUrl: `/ourGoodNews/socks.png`,
-      flex: 6,
+      url: "https://www.instagram.com/p/DZX4lMhippB/",
+      imageUrl: `/ourGoodNews/vacation.png`,
+      flex: 5,
     },
     {
       id: 4,
-      url: "https://www.instagram.com/reel/DOdRHAQjMgs/",
-      imageUrl: `/ourGoodNews/blind.png`,
+      url: "https://www.instagram.com/p/DZvGu0_iksC/",
+      imageUrl: `/ourGoodNews/cat.png`,
       flex: 5,
     },
     {
       id: 5,
-      url: "https://www.instagram.com/thegoodnews.me/reel/DPTbIfcjAAg/",
-      imageUrl: `/ourGoodNews/luxor.png`,
-      flex: 6,
-    },
-    // {
-    //   id: 6,
-    //   url: "https://www.instagram.com/p/DPESkeXDLDQ/?img_index=1",
-    //   imageUrl: `/ourGoodNews/genz.png`,
-    //   flex: 1,
-    // },
-    {
-      id: 7,
-      url: "https://www.instagram.com/p/DO6rbfRjGNQ/",
-      imageUrl: `/ourGoodNews/france.png`,
+      url: "https://www.instagram.com/p/DZU694finfz/",
+      imageUrl: `/ourGoodNews/yasmina.png`,
       flex: 5,
     },
-    // {
-    //   id: 8,
-    //   url: "https://www.instagram.com/p/DOvKT_eiOCt/",
-    //   imageUrl: `/ourGoodNews/strange.png`,
-    //   flex: 2,
-    // },
+    {
+      id: 6,
+      url: "https://www.instagram.com/p/DU6cFtKDJqj/?img_index=3",
+      imageUrl: `/ourGoodNews/hesn.png`,
+      flex: 4,
+    },
+    {
+      id: 7,
+      url: "https://www.instagram.com/p/DZnTEkniuwR/?img_index=2",
+      imageUrl: `/ourGoodNews/team.png`,
+      flex: 5,
+    },
+    {
+      id: 8,
+      url: "https://www.instagram.com/p/DZft2r_CgbS/",
+      imageUrl: `/ourGoodNews/dog.png`,
+      flex: 4,
+    },
     {
       id: 11,
-      url: "https://www.instagram.com/p/DM5oZiesAfL/",
-      imageUrl: `/ourGoodNews/cars.png`,
+      url: "https://www.instagram.com/reels/DagVQqDBxNy/",
+      imageUrl: `/ourGoodNews/zico.png`,
       flex: 5,
     },
     // Duplicated items with different IDs
     {
       id: 12,
-      url: "https://www.instagram.com/reel/DMLE6RlTjNZ/",
-      imageUrl: `/ourGoodNews/aswan.png`,
-      flex: 5,
+      url: "https://www.instagram.com/p/DWBkdMjDLrA/?img_index=1",
+      imageUrl: `/ourGoodNews/doctors.png`,
+      flex: 4,
     },
     {
       id: 13,
-      url: "https://www.instagram.com/reel/DNigRWMMM-D/",
-      imageUrl: `/ourGoodNews/bread.png`,
-      flex: 5,
+      url: "https://www.instagram.com/p/DYUY7AUoCak/",
+      imageUrl: `/ourGoodNews/farahTala.png`,
+      flex: 4,
     },
     {
       id: 14,
-      url: "https://www.instagram.com/reel/DNQU6lTNidI/",
-      imageUrl: `/ourGoodNews/socks.png`,
-      flex: 6,
+      url: "https://www.instagram.com/p/DZX4lMhippB/",
+      imageUrl: `/ourGoodNews/vacation.png`,
+      flex:5,
     },
     {
       id: 15,
-      url: "https://www.instagram.com/reel/DOdRHAQjMgs/",
-      imageUrl: `/ourGoodNews/blind.png`,
+      url: "https://www.instagram.com/p/DZvGu0_iksC/",
+      imageUrl: `/ourGoodNews/cat.png`,
       flex: 5,
     },
     {
       id: 16,
-      url: "https://www.instagram.com/thegoodnews.me/reel/DPTbIfcjAAg/",
-      imageUrl: `/ourGoodNews/luxor.png`,
-      flex: 6,
+      url: "https://www.instagram.com/p/DZU694finfz/",
+      imageUrl: `/ourGoodNews/yasmina.png`,
+      flex: 5,
     },
-    // {
-    //   id: 17,
-    //   url: "https://www.instagram.com/p/DPESkeXDLDQ/?img_index=1",
-    //   imageUrl: `/ourGoodNews/genz.png`,
-    //   flex: 1,
-    // },
+    {
+      id: 17,
+      url: "https://www.instagram.com/p/DU6cFtKDJqj/?img_index=3",
+      imageUrl: `/ourGoodNews/hesn.png`,
+      flex: 4,
+    },
     {
       id: 18,
-      url: "https://www.instagram.com/p/DO6rbfRjGNQ/",
-      imageUrl: `/ourGoodNews/france.png`,
+      url: "https://www.instagram.com/p/DZnTEkniuwR/?img_index=2",
+      imageUrl: `/ourGoodNews/team.png`,
       flex: 5,
+    },
+    {
+      id: 19,
+      url: "https://www.instagram.com/p/DZft2r_CgbS/",
+      imageUrl: `/ourGoodNews/dog.png`,
+      flex: 4,
     },
     // {
-    //   id: 19,
-    //   url: "https://www.instagram.com/p/DOvKT_eiOCt/",
-    //   imageUrl: `/ourGoodNews/strange.png`,
-    //   flex: 2,
+    //   id: 20,
+    //   url: "https://www.instagram.com/reels/DagVQqDBxNy/",
+    //   imageUrl: `/ourGoodNews/zico.png`,
+    //   flex: 6,
     // },
-    {
-      id: 20,
-      url: "https://www.instagram.com/p/DM5oZiesAfL/",
-      imageUrl: `/ourGoodNews/cars.png`,
-      flex: 5,
-    },
   ];
 
   // Function to determine height class based on item ID
@@ -277,6 +277,8 @@ const Billion = () => {
                     {column.map((item: any) => (
                       <Link
                         key={item.id}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         href={item.url}
                         className={`w-full relative bg-gray-100 border border-gray-300 rounded-lg overflow-hidden transition-transform duration-150 ${getHeightClass(
                           item.flex
@@ -302,6 +304,7 @@ const Billion = () => {
                     {column.map((item: any) => (
                       <Link
                         key={item.id}
+                        target="_blank"
                         href={item.url}
                         className={`w-full relative bg-gray-100 border border-gray-300 rounded-lg overflow-hidden transition-transform duration-150 ${getHeightClass(
                           item.flex
@@ -377,6 +380,7 @@ const Billion = () => {
                     {column.map((item: any) => (
                       <Link
                         key={`dup-${item.id}`}
+                        target="_blank"
                         href={item.url}
                         className={`w-full relative bg-gray-100 border border-gray-300 rounded-lg overflow-hidden transition-transform duration-150  ${getHeightClass(
                           item.flex
@@ -408,6 +412,7 @@ const Billion = () => {
                     {column.map((item: any) => (
                       <Link
                         key={`dup-${item.id}`}
+                        target="_blank"
                         href={item.url}
                         className={`w-full relative bg-gray-100 border border-gray-300 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 ${getHeightClass(
                           item.flex

@@ -536,6 +536,7 @@
     "projectManager": { "line1": "مدير", "line2": "المشروعات" },
     "editorialManager": { "line1": "مدير", "line2": "التحرير" },
     "editorialExecutive": { "line1": "مسؤول", "line2": "تحرير" },
+    "partnershipsExecutive": { "line1": "مسؤول", "line2": "شراكات" },
     "videoEditorAnimator": { "line1": "محرر فيديو", "line2": "ومصمم تحريك" }
   },
   "shareNews": {
@@ -640,10 +641,12 @@
     "becomePartnerButton": "تواصل معنا"
   },
   "mediaPresence": {
-    "title": "الحضور الإعلامي",
+    "title": "الظهور الاعلامي",
     "subtitle": "ذا جود نيوز في الإعلام",
     "featuredOnLabel": "ظهرنا في",
-    "interviewsLabel": "المقابلات"
+    "interviewsLabel": "المقابلات",
+    "whoIsMariam": "عن مريم سوليكا",
+    "content2": "مريم إعلامية عندها أكتر من ٧ سنين خبرة في المجال، خريجة صحافة تلفزيونية، وصحفية رقمية معتمدة من المفوضية الأوروبية في بلچيكا ومركز الشباب العربي في الإمارات. وشغلت منصب Public Communication Lead في قمم المناخ COP27، COP28، وCOP29. وحاليًا تم اختيارها ضمن برنامج Young Leaders for SDGs التابع للأمم المتحدة من بين ٣٠،٠٠٠ متقدّم، تقديرًا لدورها الرائد في دعم الشباب."
   },
   "goodIntern": {
     "hero": {

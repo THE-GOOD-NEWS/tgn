@@ -500,6 +500,7 @@
     "projectManager": { "line1": "Project", "line2": "Manager" },
     "editorialManager": { "line1": "Editorial", "line2": "Manager" },
     "editorialExecutive": { "line1": "Editorial", "line2": "Executive" },
+    "partnershipsExecutive": { "line1": "Partnerships", "line2": "Executive" },
     "videoEditorAnimator": { "line1": "Video Editor", "line2": "and Animator" }
   },
   "contact": {
@@ -719,7 +720,9 @@
     "title": "Media Presence",
     "subtitle": "THE GOOD NEWS in the Media",
     "featuredOnLabel": "FEATURED ON",
-    "interviewsLabel": "INTERVIEWS"
+    "interviewsLabel": "INTERVIEWS",
+    "whoIsMariam": "Our Founder",
+    "content2": "Mariam is a media professional with over 7 years of experience, a graduate of TV journalism, and a certified digital journalist from the European Commission in Belgium and the Arab Youth Center in the UAE. She previously worked as a Public Communications Lead at climate conferences COP27, COP28, and COP29."
   },
   "goodIntern": {
     "hero": {

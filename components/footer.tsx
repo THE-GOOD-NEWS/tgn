@@ -21,6 +21,7 @@ export function Footer() {
   const locale = useLocale();
   const pathname = usePathname() || "";
   const t = useTranslations("footer");
+  const navT = useTranslations("nav");
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -57,6 +58,23 @@ export function Footer() {
     { href: `/${locale}/privacy`, label: t("quickLinks.privacy") },
     { href: `/${locale}/terms`, label: t("quickLinks.terms") },
   ];
+
+  const getInvolvedLinks = [
+    {
+      href: `/${locale}/contact/partner`,
+      label: navT("contactSubItems.beOurPartner"),
+    },
+    {
+      href: `/${locale}/contact/share-news`,
+      label: navT("contactSubItems.shareGoodNews"),
+    },
+    { href: `/${locale}/contact`, label: navT("contact") },
+    {
+      href: `/${locale}/the-good-project/join`,
+      label: "The Good Project",
+    },
+  ];
+
   const isRTL = locale === "ar";
 
   return (
@@ -134,6 +152,25 @@ export function Footer() {
                 <Mail className="h-4 w-4 text-primary" />
                 <span>info@thegoodnews-me.com</span>
               </div>
+
+              <div className="pt-2">
+                <h4 className="text-sm font-semibold text-foreground mb-2">
+                  {navT("involved")}
+                </h4>
+                <ul className="space-y-2">
+                  {getInvolvedLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-muted-foreground hover:text-foreground transition-colors hover:translate-x-1 rtl:hover:-translate-x-1 inline-block duration-200"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
               {/* <div className="flex items-center space-x-3 rtl:space-x-reverse text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 text-hot-pink" />
                 <span>{t("contact.phone")}</span>
