@@ -21,7 +21,8 @@ const arabicToEnglishMap: Record<string, string> = {
 };
 
 function parseLocalizedStat(str: string) {
-  const normalized = str.replace(
+  const cleanStr = str.replace(/,/g, "").replace(/٬/g, "");
+  const normalized = cleanStr.replace(
     /[٠-٩]/g,
     (char) => arabicToEnglishMap[char] || char
   );
@@ -31,9 +32,8 @@ function parseLocalizedStat(str: string) {
   const value = parseInt(match[0], 10);
   const index = normalized.indexOf(match[0]);
 
-  // Assuming 1-to-1 mapping length, indices are safe.
-  const prefix = str.substring(0, index);
-  const suffix = str.substring(index + match[0].length);
+  const prefix = cleanStr.substring(0, index);
+  const suffix = cleanStr.substring(index + match[0].length);
 
   return { value, prefix, suffix };
 }
@@ -74,7 +74,7 @@ export default function TheGoodProjectPage() {
   const tJoin = useTranslations("joinTheGoodProject");
   const locale = useLocale();
   const isRTL = locale === "ar";
-  const instagramUrl = "https://www.instagram.com/p/C4_VE9Msk5K/";
+  const instagramUrl = "https://www.instagram.com/reels/DXce9d5DM81/";
 
   return (
     <div
@@ -90,7 +90,7 @@ export default function TheGoodProjectPage() {
               {t("title")}
             </h1>
             <p
-              className={`text-xl md:text-2xl leading-relaxed text-muted-foreground ${
+              className={`text-sm md:text-lg leading-snug text-muted-foreground whitespace-break-spaces ${
                 isRTL ? "font-body-ar" : "font-body-en"
               }`}
             >
@@ -155,6 +155,22 @@ export default function TheGoodProjectPage() {
         <Link href={`/${locale}/the-good-project/join`}>
           <Button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-6 px-12 text-xl rounded-full transition-transform hover:scale-105 shadow-lg">
             {tJoin("title")}
+          </Button>
+        </Link>
+      </div>
+
+      {/* Partner CTA Section */}
+      <div className="mt-12 text-center max-w-3xl mx-auto space-y-6 bg-card border border-border/50 rounded-2xl p-8 shadow-sm">
+        <p
+          className={`text-lg md:text-xl leading-relaxed text-muted-foreground ${
+            isRTL ? "font-body-ar" : "font-body-en"
+          }`}
+        >
+          {t("partnerCta.text")}
+        </p>
+        <Link href={`/${locale}/contact/partner`}>
+          <Button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-6 mt-3 md:mt-6 px-10 text-lg rounded-full transition-transform hover:scale-105 shadow-lg">
+            {t("partnerCta.button")}
           </Button>
         </Link>
       </div>

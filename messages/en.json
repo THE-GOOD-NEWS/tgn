@@ -104,17 +104,21 @@
     },
     "theGoodProject": {
       "title": "THE GOOD PROJECT",
-      "description": "THE GOOD PROJECT is a campaign that aims to give voice to the graduation projects of Mass Communication departments across the country. As these projects need publicity, TGN provides a platform to help connect their vision to more audiences.",
+      "description": "Every year, thousands of students pour months into a graduation project that reflects their own talents and everything their university invested to get them there.\n\nToo often, that work gets presented once to a small panel and then disappears. That's why The GOOD News started The GOOD Project: a dedicated content pillar we publish annually, in graduation season, giving space to standout student ideas and the universities behind them.\n\nIn 3 years, The GOOD Project has reached an audience of 335,000 users, 2,210 students showcased 285 of their graduation projects. And like any project, we aim to keep developing it. This year, Misr International University joined us as our partner in success, celebrating their students' work alongside ours.",
       "stats": {
         "title": "OUR SUCCESS IN NUMBERS",
-        "audienceVal": "83K+",
+        "audienceVal": "335K+",
         "audienceLabel": "Audience Reached",
-        "projectsVal": "135+",
+        "projectsVal": "285+",
         "projectsLabel": "Projects Showcased",
-        "universitiesVal": "40+",
+        "universitiesVal": "45+",
         "universitiesLabel": "Universities",
-        "studentsVal": "810+",
-        "studentsLabel": "Students Showcased"
+        "studentsVal": "2,210+",
+        "studentsLabel": "Beneficiaries"
+      },
+      "partnerCta": {
+        "text": "If your entity is aiming to position itself as a real supporter of youth, education, or both, fill out our Partner Form to explore how we can work together.",
+        "button": "Be Our Partner"
       }
     },
     "multimediaSubItems": {
