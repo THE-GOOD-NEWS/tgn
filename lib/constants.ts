@@ -59,7 +59,7 @@ export const ARTICLE_CATEGORIES = {
       color: "#10B981",
     },
     { id: "16", name: "Events", slug: "events", color: "#3B82F6" },
-    { id: "17", name: "The Good Intern", slug: "intern", color: "#374151" },
+    { id: "17", name: "The Good Opportunity", slug: "intern", color: "#374151" },
     { id: "18", name: "Workshops", slug: "workshops", color: "#7C3AED" },
     { id: "19", name: "Programs", slug: "programs", color: "#6B7280" },
     { id: "20", name: "Scholarships", slug: "scholarships", color: "#0EA5E9" },
@@ -86,7 +86,7 @@ export const ARTICLE_CATEGORIES = {
     { id: "14", name: "أسلوب الحياة", slug: "lifestyle", color: "#EAB308" },
     { id: "15", name: "الاستدامة", slug: "sustainability", color: "#10B981" },
     { id: "16", name: "الفعاليات", slug: "events", color: "#3B82F6" },
-    { id: "17", name: "المتدرب الجيد", slug: "intern", color: "#374151" },
+    { id: "17", name: "فرصة حلوة", slug: "intern", color: "#374151" },
     { id: "18", name: "ورش العمل", slug: "workshops", color: "#7C3AED" },
     { id: "19", name: "البرامج", slug: "programs", color: "#6B7280" },
     {
