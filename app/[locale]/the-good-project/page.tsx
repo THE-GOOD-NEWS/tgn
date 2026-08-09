@@ -1,42 +1,12 @@
-"use client";
-
-import React from "react";
-import { useTranslations, useLocale } from "next-intl";
-import { Card, CardContent } from "@/components/ui/card";
-import { Counter } from "@/components/ui/counter";
+import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import MetricsCards from "@/app/[locale]/goodIntern/components/MetricsCards";
 
-const arabicToEnglishMap: Record<string, string> = {
-  "٠": "0",
-  "١": "1",
-  "٢": "2",
-  "٣": "3",
-  "٤": "4",
-  "٥": "5",
-  "٦": "6",
-  "٧": "7",
-  "٨": "8",
-  "٩": "9",
+type Props = {
+  params: Promise<{ locale: string }>;
 };
-
-function parseLocalizedStat(str: string) {
-  const cleanStr = str.replace(/,/g, "").replace(/٬/g, "");
-  const normalized = cleanStr.replace(
-    /[٠-٩]/g,
-    (char) => arabicToEnglishMap[char] || char
-  );
-  const match = normalized.match(/(\d+)/);
-  if (!match) return { value: 0, prefix: "", suffix: str };
-
-  const value = parseInt(match[0], 10);
-  const index = normalized.indexOf(match[0]);
-
-  const prefix = cleanStr.substring(0, index);
-  const suffix = cleanStr.substring(index + match[0].length);
-
-  return { value, prefix, suffix };
-}
 
 function getInstagramEmbedUrl(src: string): string {
   try {
@@ -56,7 +26,6 @@ function getInstagramEmbedUrl(src: string): string {
       type = "reel";
       shortcode = parts[reelIndex + 1];
     } else if (reelsIndex !== -1 && parts[reelsIndex + 1]) {
-      // Map plural path to the singular embed endpoint
       type = "reel";
       shortcode = parts[reelsIndex + 1];
     }
@@ -69,147 +38,134 @@ function getInstagramEmbedUrl(src: string): string {
   }
 }
 
-export default function TheGoodProjectPage() {
-  const t = useTranslations("nav.theGoodProject");
-  const tJoin = useTranslations("joinTheGoodProject");
-  const locale = useLocale();
-  const isRTL = locale === "ar";
+export default async function TheGoodProjectPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations("nav.theGoodProject");
+  const tJoin = await getTranslations("joinTheGoodProject");
+  const isArabic = locale === "ar";
   const instagramUrl = "https://www.instagram.com/reels/DXce9d5DM81/";
 
-  return (
-    <div
-      dir={locale === "ar" ? "rtl" : "ltr"}
-      className="container mx-auto px-4 py-12 pt-20 md:pt-28"
-    >
-      <div className="flex flex-col md:flex-row gap-8 lg:gap-16 items-start mt-8">
-        {/* Left Column: Content & Stats */}
-        <div className="flex-1 w-full space-y-12">
-          {/* Header Section */}
-          <section className="text-center  space-y-6">
-            <h1 className="text-5xl md:text-7xl font-bold text-black font-header-en uppercase tracking-wider">
-              {t("title")}
-            </h1>
-            <p
-              className={`text-sm md:text-lg leading-snug text-muted-foreground whitespace-break-spaces ${
-                isRTL ? "font-body-ar" : "font-body-en"
-              }`}
-            >
-              {t("description")}
-            </p>
-          </section>
+  const descriptionParagraphs = t("description").split("\n\n");
 
-          {/* Stats Section */}
-          <section>
-            <h2
-              className={`text-4xl font-bold text-center md:text-start mb-10 ${
-                isRTL ? "font-header-ar" : "font-header-en"
-              }`}
-            >
-              {t("stats.title")}
-            </h2>
-            <div className="grid grid-cols-2 gap-4 md:gap-6">
-              <StatCard
-                valueStr={t("stats.audienceVal")}
-                label={t("stats.audienceLabel")}
-                isRTL={isRTL}
-                locale={locale}
-              />
-              <StatCard
-                valueStr={t("stats.projectsVal")}
-                label={t("stats.projectsLabel")}
-                isRTL={isRTL}
-                locale={locale}
-              />
-              <StatCard
-                valueStr={t("stats.universitiesVal")}
-                label={t("stats.universitiesLabel")}
-                isRTL={isRTL}
-                locale={locale}
-              />
-              <StatCard
-                valueStr={t("stats.studentsVal")}
-                label={t("stats.studentsLabel")}
-                isRTL={isRTL}
-                locale={locale}
+  return (
+    <div className="bg-white" dir={isArabic ? "rtl" : "ltr"}>
+      {/* Section 1: Story Behind / Hero */}
+      <section className="mx-auto max-w-7xl min-h-screen flex items-center justify-center h-auto px-4 sm:px-6 py-12 pt-20 md:pt-28">
+        <div className="grid md:grid-cols-2 gap-10 items-center w-full">
+          <div className={isArabic ? "text-right" : "text-left"}>
+            <h1 className="font-black uppercase tracking-tight leading-tight text-3xl sm:text-5xl text-black">
+              {t("storyTitle")}
+            </h1>
+            <div className="mt-4">
+              <Image
+                src="/tgp/tgpLogocropped.png"
+                width={420}
+                height={120}
+                alt={t("title")}
+                className="h-auto w-auto"
+                priority
               />
             </div>
-          </section>
+          </div>
+          <div className="md:justify-self-end w-full max-w-xl">
+            <div className="rounded-3xl p-[2px] bg-gradient-to-br from-fuchsia-500 to-yellow-400">
+              <div className="rounded-3xl bg-white p-6 sm:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
+                {descriptionParagraphs.map((paragraph, idx) => (
+                  <p
+                    key={idx}
+                    className={`text-sm sm:text-base text-gray-700 leading-relaxed ${idx > 0 ? "mt-4" : ""
+                      }`}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Right Column: Instagram Embed */}
-        <div className="w-full md:w-[300px] lg:w-[350px] sticky top-24 flex justify-center md:block">
-          <iframe
-            src={getInstagramEmbedUrl(instagramUrl)}
-            className="w-full h-[500px] border rounded-xl shadow-2xl bg-white"
-            frameBorder="0"
-            scrolling="no"
-            // @ts-expect-error: allowtransparency is required for instagram embed but not typed in React
-            allowtransparency="true"
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-          ></iframe>
+      {/* Section 2: Metrics & Media Embed */}
+      <section className="border-t">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div className={isArabic ? "text-right" : "text-left"}>
+              <h2
+                className={`${isArabic ? "font-arabic-header" : "font-english-header"
+                  } font-extrabold uppercase text-2xl sm:text-4xl text-black`}
+              >
+                {t("stats.title")}
+              </h2>
+
+
+              <div className="mt-8">
+                <MetricsCards
+                  isRTL={isArabic}
+                  metrics={[
+                    {
+                      value: t("stats.audienceVal"),
+                      label: t("stats.audienceLabel"),
+                    },
+                    {
+                      value: t("stats.projectsVal"),
+                      label: t("stats.projectsLabel"),
+                    },
+                    {
+                      value: t("stats.universitiesVal"),
+                      label: t("stats.universitiesLabel"),
+                    },
+                    {
+                      value: t("stats.studentsVal"),
+                      label: t("stats.studentsLabel"),
+                    },
+                  ]}
+                />
+              </div>
+              <p className="mt-4 text-gray-700 sm:max-w-xl">
+                {t("partnerCta.text")}
+              </p>
+              {/* CTAs */}
+              <div className="mt-8 flex flex-wrap gap-4 items-center">
+                <Link href={`/${locale}/the-good-project/join`}>
+                  <Button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-6 px-10 text-lg rounded-full transition-transform hover:scale-105 shadow-lg">
+                    {tJoin("title")}
+                  </Button>
+                </Link>
+                <Link href={`/${locale}/contact/partner`}>
+                  <Button
+                    variant="outline"
+                    className="border-2 border-hot-pink text-hot-pink hover:bg-hot-pink/10 font-bold py-6 px-10 text-lg rounded-full transition-transform hover:scale-105 shadow-lg"
+                  >
+                    {t("partnerCta.button")}
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative">
+              {/* <div
+                className={`-top-4 ${isArabic
+                  ? "-left-2 font-arabic-header"
+                  : "-right-2 font-english-heading"
+                  } px-8 py-4 bg-pink-500 text-white text-xl md:text-2xl font-black uppercase rounded-lg shadow inline-block mb-4`}
+              >
+                {t("title")}
+              </div> */}
+
+              <div className="rounded-2xl bg-white p-4 shadow-xl border border-gray-100 flex justify-center">
+                <iframe
+                  src={getInstagramEmbedUrl(instagramUrl)}
+                  className="w-full max-w-[380px] aspect-[9/16] min-h-[540px] border-none rounded-xl bg-white mx-auto"
+                  frameBorder="0"
+                  scrolling="no"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                ></iframe>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      {/* Join CTA */}
-      <div className="mt-16 text-center">
-        <Link href={`/${locale}/the-good-project/join`}>
-          <Button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-6 px-12 text-xl rounded-full transition-transform hover:scale-105 shadow-lg">
-            {tJoin("title")}
-          </Button>
-        </Link>
-      </div>
-
-      {/* Partner CTA Section */}
-      <div className="mt-12 text-center max-w-3xl mx-auto space-y-6 bg-card border border-border/50 rounded-2xl p-8 shadow-sm">
-        <p
-          className={`text-lg md:text-xl leading-relaxed text-muted-foreground ${
-            isRTL ? "font-body-ar" : "font-body-en"
-          }`}
-        >
-          {t("partnerCta.text")}
-        </p>
-        <Link href={`/${locale}/contact/partner`}>
-          <Button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-6 mt-3 md:mt-6 px-10 text-lg rounded-full transition-transform hover:scale-105 shadow-lg">
-            {t("partnerCta.button")}
-          </Button>
-        </Link>
-      </div>
+      </section>
     </div>
   );
 }
 
-function StatCard({
-  valueStr,
-  label,
-  isRTL,
-  locale,
-}: {
-  valueStr: string;
-  label: string;
-  isRTL?: boolean;
-  locale: string;
-}) {
-  const { value, prefix, suffix } = parseLocalizedStat(valueStr);
-
-  return (
-    <Card className="text-center hover:shadow-xl transition-all duration-300 bg-card border-none shadow-md">
-      <CardContent className="pt-6 pb-6 px-2 flex flex-col items-center justify-center h-full">
-        <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-hot-pink mb-4 font-header-en flex items-center justify-center flex-wrap gap-1">
-          <Counter
-            value={value}
-            prefix={prefix}
-            suffix={suffix}
-            locale={locale}
-          />
-        </div>
-        <div
-          className={`text-lg sm:text-xl font-medium text-foreground ${
-            isRTL ? "font-body-ar" : "font-body-en"
-          }`}
-        >
-          {label}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}

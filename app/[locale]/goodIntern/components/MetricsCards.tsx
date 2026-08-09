@@ -20,6 +20,35 @@ interface CounterProps {
   isRTL?: boolean;
 }
 
+const arabicToEnglishDigits: Record<string, string> = {
+  "٠": "0",
+  "١": "1",
+  "٢": "2",
+  "٣": "3",
+  "٤": "4",
+  "٥": "5",
+  "٦": "6",
+  "٧": "7",
+  "٨": "8",
+  "٩": "9",
+};
+
+function parseCounterEnd(end: string) {
+  const normalized = end.replace(
+    /[٠-٩]/g,
+    (d) => arabicToEnglishDigits[d] || d
+  );
+
+  const hasK = /k/i.test(end) || /ألف|الف/.test(end);
+  const hasM = /m/i.test(end) || /مليون/.test(end);
+  const hasPlus = /\+/.test(end);
+
+  const numericStr = normalized.replace(/[^0-9]/g, "");
+  const numericPart = parseInt(numericStr, 10) || 0;
+
+  return { hasK, hasM, hasPlus, numericPart };
+}
+
 // Counter effect (in-view animated count, Arabic numerals when RTL)
 const Counter: React.FC<CounterProps> = ({
   end,
@@ -44,16 +73,13 @@ const Counter: React.FC<CounterProps> = ({
     };
   }, []);
 
+  const { numericPart } = parseCounterEnd(end);
+
   useEffect(() => {
     if (!inView) return;
     let startTime: number | undefined;
     let animationFrame: number;
     const startValue = 0;
-
-    const hasK = /k/i.test(end);
-    const hasM = /m/i.test(end);
-    const hasPlus = /\+/.test(end);
-    const numericPart = parseInt(end.replace(/[^0-9]/g, ""), 10) || 0;
 
     // We count toward the numeric part (e.g., 10 for 10K, 1 for 1M, 300000 for 300,000)
     const endValue = numericPart;
@@ -73,16 +99,14 @@ const Counter: React.FC<CounterProps> = ({
     };
     animationFrame = requestAnimationFrame(step);
     return () => cancelAnimationFrame(animationFrame);
-  }, [end, duration, inView]);
+  }, [numericPart, duration, inView]);
 
-  const hasK = /k/i.test(end);
-  const hasM = /m/i.test(end);
-  const hasPlus = /\+/.test(end);
+  const { hasK, hasM, hasPlus } = parseCounterEnd(end);
   // When suffix present, display compact (e.g., 10K, 1M). Otherwise, use thousands separators.
   const baseCount = count.toString();
   const suffix = hasK
     ? isRTL
-      ? " الف"
+      ? " ألف"
       : "K"
     : hasM
     ? isRTL
