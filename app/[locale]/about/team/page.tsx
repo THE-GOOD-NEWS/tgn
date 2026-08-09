@@ -28,9 +28,8 @@ export default function TeamPage() {
 
   return (
     <div
-      className={`px-6 md:px-10 lg:px-16 pb-12 md:pb-16  pt-20 md:pt-28 ${
-        isRTL ? "text-right" : "text-left"
-      }`}
+      className={`px-6 md:px-10 lg:px-16 pb-12 md:pb-16  pt-20 md:pt-28 ${isRTL ? "text-right" : "text-left"
+        }`}
     >
       {/* Operations Section */}
       <section className="max-w-6xl mx-auto">
@@ -41,16 +40,14 @@ export default function TeamPage() {
           className="text-center mb-10 md:mb-6"
         >
           <div
-            className={`text-5xl md:text-6xl lg:text-7xl font-extrabold ${
-              isRTL ? "font-arabic-header" : "font-english-heading"
-            } text-carbon`}
+            className={`text-5xl md:text-6xl lg:text-7xl font-extrabold ${isRTL ? "font-arabic-header" : "font-english-heading"
+              } text-carbon`}
           >
             {t("title")}
           </div>
           <div
-            className={`text-2xl md:text-3xl font-bold mt-3 ${
-              isRTL ? "font-arabic-subheading" : "font-english-subheading"
-            } text-carbon`}
+            className={`text-2xl md:text-3xl font-bold mt-3 ${isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              } text-carbon`}
           >
             {t("subtitle")}
           </div>
@@ -80,10 +77,10 @@ export default function TeamPage() {
             <TeamMemberCard
               name="Jannah Mahmoud"
               roleLines={[
-                roles("projectManager.line1"),
-                roles("projectManager.line2"),
+                roles("operationsDirector.line1"),
+                roles("operationsDirector.line2"),
               ]}
-              imageSrc="/team/Jannah.jpg"
+              imageSrc="/team/jannah.jpg"
             />
           </motion.div>
         </motion.div>

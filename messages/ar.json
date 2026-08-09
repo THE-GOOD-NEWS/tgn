@@ -538,6 +538,7 @@
       "line2": "المقدم الرئيسي"
     },
     "projectManager": { "line1": "مدير", "line2": "المشروعات" },
+    "operationsDirector": { "line1": "مدير", "line2": "العمليات" },
     "editorialManager": { "line1": "مدير", "line2": "التحرير" },
     "editorialExecutive": { "line1": "مسؤول", "line2": "تحرير" },
     "partnershipsExecutive": { "line1": "مسؤول", "line2": "شراكات" },

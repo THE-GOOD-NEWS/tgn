@@ -502,6 +502,7 @@
       "line2": "Lead Presenter"
     },
     "projectManager": { "line1": "Project", "line2": "Manager" },
+    "operationsDirector": { "line1": "Operations", "line2": "Director" },
     "editorialManager": { "line1": "Editorial", "line2": "Manager" },
     "editorialExecutive": { "line1": "Editorial", "line2": "Executive" },
     "partnershipsExecutive": { "line1": "Partnerships", "line2": "Executive" },
