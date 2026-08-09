@@ -6,6 +6,14 @@ import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import TikTokEmbed from "@/components/tiktok-embed";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  CarouselIndicators,
+} from "@/components/ui/carousel";
 
 // Media renderer component to handle different media types
 interface MediaItem {
@@ -83,7 +91,7 @@ const MediaRenderer = ({ media }: { media: MediaItem }) => {
   return (
     <>
       {media.type === "image" ? (
-        <div className="relative h-96 w-full  rounded-md overflow-hidden">
+        <div className="relative h-64 md:h-80 w-full rounded-2xl overflow-hidden">
           <Image
             src={media.src}
             alt={media.caption || "Case study image"}
@@ -93,23 +101,25 @@ const MediaRenderer = ({ media }: { media: MediaItem }) => {
           />
         </div>
       ) : media.type === "youtube" ? (
-        <div className="relative h-64 w-full rounded-md overflow-hidden">
+        <div className="relative h-56 md:h-64 w-full rounded-2xl overflow-hidden">
           <iframe
             src={getEmbedUrl(media)}
             title={media.caption || "YouTube video"}
-            className="absolute w-full h-full"
+            className="absolute w-full h-full rounded-2xl"
             allowFullScreen
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           ></iframe>
         </div>
       ) : media.type === "tiktok" ? (
-        <TikTokEmbed url={media.src} caption={media.caption} />
+        <div className="relative w-full max-w-[260px] md:max-w-[280px] mx-auto h-[360px] md:h-[380px] rounded-2xl overflow-hidden flex justify-center items-center">
+          <TikTokEmbed url={media.src} caption={media.caption} />
+        </div>
       ) : media.type === "instagram" ? (
-        <div className="relative w-full max-w-sm mx-auto aspect-[9/16] rounded-md overflow-hidden">
+        <div className="relative w-full max-w-[260px] md:max-w-[280px] mx-auto h-[360px] md:h-[380px] rounded-2xl overflow-hidden border border-gray-100 shadow-sm flex justify-center items-center">
           <iframe
             src={getEmbedUrl(media)}
             title={media.caption || "Instagram post"}
-            className="absolute w-full h-full"
+            className="w-full h-full border-none rounded-xl bg-white"
             allowFullScreen
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -562,37 +572,273 @@ export default function PartnersPage() {
             {t("description")}
           </p>
         </motion.div>
+        {/* Case Studies Section */}
+        <section className="mb-16">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full relative"
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-hot-pink">
+                {t("caseStudiesTitle")}
+              </h2>
+              <div className="flex items-center gap-2">
+                <CarouselPrevious className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white hover:border-hot-pink transition-all shadow-sm" />
+                <CarouselNext className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white hover:border-hot-pink transition-all shadow-sm" />
+              </div>
+            </div>
+            <CarouselContent>
+              {caseStudies.map((study) => (
+                <CarouselItem key={study.id} className="basis-full">
+                  <div
+                    className="bg-white rounded-3xl p-6 md:p-10 border border-gray-100 shadow-xl relative min-h-[480px] flex flex-col justify-between"
+                    style={{ direction: isRTL ? "rtl" : "ltr" }}
+                  >
+                    <div>
+                      {/* Title Section */}
+                      <div
+                        className="flex w-full justify-between items-start mb-6"
+                        style={{ direction: isRTL ? "rtl" : "ltr" }}
+                      >
+                        <div>
+                          <h3 className="text-2xl md:text-3xl font-bold text-black mb-3">
+                            {t(`caseStudies.${study.id}.category`)}
+                          </h3>
+                          <div className="w-12 h-1 bg-hot-pink"></div>
+                        </div>
+                        {study.partnerLogo && (
+                          <div className="h-16 w-16 md:h-20 md:w-20 shrink-0 relative">
+                            <Image
+                              src={study.partnerLogo}
+                              alt="Partner logo"
+                              width={80}
+                              height={80}
+                              className="object-contain max-h-full"
+                            />
+                          </div>
+                        )}
+                      </div>
 
-        {categories.map((category) => (
-          <section key={category.id} className="mb-16">
-            <motion.div
-              initial={{ opacity: 0, filter: "blur(20px)" }}
-              whileInView={{ opacity: 1, filter: "blur(0px)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-8"
-            >
-              <span className="inline-block text-hot-pink font-bold tracking-wide text-2xl md:text-3xl">
-                {category.title}
-              </span>
-            </motion.div>
+                      <div
+                        className="flex flex-col md:flex-row gap-8 items-start"
+                        style={{ direction: isRTL ? "rtl" : "ltr" }}
+                      >
+                        <div className="md:w-1/2">
+                          <p className="text-base md:text-lg text-gray-800 leading-relaxed mb-6">
+                            {t(`caseStudies.${study.id}.description`)}
+                          </p>
 
-            <motion.div
-              variants={container}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-              style={{ direction: isRTL ? "rtl" : "ltr" }}
-            >
-              {category.logos.map((logo) => (
-                <motion.div key={logo.id} variants={item}>
-                  <PartnerLogo src={logo.src} alt={logo.alt} link={logo.link} />
-                </motion.div>
+                          {/* Stats for Palm Hills case study */}
+                          {study.id === "case2" && study.stats && (
+                            <div className="mt-4 p-4 rounded-2xl bg-pink-50/60 border border-pink-100">
+                              <p className="text-base md:text-lg font-bold text-gray-900">
+                                {locale === "en"
+                                  ? "The campaign's debut video generated over "
+                                  : "حقق فيديو إطلاق الحملة أكثر من "}
+                                <span className="text-hot-pink font-extrabold text-xl">
+                                  {t(`caseStudies.${study.id}.stats.views`)}
+                                </span>
+                                {locale === "en" ? "," : "،"}
+                              </p>
+                              <p className="text-base md:text-lg font-bold text-gray-900 mt-1">
+                                {locale === "en"
+                                  ? "with the overall metrics reaching an impressive "
+                                  : "مع وصول المقاييس الإجمالية إلى "}
+                                <span className="text-hot-pink font-extrabold text-xl">
+                                  {t(`caseStudies.${study.id}.stats.totalReach`)}
+                                </span>
+                                {locale === "en"
+                                  ? " in total reach."
+                                  : " في الوصول الإجمالي."}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Media Section */}
+                        <div className="md:w-1/2 flex w-full gap-4 justify-center items-center">
+                          {study.mediaItems &&
+                            study.mediaItems.map((media, index) => (
+                              <div key={index} className="relative w-full">
+                                <MediaRenderer media={media} />
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
               ))}
-            </motion.div>
-          </section>
-        ))}
+            </CarouselContent>
+
+            {/* Carousel Controls */}
+            <div className="flex items-center justify-between mt-8 px-2">
+              <CarouselIndicators className="gap-2" />
+              <div className="flex gap-2">
+                <CarouselPrevious className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white transition-colors" />
+                <CarouselNext className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white transition-colors" />
+              </div>
+            </div>
+          </Carousel>
+        </section>
+
+
+        {/* Infinite Horizontal Scrolling Partner Logos Section */}
+        <section className="my-20 relative overflow-hidden py-4">
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10" />
+
+          {/* Row 1 - Scrolling Left */}
+          <div className="flex overflow-hidden mb-6 select-none">
+            <div className="animate-marquee-left flex gap-6 items-center">
+              {[
+                { id: "1", src: "/assets/newLogos/2025-Entreprenelle-logo.png", alt: "Entreprenelle" },
+                { id: "2", src: "/assets/newLogos/257-2570094_transparent-background-vodafone-logo.png", alt: "Vodafone" },
+                { id: "3", src: "/assets/newLogos/ANIMATEX.png", alt: "Animatex" },
+                { id: "4", src: "/assets/newLogos/AUC.png", alt: "AUC" },
+                { id: "5", src: "/assets/newLogos/Al-Ahly-Sabbour.webp", alt: "Al Ahly Sabbour" },
+                { id: "6", src: "/assets/newLogos/BTC.png", alt: "BTC" },
+                { id: "7", src: "/assets/newLogos/COP.png", alt: "COP" },
+                { id: "8", src: "/assets/newLogos/CREATIVE INDUSTRY SUMMIT.png", alt: "Creative Industry Summit" },
+                { id: "9", src: "/assets/newLogos/European_Commission.svg.webp", alt: "European Commission" },
+                { id: "10", src: "/assets/newLogos/Google__G__logo.svg.webp", alt: "Google" },
+                { id: "11", src: "/assets/newLogos/IOM_Logo.png", alt: "IOM" },
+                { id: "12", src: "/assets/newLogos/LYDIA AKRAM MARKET.jpg", alt: "Lydia Akram Market" },
+                { id: "13", src: "/assets/newLogos/MIU.png", alt: "MIU" },
+                { id: "14", src: "/assets/newLogos/Masar Logo - 1.png", alt: "Masar" },
+                { id: "15", src: "/assets/newLogos/Paragon.jpeg", alt: "Paragon" },
+                { id: "16", src: "/assets/newLogos/Plan_International_Logo_blue.jpg", alt: "Plan International" },
+                { id: "17", src: "/assets/newLogos/SAVE THE CHILDREN.webp", alt: "Save the Children" },
+                { id: "18", src: "/assets/newLogos/SCHNEIDER.png", alt: "Schneider" },
+                { id: "19", src: "/assets/newLogos/STARTUPS WITHOUT BOARDERS.png", alt: "Startups Without Borders" },
+                { id: "20", src: "/assets/newLogos/SYNC SUMMIT.png", alt: "Sync Summit" },
+                { id: "21", src: "/assets/newLogos/TETRA PAK.png", alt: "Tetra Pak" },
+                { id: "22", src: "/assets/newLogos/Traverse23-Logo.png", alt: "Traverse 23" },
+                { id: "23", src: "/assets/newLogos/UNHCR.svg.webp", alt: "UNHCR" },
+                { id: "24", src: "/assets/newLogos/UNICEF_Logo.png", alt: "UNICEF" },
+                { id: "25", src: "/assets/newLogos/UN_Women_Logo.svg.webp", alt: "UN Women" },
+                { id: "26", src: "/assets/newLogos/US EMBASSY.png", alt: "US Embassy" },
+                { id: "1", src: "/assets/newLogos/2025-Entreprenelle-logo.png", alt: "Entreprenelle" },
+                { id: "2", src: "/assets/newLogos/257-2570094_transparent-background-vodafone-logo.png", alt: "Vodafone" },
+                { id: "3", src: "/assets/newLogos/ANIMATEX.png", alt: "Animatex" },
+                { id: "4", src: "/assets/newLogos/AUC.png", alt: "AUC" },
+                { id: "5", src: "/assets/newLogos/Al-Ahly-Sabbour.webp", alt: "Al Ahly Sabbour" },
+                { id: "6", src: "/assets/newLogos/BTC.png", alt: "BTC" },
+                { id: "7", src: "/assets/newLogos/COP.png", alt: "COP" },
+                { id: "8", src: "/assets/newLogos/CREATIVE INDUSTRY SUMMIT.png", alt: "Creative Industry Summit" },
+                { id: "9", src: "/assets/newLogos/European_Commission.svg.webp", alt: "European Commission" },
+                { id: "10", src: "/assets/newLogos/Google__G__logo.svg.webp", alt: "Google" },
+                { id: "11", src: "/assets/newLogos/IOM_Logo.png", alt: "IOM" },
+                { id: "12", src: "/assets/newLogos/LYDIA AKRAM MARKET.jpg", alt: "Lydia Akram Market" },
+                { id: "13", src: "/assets/newLogos/MIU.png", alt: "MIU" },
+                { id: "14", src: "/assets/newLogos/Masar Logo - 1.png", alt: "Masar" },
+                { id: "15", src: "/assets/newLogos/Paragon.jpeg", alt: "Paragon" },
+                { id: "16", src: "/assets/newLogos/Plan_International_Logo_blue.jpg", alt: "Plan International" },
+                { id: "17", src: "/assets/newLogos/SAVE THE CHILDREN.webp", alt: "Save the Children" },
+                { id: "18", src: "/assets/newLogos/SCHNEIDER.png", alt: "Schneider" },
+                { id: "19", src: "/assets/newLogos/STARTUPS WITHOUT BOARDERS.png", alt: "Startups Without Borders" },
+                { id: "20", src: "/assets/newLogos/SYNC SUMMIT.png", alt: "Sync Summit" },
+                { id: "21", src: "/assets/newLogos/TETRA PAK.png", alt: "Tetra Pak" },
+                { id: "22", src: "/assets/newLogos/Traverse23-Logo.png", alt: "Traverse 23" },
+                { id: "23", src: "/assets/newLogos/UNHCR.svg.webp", alt: "UNHCR" },
+                { id: "24", src: "/assets/newLogos/UNICEF_Logo.png", alt: "UNICEF" },
+                { id: "25", src: "/assets/newLogos/UN_Women_Logo.svg.webp", alt: "UN Women" },
+                { id: "26", src: "/assets/newLogos/US EMBASSY.png", alt: "US Embassy" },
+              ].map((logo, index) => (
+                <div
+                  key={`row1-${logo.id}-${index}`}
+                  className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 h-24 w-44 flex items-center justify-center transition-all duration-300 hover:shadow-md hover:scale-105 shrink-0"
+                >
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      className="object-contain"
+                      sizes="176px"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Row 2 - Scrolling Right */}
+          <div className="flex overflow-hidden select-none">
+            <div className="animate-marquee-right flex gap-6 items-center">
+              {[
+                { id: "27", src: "/assets/newLogos/WB.png", alt: "World Bank" },
+                { id: "28", src: "/assets/newLogos/Water Valley.png", alt: "Water Valley" },
+                { id: "29", src: "/assets/newLogos/Yalla-Success.jpg", alt: "Yalla Success" },
+                { id: "30", src: "/assets/newLogos/ahl-masr.png", alt: "Ahl Masr" },
+                { id: "31", src: "/assets/newLogos/hayat-logo.png", alt: "Hayat" },
+                { id: "32", src: "/assets/newLogos/huawei-logo-picture-4.png", alt: "Huawei" },
+                { id: "33", src: "/assets/newLogos/instax-logo-vector.png", alt: "Instax" },
+                { id: "34", src: "/assets/newLogos/mountain view.jpg", alt: "Mountain View" },
+                { id: "35", src: "/assets/newLogos/oppo-logo-png-oppo-logo-and-symbol-meaning-history-png-1920x1080.png", alt: "Oppo" },
+                { id: "36", src: "/assets/newLogos/palm hills.png", alt: "Palm Hills" },
+                { id: "37", src: "/assets/newLogos/pepsico.jpg", alt: "PepsiCo" },
+                { id: "38", src: "/assets/newLogos/rise up summit.png", alt: "Rise Up Summit" },
+                { id: "39", src: "/assets/newLogos/sharjah book authority.png", alt: "Sharjah Book Authority" },
+                { id: "40", src: "/assets/newLogos/talabatlogo-freelogovectors.net_.png", alt: "Talabat" },
+                { id: "41", src: "/assets/newLogos/terre-des-hommes-logo.png", alt: "Terre des Hommes" },
+                { id: "42", src: "/assets/newLogos/tiktok-6338432_1280.png", alt: "TikTok" },
+                { id: "43", src: "/assets/newLogos/undp-logo.png.webp", alt: "UNDP" },
+                { id: "44", src: "/assets/newLogos/wujud.png", alt: "Wujud" },
+                { id: "45", src: "/assets/newLogos/المجلس القومي للمرأة.jpg", alt: "المجلس القومي للمرأة" },
+                { id: "46", src: "/assets/newLogos/جمهورية مصر العربية - وزارة البيئة.png", alt: "وزارة البيئة" },
+                { id: "47", src: "/assets/newLogos/مركز الشباب العربي.png", alt: "مركز الشباب العربي" },
+                { id: "48", src: "/assets/newLogos/وزارة التخطيط والتنمية الاقتصادية.jpg", alt: "وزارة التخطيط والتنمية الاقتصادية" },
+                { id: "49", src: "/assets/newLogos/وزارة التضامن الاجتماعي.jpg", alt: "وزارة التضامن الاجتماعي" },
+                { id: "50", src: "/assets/newLogos/وزارة الشباب والرياضة جمهورية مصر العربية.webp", alt: "وزارة الشباب والرياضة" },
+                { id: "51", src: "/assets/newLogos/وزارة الهجرة وشئون المصريين بالخارج.jpg", alt: "وزارة الهجرة" },
+                { id: "27", src: "/assets/newLogos/WB.png", alt: "World Bank" },
+                { id: "28", src: "/assets/newLogos/Water Valley.png", alt: "Water Valley" },
+                { id: "29", src: "/assets/newLogos/Yalla-Success.jpg", alt: "Yalla Success" },
+                { id: "30", src: "/assets/newLogos/ahl-masr.png", alt: "Ahl Masr" },
+                { id: "31", src: "/assets/newLogos/hayat-logo.png", alt: "Hayat" },
+                { id: "32", src: "/assets/newLogos/huawei-logo-picture-4.png", alt: "Huawei" },
+                { id: "33", src: "/assets/newLogos/instax-logo-vector.png", alt: "Instax" },
+                { id: "34", src: "/assets/newLogos/mountain view.jpg", alt: "Mountain View" },
+                { id: "35", src: "/assets/newLogos/oppo-logo-png-oppo-logo-and-symbol-meaning-history-png-1920x1080.png", alt: "Oppo" },
+                { id: "36", src: "/assets/newLogos/palm hills.png", alt: "Palm Hills" },
+                { id: "37", src: "/assets/newLogos/pepsico.jpg", alt: "PepsiCo" },
+                { id: "38", src: "/assets/newLogos/rise up summit.png", alt: "Rise Up Summit" },
+                { id: "39", src: "/assets/newLogos/sharjah book authority.png", alt: "Sharjah Book Authority" },
+                { id: "40", src: "/assets/newLogos/talabatlogo-freelogovectors.net_.png", alt: "Talabat" },
+                { id: "41", src: "/assets/newLogos/terre-des-hommes-logo.png", alt: "Terre des Hommes" },
+                { id: "42", src: "/assets/newLogos/tiktok-6338432_1280.png", alt: "TikTok" },
+                { id: "43", src: "/assets/newLogos/undp-logo.png.webp", alt: "UNDP" },
+                { id: "44", src: "/assets/newLogos/wujud.png", alt: "Wujud" },
+                { id: "45", src: "/assets/newLogos/المجلس القومي للمرأة.jpg", alt: "المجلس القومي للمرأة" },
+                { id: "46", src: "/assets/newLogos/جمهورية مصر العربية - وزارة البيئة.png", alt: "وزارة البيئة" },
+                { id: "47", src: "/assets/newLogos/مركز الشباب العربي.png", alt: "مركز الشباب العربي" },
+                { id: "48", src: "/assets/newLogos/وزارة التخطيط والتنمية الاقتصادية.jpg", alt: "وزارة التخطيط والتنمية الاقتصادية" },
+                { id: "49", src: "/assets/newLogos/وزارة التضامن الاجتماعي.jpg", alt: "وزارة التضامن الاجتماعي" },
+                { id: "50", src: "/assets/newLogos/وزارة الشباب والرياضة جمهورية مصر العربية.webp", alt: "وزارة الشباب والرياضة" },
+                { id: "51", src: "/assets/newLogos/وزارة الهجرة وشئون المصريين بالخارج.jpg", alt: "وزارة الهجرة" },
+              ].map((logo, index) => (
+                <div
+                  key={`row2-${logo.id}-${index}`}
+                  className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 h-24 w-44 flex items-center justify-center transition-all duration-300 hover:shadow-md hover:scale-105 shrink-0"
+                >
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      className="object-contain"
+                      sizes="176px"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
         <section className="my-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -619,106 +865,6 @@ export default function PartnersPage() {
               </button>
             </a>
           </motion.div>
-        </section>
-        <h2 className="text-4xl md:text-5xl font-bold text-hot-pink mb-2">
-          {t("caseStudiesTitle")}
-        </h2>
-        {/* Case Studies Section */}
-        <section className="mb-16">
-          {caseStudies.map((study) => (
-            <motion.div
-              key={study.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="mb-24 relative"
-              style={{ direction: isRTL ? "rtl" : "ltr" }}
-            >
-              <div
-                className="max-w-6xl mx-auto"
-                style={{ direction: isRTL ? "rtl" : "ltr" }}
-              >
-                {/* Title Section */}
-                <div
-                  className={`flex  w-full justify-between`}
-                  style={{ direction: isRTL ? "rtl" : "ltr" }}
-                >
-                  <div className="mb-8 ">
-                    <h3 className="text-2xl md:text-3xl font-bold text-black mb-4">
-                      {t(`caseStudies.${study.id}.category`)}
-                    </h3>
-                    <div className="w-12 h-1 bg-black mb-8"></div>
-                  </div>
-                  {study.partnerLogo && (
-                    <div className=" top-0 right-0 h-20 w-20 md:h-24 md:w-24">
-                      <Image
-                        src={study.partnerLogo}
-                        alt="Partner logo"
-                        width={96}
-                        height={96}
-                        className="object-contain"
-                      />
-                    </div>
-                  )}
-                </div>
-
-                <div
-                  className={`flex flex-col md:flex-row gap-8 items-start`}
-                  style={{ direction: isRTL ? "rtl" : "ltr" }}
-                >
-                  <div className="md:w-1/2">
-                    <p className="text-base md:text-lg text-gray-800 mb-6">
-                      {t(`caseStudies.${study.id}.description`)}
-                    </p>
-
-                    {/* Stats for Palm Hills case study */}
-                    {study.id === "case2" && study.stats && (
-                      <div className="mt-4">
-                        <p className="text-lg font-bold">
-                          {locale === "en"
-                            ? "The campaign's debut video generated over "
-                            : "حقق فيديو إطلاق الحملة أكثر من "}
-                          <span className="text-hot-pink">
-                            {t(`caseStudies.${study.id}.stats.views`)}
-                          </span>
-                          {locale === "en" ? "," : "،"}
-                        </p>
-                        <p className="text-lg font-bold">
-                          {locale === "en"
-                            ? "with the overall metrics reaching an impressive "
-                            : "مع وصول المقاييس الإجمالية إلى "}
-                          <span className="text-hot-pink">
-                            {t(`caseStudies.${study.id}.stats.totalReach`)}
-                          </span>
-                          {locale === "en"
-                            ? " in total reach."
-                            : " في الوصول الإجمالي."}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Media Section */}
-                  <div className="md:w-1/2 flex w-full gap-4">
-                    {study.mediaItems &&
-                      study.mediaItems.map((media, index) => (
-                        <div key={index} className="relative w-full">
-                          <MediaRenderer media={media} />
-                          {/* {media.caption && (
-                            <p className="text-sm text-gray-600 mt-2">
-                              {media.caption}
-                            </p>
-                          )} */}
-                        </div>
-                      ))}
-                  </div>
-                </div>
-
-                {/* Partner Logo */}
-              </div>
-            </motion.div>
-          ))}
         </section>
 
         {/* Become a Partner Section */}
