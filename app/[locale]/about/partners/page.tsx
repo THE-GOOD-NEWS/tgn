@@ -680,7 +680,7 @@ export default function PartnersPage() {
             </CarouselContent>
 
             {/* Carousel Controls */}
-            <div className="flex items-center justify-between mt-8 px-2">
+            <div className="flex items-center justify-between mt-4 px-2">
               <CarouselIndicators className="gap-2" />
               <div dir="ltr" className="flex gap-2">
                 <CarouselPrevious className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white transition-colors" />
