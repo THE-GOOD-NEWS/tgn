@@ -689,7 +689,33 @@ export default function PartnersPage() {
             </div>
           </Carousel>
         </section>
-
+              <section className="my-20 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h3
+              className={`text-2xl md:text-3xl font-bold ${
+                isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              } text-carbon mb-6`}
+            >
+              {t("becomePartner")}
+            </h3>
+            <p
+              dir={locale === "ar" ? "rtl" : "ltr"}
+              className="mb-8 max-w-2xl mx-auto text-center text-gray-600"
+            >
+              {t("becomePartnerDescription")}
+            </p>
+            <a href={`/${locale}/contact/partner`} className="inline-block">
+              <button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
+                {t("becomePartnerButton")}
+              </button>
+            </a>
+          </motion.div>
+        </section>
 
         {/* Infinite Horizontal Scrolling Partner Logos Section */}
         <section className="my-20 relative overflow-hidden py-4">
@@ -847,35 +873,10 @@ export default function PartnersPage() {
             </div>
           </div>
         </section>
-        <section className="my-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h3
-              className={`text-2xl md:text-3xl font-bold ${
-                isRTL ? "font-arabic-subheading" : "font-english-subheading"
-              } text-carbon mb-6`}
-            >
-              {t("becomePartner")}
-            </h3>
-            <p
-              dir={locale === "ar" ? "rtl" : "ltr"}
-              className="mb-8 max-w-2xl mx-auto text-center text-gray-600"
-            >
-              {t("becomePartnerDescription")}
-            </p>
-            <a href={`/${locale}/contact/partner`} className="inline-block">
-              <button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
-                {t("becomePartnerButton")}
-              </button>
-            </a>
-          </motion.div>
-        </section>
+
 
         {/* Become a Partner Section */}
+  
       </section>
     </div>
   );
