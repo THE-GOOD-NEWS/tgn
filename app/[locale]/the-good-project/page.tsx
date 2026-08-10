@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import MetricsCards from "@/app/[locale]/goodIntern/components/MetricsCards";
+import MetricsCards from "@/app/[locale]/forseHelwa/components/MetricsCards";
 
 type Props = {
   params: Promise<{ locale: string }>;

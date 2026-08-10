@@ -5,6 +5,13 @@ import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 const PartnerLogo = ({
   src,
   alt,
@@ -119,18 +126,18 @@ export default function MediaPresencePage() {
               isRTL ? "font-arabic-header" : "font-english-heading"
             } text-carbon text-center pb-6 md:pb-10`}
           >
-            {t("title")}
+            {t("whoIsMariam")}
           </div>
       {/* Who is Mariam Section */}
       <section className="max-w-4xl mx-auto mb-16">
-        <h2
+        {/* <h2
           dir={isRTL ? "rtl" : "ltr"}
           className={`text-xl md:text-2xl lg:text-3xl ${
             isRTL ? "font-arabic" : "font-english"
           } text-pink-500 font-semibold mb-3 text-center`}
         >
           {t("whoIsMariam")}
-        </h2>
+        </h2> */}
         <div className="flex mb-14 px-4 sm:px-6 md:px-16 lg:px-16 flex-col md:flex-row items-center gap-6">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -222,16 +229,41 @@ export default function MediaPresencePage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="aspect-video w-full max-w-4xl mx-auto"
+          className="w-full max-w-4xl mx-auto px-8 md:px-12"
         >
-          <iframe
-            src="https://www.youtube.com/embed/videoseries?list=PLYs-fHK8RjGzx8hWqkBaI8JvzPY054RNp"
-            title="THE GOOD NEWS Interviews"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full  md:h-[500px] aspect-video rounded-xl shadow-lg"
-          ></iframe>
+          <Carousel
+            opts={{ align: "start", loop: true, direction: isRTL ? "rtl" : "ltr" }}
+            className="w-full relative"
+          >
+            <CarouselContent>
+              {[
+                "TvMmW4MOHTk",
+                "TVtAxOnIV2s",
+                "NdGnjgpthOM",
+                "01-TN6zwGfc",
+                "V3dmqbAfmmU",
+                "ycbDcr-hbdw",
+                "8EJzfybOAKo",
+                "gSIpa0PjhQk",
+                "Numm4ydwNO4",
+              ].map((videoId, idx) => (
+                <CarouselItem key={idx}>
+                  <div className="aspect-video w-full">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${videoId}`}
+                      title={`THE GOOD NEWS Interview ${idx + 1}`}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full md:h-[500px] aspect-video rounded-xl shadow-lg"
+                    ></iframe>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="bg-white hover:bg-primary hover:text-white border-none shadow-md -left-4 md:-left-12" />
+            <CarouselNext className="bg-white hover:bg-primary hover:text-white border-none shadow-md -right-4 md:-right-12" />
+          </Carousel>
         </motion.div>
       </section>
     </div>

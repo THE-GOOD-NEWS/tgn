@@ -86,7 +86,7 @@
       "interviews": "مقابلات"
     },
     "opportunitiesSubItems": {
-      "theGoodIntern": "فرصة حلوة",
+      "forsaHelwa": "فرصة حلوة",
       "workshops": "ورش عمل",
       "programs": "برامج",
       "scholarships": "منح"
@@ -95,7 +95,8 @@
       "ourStory": "قصتنا",
       "team": "فريقنا",
       "partners": "شركاؤنا",
-      "mediaPresence": "قالوا عنّا"
+      "mediaPresence": "قالوا عنّا",
+      "ourFounder": "مؤسسنا"
     },
     "contactSubItems": {
       "beOurPartner": "كن شريك لنا",
@@ -605,6 +606,7 @@
       "governate": "الحكومة",
       "privateSector": "القطاع الخاص"
     },
+    "trustedBy": "موثوق بنا من قِبل",
     "caseStudiesTitle": " قصص نجاح",
     "caseStudies": {
       "title": "دراسات الحالة",

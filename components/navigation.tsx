@@ -165,8 +165,8 @@ export function Navigation({}: NavigationProps) {
               label: t("projectsSubItems.theGoodProject"),
             },
             {
-              href: `/${locale}/goodIntern`,
-              label: t("opportunitiesSubItems.theGoodIntern"),
+              href: `/${locale}/forseHelwa`,
+              label: t("opportunitiesSubItems.forsaHelwa"),
             },
           ],
         },
@@ -175,8 +175,8 @@ export function Navigation({}: NavigationProps) {
           label: t("aboutSubItems.partners"),
         },
         {
-          href: `/${locale}/about/mediaPresence`,
-          label: t("aboutSubItems.mediaPresence"),
+          href: `/${locale}/about/ourFounder`,
+          label: t("aboutSubItems.ourFounder"),
         },
       ],
     },

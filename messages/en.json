@@ -87,7 +87,7 @@
       "interviews": "Interviews"
     },
     "opportunitiesSubItems": {
-      "theGoodIntern": "The Good Opportunity",
+      "forsaHelwa": "The Good Opportunity",
       "workshops": "Workshops",
       "programs": "Programs",
       "scholarships": "Scholarships"
@@ -96,7 +96,8 @@
       "ourStory": "Our Story",
       "team": "Team",
       "partners": "Partners",
-      "mediaPresence": "Media Presence"
+      "mediaPresence": "Media Presence",
+      "ourFounder": "Our Founder"
     },
     "contactSubItems": {
       "beOurPartner": "Be our partner",
@@ -681,6 +682,7 @@
       "governate": "Government",
       "privateSector": "Private Sector"
     },
+    "trustedBy": "Trusted by",
     "caseStudiesTitle": "SUCCESSFUL CASE STUDIES",
     "caseStudies": {
       "title": "Case Studies",

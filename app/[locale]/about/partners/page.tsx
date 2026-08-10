@@ -575,17 +575,22 @@ export default function PartnersPage() {
         {/* Case Studies Section */}
         <section className="mb-16">
           <Carousel
+            dir="ltr"
             opts={{
               align: "start",
               loop: true,
             }}
             className="w-full relative"
           >
-            <div className="flex items-center justify-between mb-6">
+            <div
+            dir={isRTL ? "rtl" : "ltr"}
+            className="flex items-center justify-between mb-6">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-hot-pink">
                 {t("caseStudiesTitle")}
               </h2>
-              <div className="flex items-center gap-2">
+              <div 
+              dir="ltr"
+              className="flex items-center gap-2">
                 <CarouselPrevious className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white hover:border-hot-pink transition-all shadow-sm" />
                 <CarouselNext className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white hover:border-hot-pink transition-all shadow-sm" />
               </div>
@@ -594,7 +599,7 @@ export default function PartnersPage() {
               {caseStudies.map((study) => (
                 <CarouselItem key={study.id} className="basis-full">
                   <div
-                    className="bg-white rounded-3xl p-6 md:p-10 border border-gray-100 shadow-xl relative min-h-[480px] flex flex-col justify-between"
+                    className="bg-white rounded-3xl p-6 md:px-10  border border-gray-100 shadow-xl relative h-full flex flex-col justify-between"
                     style={{ direction: isRTL ? "rtl" : "ltr" }}
                   >
                     <div>
@@ -677,7 +682,7 @@ export default function PartnersPage() {
             {/* Carousel Controls */}
             <div className="flex items-center justify-between mt-8 px-2">
               <CarouselIndicators className="gap-2" />
-              <div className="flex gap-2">
+              <div dir="ltr" className="flex gap-2">
                 <CarouselPrevious className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white transition-colors" />
                 <CarouselNext className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white transition-colors" />
               </div>
@@ -688,6 +693,9 @@ export default function PartnersPage() {
 
         {/* Infinite Horizontal Scrolling Partner Logos Section */}
         <section className="my-20 relative overflow-hidden py-4">
+          <h2 className="text-center text-base md:text-lg  font-bold text-hot-pink mb-10">
+            {t("trustedBy")}
+          </h2>
           <div className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10" />
 
