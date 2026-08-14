@@ -21,9 +21,8 @@ export default function TGMGHomePage() {
     <div className="min-h-screen bg-white overflow-hidden">
       <main className="w-full flex flex-col">
         <TGMGHero />
-        <OurStory />
-        <HOPEFramework />
         <Ecosystem />
+        <HOPEFramework />
         <Products />
         <PartnerSolutions />
         <PartnerCaseStudies />
