@@ -97,12 +97,19 @@
       "team": "Team",
       "partners": "Partners",
       "mediaPresence": "Media Presence",
-      "ourFounder": "Our Founder"
+      "ourFounder": "Our Founder",
+      "theGoodMediaGroup": "The Good Media Group"
     },
     "contactSubItems": {
       "beOurPartner": "Be our partner",
-      "shareGoodNews": "Share your good news"
+      "shareGoodNews": "Share your good news",
+      "joinOurTeam": "Join Our Team"
     },
+    "theGoodNews": "The Good News",
+    "allNews": "All News",
+    "initiatives": "Initiatives",
+    "aboutTheGoodNews": "About The Good News",
+    "forsaHelwa": "Forsa Helwa",
     "theGoodProject": {
       "title": "THE GOOD PROJECT",
       "storyTitle": "The Story Behind",
@@ -802,5 +809,139 @@
     "twitter": "Twitter",
     "linkedin": "LinkedIn",
     "whatsapp": "WhatsApp"
+  },
+  "tgmg": {
+    "hero": {
+      "tagline": "The Good Media Group",
+      "headline": "A modern youth online and offline eco-system creating stories, communities, and experiences that drive impact.",
+      "subhead": "We build experiences youth genuinely want—and help brands, organizations, and changemakers connect with young people through authentic storytelling.",
+      "badge1": "Media",
+      "badge2": "Community",
+      "badge3": "Impact",
+      "primaryCta": "Explore Our Work",
+      "secondaryCta": "Partner With Us"
+    },
+    "ourStory": {
+      "title": "Our Story",
+      "subtitle": "The Good Media Group (TGMG) is the parent company behind a growing ecosystem of media brands, original content, and community initiatives.",
+      "p1": "Our work sits at the intersection of storytelling, journalism, creativity, and impact—bringing together digital content, on-ground experiences, and strategic partnerships under one umbrella.",
+      "p2": "Whether we're producing a short-form news video, hosting a community event, or developing an original series, our goal remains the same: to create experiences that drive youth impact."
+    },
+    "hope": {
+      "title": "Our Strategy and Framework",
+      "frameworkTitle": "The HOPE Framework",
+      "subtitle": "Our Strategy for Building the Leading Youth Ecosystem",
+      "intro": "Everything we build should help young people move from possibility to participation, from participation to potential, and from potential to leadership.",
+      "hTitle": "H — Humanize",
+      "hTagline": "Make possibilities feel personal.",
+      "hDesc": "Through our News & Features, We tell stories that help young people see themselves in the future they want to build. By humanizing issues, challenges and successes through real people, we inspire action rather than passive optimism.",
+      "oTitle": "O — Open",
+      "oTagline": "Open doors to opportunities.",
+      "oDesc": "We connect young people with opportunities that accelerate their personal and professional journeys. We don't just inform — we create access. Our product line, Forsa Helwa, bridges the gap between Youth and growth opportunities. We built a whole content series focused on equipping youth with skills that would help them grow.",
+      "pTitle": "P — Prepare",
+      "pTagline": "Prepare young people to thrive.",
+      "pDesc": "We equip youth with the skills, confidence, networks and experiences they need to succeed. Through learning, community and mentorship, we help them become ready for what's next through The Good Space.",
+      "eTitle": "E — Elevate",
+      "eTagline": "Elevate youth voices and ideas.",
+      "eDesc": "We create platforms where young people don't just consume stories — they shape them. We amplify youth voices, connect them with decision-makers and help them influence the future.",
+      "journeyTitle": "The Youth Journey",
+      "journeySub": "Every young person who engages with The Good Media Group should move through the same journey:",
+      "stepH": "Humanize → Discover stories that make the future feel possible.",
+      "stepO": "Open → Access opportunities that create momentum.",
+      "stepP": "Prepare → Gain the skills, confidence and community to grow.",
+      "stepE": "Elevate → Lead, create and shape the future for others.",
+      "conclusion": "Hope is not one pillar within this journey. Hope is what happens because all four pillars work together."
+    },
+    "ecosystem": {
+      "title": "Our Ecosystem & Platforms",
+      "subtitle": "Everything we build is designed to serve a different part of our mission.",
+      "tgnTitle": "THE GOOD NEWS",
+      "tgnDesc": "Our flagship digital media platform, delivering positive, informative, and engaging stories across social media.",
+      "tgnSubBrands": "Including: The Good Intern & The Good Project",
+      "tgnCta": "Explore Platform →",
+      "tgsTitle": "The Good Space",
+      "tgsDesc": "Our on-ground community arm, bringing people together through events, workshops, networking, and experiences.",
+      "tgsCta": "Explore Platform →"
+    },
+    "products": {
+      "title": "What We Create",
+      "subtitle": "We develop social-first content designed for today's audiences and tomorrow's brands.",
+      "newsTitle": "News & Features",
+      "newsTagline": "Fresh, fast, and made to be shared — content youth actually want to watch.",
+      "newsFormats": "Original formats: Reels, Carousels, Quick News, Articles, Stories",
+      "newsProd": "End-to-end production: scripting, filming, editing, and bilingual copywriting",
+      "newsCamp": "Custom campaigns for public sector entities, nonprofits, and consumer brands",
+      "newsDist": "Multi-platform distribution: Instagram, TikTok, YouTube, Facebook, Website & Newsletter",
+      "newsAi": "Powered by AI automation for faster, smarter replies to DMs and comments",
+      "forsaTitle": "Forsa Helwa",
+      "forsaTagline": "Connecting Arab youth to the opportunities that move them forward.",
+      "forsaDesc": "A dedicated series highlighting opportunities—from jobs and scholarships to grants, competitions, and fellowships with 1M+ in total reach, and 70+ internship listings through companies and organizations.",
+      "mediaTitle": "Media Production",
+      "mediaTagline": "Capturing the moments that matter, live and in the room.",
+      "mediaDesc": "On-the-ground coverage of summits, campaigns, and launches • In-house production team delivering live features, interviews, and human-led storytelling • Trusted by leading institutions like Schneider, RiseUp, and iSpark",
+      "eduTitle": "Education & Community",
+      "eduSub": "(The Good Space)",
+      "eduTagline": "Building skills and sparking action across the region's youth.",
+      "eduDesc": "Workshops on storytelling, content creation, and digital citizenship • Trainings for youth, NGOs, and creators across the MENA region • Activation campaigns that engage — not just inform"
+    },
+    "partnerships": {
+      "title": "Partner Solutions",
+      "subtitle": "Every partnership starts with a story.",
+      "desc": "Whether you're launching a campaign, announcing an initiative, promoting an opportunity, or building long-term brand affinity, we create content tailored to your goals while staying true to our editorial voice.",
+      "whoTitle": "We Work With",
+      "whoList": ["Brands", "Startups", "NGOs", "Government entities", "International organizations", "Universities", "Accelerators", "Social enterprises"],
+      "whyTitle": "Why Partners Choose Us",
+      "whySub": "Because people don't engage with ads—they engage with stories.",
+      "reasons": [
+        "Social-first storytelling",
+        "Trusted editorial voice",
+        "Creative strategy & production",
+        "Community-driven approach",
+        "Digital + on-ground activations",
+        "End-to-end campaign execution"
+      ]
+    },
+    "caseStudies": {
+      "title": "Partner Success Stories",
+      "subtitle": "See how we collaborate with leading organizations to deliver measurable impact.",
+      "item1Title": "Masar Ventures & Forsa Helwa 2026",
+      "item1Desc": "In Summer 2026, we covered three Masar Ventures programs on THE GOOD NEWS: She Builds under Girl Up & UN Foundation patronage, Mel Academy at Zewail City, and Under 30 competition. Three initiatives centered around Egyptian founders.",
+      "item1Stats": "~150K Views • ~54K Reach • ~8,200 Engagements",
+      "item2Title": "Gemini & The Good Space 2026",
+      "item2Desc": "Partnered with Gemini during our first season to host a workshop helping 10 top Egypt creators use Gemini for efficient content creation, amplifying impact to over 10 million combined followers.",
+      "item2Stats": "10 Top Creators • 10M+ Combined Reach",
+      "item3Title": "Mountain View 2025",
+      "item3Desc": "Mountain View chose THE GOOD NEWS to share an authentic internal story of supporting a young entrepreneur, achieving massive organic engagement instead of traditional press releases.",
+      "item3Stats": "100K+ Organic Views • 1,000+ Shares • 300+ Comments",
+      "item4Title": "BTC 2025",
+      "item4Desc": "Reframed silver investment for Gen Z into an informed, accessible choice for Egypt's most trusted gold supplier.",
+      "item4Stats": "470K+ Views • 8,000+ Engagements • 6%–7.5% Engagement Rate",
+      "item5Title": "Palm Hills 2024",
+      "item5Desc": "Targeted campaign featuring Egyptian Olympians across reels, quick news, and stories, generating outstanding engagement.",
+      "item5Stats": "700K+ First Video Views • 3M+ Total Reach • 7.8% Engagement Rate (6x industry avg)"
+    },
+    "trustedBy": {
+      "title": "Trusted By",
+      "subtitle": "A showcase of the organizations, brands, and institutions we've partnered with."
+    },
+    "impact": {
+      "title": "Our Impact",
+      "subtitle": "Numbers tell part of the story.",
+      "views": "Millions",
+      "viewsLabel": "Monthly Views",
+      "community": "Thousands",
+      "communityLabel": "Engaged Community Members",
+      "stories": "Hundreds",
+      "storiesLabel": "Stories Published",
+      "events": "Dozens",
+      "eventsLabel": "On-Ground Events",
+      "reach": "Regional",
+      "reachLabel": "MENA Partnerships & Beyond"
+    },
+    "cta": {
+      "title": "Let's Build Something Good Together",
+      "subtitle": "Whether you're looking to tell a story, launch a campaign, build a community, or create meaningful content—we'd love to hear from you.",
+      "button": "Partner With The Good Media Group"
+    }
   }
 }

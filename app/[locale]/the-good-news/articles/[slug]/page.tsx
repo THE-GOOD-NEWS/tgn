@@ -24,7 +24,7 @@ import {
   CarouselNext,
   CarouselIndicators,
 } from "@/components/ui/carousel";
-import CommentSection from "../../components/CommentSection";
+import CommentSection from "@/app/[locale]/components/CommentSection";
 import { ShareMenu } from "@/components/share-menu";
 
 interface PopulatedArticle {
@@ -307,7 +307,7 @@ export default async function ArticlePage({ params }: any) {
               <BreadcrumbSeparator className="rtl:rotate-180" />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${locale}/articles`}>
+                  <Link href={`/${locale}/the-good-news/articles`}>
                     {footerT("quickLinks.articles")}
                   </Link>
                 </BreadcrumbLink>
@@ -417,7 +417,7 @@ export default async function ArticlePage({ params }: any) {
                 </button> */}
                 <ShareMenu
                   title={title}
-                  url={`/${locale}/articles/${article.slug}`}
+                  url={`/${locale}/the-good-news/articles/${article.slug}`}
                   trigger={
                     <button className="text-sm text-muted-foreground hover:text-hot-pink transition-colors">
                       {isArabic ? "مشاركة" : "Share"}

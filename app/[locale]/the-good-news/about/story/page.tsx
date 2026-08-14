@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
-import { TestimonialCard } from "../../sections/testomonials/TestomonialsCard";
+import { TestimonialCard } from "@/app/[locale]/sections/testomonials/TestomonialsCard";
 import { WhoWeAreChatBubble } from "./components/WhoWeAreChatBubble";
 
 // Counter component that animates from 0 to target value

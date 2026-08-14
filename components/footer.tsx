@@ -52,8 +52,8 @@ export function Footer() {
 
   const quickLinks = [
     { href: `/${locale}`, label: t("quickLinks.home") },
-    { href: `/${locale}/articles`, label: t("quickLinks.articles") },
-    { href: `/${locale}/about/story`, label: t("quickLinks.about") },
+    { href: `/${locale}/the-good-news/articles`, label: t("quickLinks.articles") },
+    { href: `/${locale}/the-good-news/about/story`, label: t("quickLinks.about") },
     { href: `/${locale}/contact`, label: t("quickLinks.contact") },
     { href: `/${locale}/privacy`, label: t("quickLinks.privacy") },
     { href: `/${locale}/terms`, label: t("quickLinks.terms") },
@@ -68,11 +68,15 @@ export function Footer() {
       href: `/${locale}/contact/share-news`,
       label: navT("contactSubItems.shareGoodNews"),
     },
-    { href: `/${locale}/contact`, label: navT("contact") },
     {
-      href: `/${locale}/the-good-project/join`,
+      href: `/${locale}/contact/join-our-team`,
+      label: navT("contactSubItems.joinOurTeam"),
+    },
+    {
+      href: `/${locale}/the-good-news/the-good-project/join`,
       label: "The Good Project",
     },
+    { href: `/${locale}/contact`, label: navT("contact") },
   ];
 
   const isRTL = locale === "ar";
@@ -96,10 +100,16 @@ export function Footer() {
             >
               <div className="relative w-64 h-32 md:h-32 md:w-64 lg:h-36 lg:w-80">
                 <Image
-                  alt="The Good News Logo"
+                  alt="The Good Media Group Logo"
                   fill
                   className="object-contain"
-                  src={pathname.includes("/the-good-space") ? "/goodSpace/1.png" : "/logos/TGN_LOGOS_PNG-03.png"}
+                  src={
+                    pathname.includes("/the-good-space")
+                      ? "/goodSpace/1.png"
+                      : pathname.includes("/the-good-news")
+                      ? "/logos/TGN_LOGOS_PNG-03.png"
+                      : "/TGMG/logo.png"
+                  }
                 />
               </div>
             </Link>
