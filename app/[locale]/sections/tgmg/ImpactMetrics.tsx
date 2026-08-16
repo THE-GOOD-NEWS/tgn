@@ -22,8 +22,8 @@ export function ImpactMetrics() {
       value: t("community"),
       label: t("communityLabel"),
       icon: Users,
-      gradient: "from-purple-500 to-indigo-500",
-      lightBg: "bg-purple-50 border-purple-100 text-purple-700",
+      gradient: "from-violet-500 to-indigo-500",
+      lightBg: "bg-violet-50 border-violet-100 text-violet-700",
     },
     {
       value: t("stories"),
@@ -52,24 +52,22 @@ export function ImpactMetrics() {
     <section id="our-impact" className="py-24 bg-gradient-to-br from-cream/60 via-white to-cream/40 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div dir={isRTL ? "rtl" : "ltr"} className="max-w-6xl mx-auto space-y-16">
-          
+
           {/* Header */}
           <div className="text-center space-y-4 max-w-3xl mx-auto">
-            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-gray-800 border border-gray-200 shadow-sm">
+            {/* <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-gray-800 border border-gray-200 shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-amber-500 inline mr-1 rtl:ml-1" />
               {t("title")}
-            </span>
+            </span> */}
             <h2
-              className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 ${
-                isRTL ? "font-arabic-header" : "font-english-header"
-              }`}
+              className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                }`}
             >
               {t("title")}
             </h2>
             <p
-              className={`text-lg sm:text-xl text-gray-600 font-medium ${
-                isRTL ? "font-arabic-body" : "font-english-body"
-              }`}
+              className={`text-lg sm:text-xl text-gray-600 font-medium ${isRTL ? "font-arabic-body" : "font-english-body"
+                }`}
             >
               {t("subtitle")}
             </p>

@@ -232,7 +232,7 @@ export function Products() {
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-cream border border-gray-200 text-gray-800 shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-hot-pink" />
-              {isRTL ? "إيه اللي بنقدّمه (محاور المحتوى)" : "What We Create (Our Products)"}
+              {isRTL ? "إيه اللي بنقدّمه (محاور المحتوى)" : "What We Create "}
             </span>
             <h2
               className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight ${isRTL ? "font-arabic-header" : "font-english-header"

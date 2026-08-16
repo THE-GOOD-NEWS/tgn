@@ -37,43 +37,68 @@ export function TrustedByMarquee() {
     { id: "25", src: "/assets/newLogos/rise up summit.png", alt: "RiseUp Summit" },
   ];
 
-  // Duplicate list for infinite smooth scrolling
-  const marqueeList = [...partnerLogos, ...partnerLogos];
+  // Split partner logos into two rows for alternating marquee directions
+  const firstRowLogos = partnerLogos.filter((_, idx) => idx % 2 === 0);
+  const secondRowLogos = partnerLogos.filter((_, idx) => idx % 2 !== 0);
+
+  // Duplicate lists for infinite smooth scrolling
+  const marqueeList1 = [...firstRowLogos, ...firstRowLogos];
+  const marqueeList2 = [...secondRowLogos, ...secondRowLogos];
 
   return (
     <section id="trusted-by" className="py-20 bg-white relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <div dir={isRTL ? "rtl" : "ltr"} className="text-center space-y-3 max-w-2xl mx-auto">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-cream text-gray-800 border border-gray-200 shadow-sm">
+          {/* <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-cream text-gray-800 border border-gray-200 shadow-sm">
             {isRTL ? "شركاء النجاح" : "Partners & Clients"}
-          </span>
+          </span> */}
           <h2
-            className={`text-3xl sm:text-4xl font-black text-gray-900 ${
-              isRTL ? "font-arabic-header" : "font-english-header"
-            }`}
+            className={`text-3xl sm:text-4xl font-black text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+              }`}
           >
             {t("title")}
           </h2>
-          <p
+          {/* <p
             className={`text-base text-gray-600 ${
               isRTL ? "font-arabic-body" : "font-english-body"
             }`}
           >
             {t("subtitle")}
-          </p>
+          </p> */}
         </div>
       </div>
 
-      {/* Marquee Row */}
-      <div className="relative w-full overflow-hidden py-4">
+      {/* Marquee Rows Container */}
+      <div className="relative w-full overflow-hidden py-4 space-y-6">
         {/* Left & Right Gradient Shadows */}
-        <div className="absolute top-0 left-0 bottom-0 w-24 sm:w-36 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute top-0 right-0 bottom-0 w-24 sm:w-36 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 left-0 bottom-0 w-36 sm:w-60 md:w-80 lg:w-96 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 right-0 bottom-0 w-36 sm:w-60 md:w-80 lg:w-96 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
+        {/* First Row - Moving Left */}
         <div className="animate-marquee-left flex gap-6 items-center">
-          {marqueeList.map((logo, idx) => (
+          {marqueeList1.map((logo, idx) => (
             <div
-              key={`${logo.id}-${idx}`}
+              key={`row1-${logo.id}-${idx}`}
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 h-24 w-44 flex items-center justify-center shrink-0 transition-transform duration-200 hover:scale-105 hover:shadow-md"
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  fill
+                  className="object-contain"
+                  sizes="176px"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Second Row - Moving Right (Vice Versa) */}
+        <div className="animate-marquee-right flex gap-6 items-center">
+          {marqueeList2.map((logo, idx) => (
+            <div
+              key={`row2-${logo.id}-${idx}`}
               className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 h-24 w-44 flex items-center justify-center shrink-0 transition-transform duration-200 hover:scale-105 hover:shadow-md"
             >
               <div className="relative w-full h-full">
