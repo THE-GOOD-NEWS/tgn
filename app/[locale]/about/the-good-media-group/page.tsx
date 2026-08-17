@@ -39,15 +39,15 @@ export default function TheGoodMediaGroupPage() {
     tagline: isRTL ? "عن The Good Media Group" : "About The Good Media Group",
     paragraphs: isRTL
       ? [
-          "ذا جود ميديا جروب هي الشركة الأم لمجموعة من العلامات الإعلامية، والمحتوى الأصلي، والمبادرات المجتمعية، واللي بنعمل على تطويرها وتوسيعها باستمرار.",
-          "شغلنا بيجمع بين صناعة المحتوى، والصحافة، والإبداع، والتأثير، من خلال المحتوى الرقمي، والتجارب على أرض الواقع، والشراكات الاستراتيجية، وكل ده تحت مظلة واحدة.",
-          "سواء بننتج فيديو إخباري قصير، أو بننظم فعالية مجتمعية، أو بنطوّر سلسلة محتوى أصلية، هدفنا دايمًا واحد: إننا نصنع تجارب يكون لها تأثير حقيقي على الشباب.",
-        ]
+        "ذا جود ميديا جروب هي الشركة الأم لمجموعة من العلامات الإعلامية، والمحتوى الأصلي، والمبادرات المجتمعية، واللي بنعمل على تطويرها وتوسيعها باستمرار.",
+        "شغلنا بيجمع بين صناعة المحتوى، والصحافة، والإبداع، والتأثير، من خلال المحتوى الرقمي، والتجارب على أرض الواقع، والشراكات الاستراتيجية، وكل ده تحت مظلة واحدة.",
+        "سواء بننتج فيديو إخباري قصير، أو بننظم فعالية مجتمعية، أو بنطوّر سلسلة محتوى أصلية، هدفنا دايمًا واحد: إننا نصنع تجارب يكون لها تأثير حقيقي على الشباب.",
+      ]
       : [
-          "The Good Media Group (TGMG) is the parent company behind a growing ecosystem of media brands, original content, and community initiatives.",
-          "Our work sits at the intersection of storytelling, journalism, creativity, and impact—bringing together digital content, on-ground experiences, and strategic partnerships under one umbrella.",
-          "Whether we're producing a short-form news video, hosting a community event, or developing an original series, our goal remains the same: to create experiences that drive youth impact.",
-        ],
+        "The Good Media Group (TGMG) is the parent company behind a growing ecosystem of media brands, original content, and community initiatives.",
+        "Our work sits at the intersection of storytelling, journalism, creativity, and impact—bringing together digital content, on-ground experiences, and strategic partnerships under one umbrella.",
+        "Whether we're producing a short-form news video, hosting a community event, or developing an original series, our goal remains the same: to create experiences that drive youth impact.",
+      ],
   };
 
   // Section 2: Visual Ecosystem Data
@@ -129,9 +129,12 @@ export default function TheGoodMediaGroupPage() {
           : "Through our News & Features, We tell stories that help young people see themselves in the future they want to build. By humanizing issues, challenges and successes through real people, we inspire action rather than passive optimism.",
         corePlatform: isRTL ? "قسم الأخبار والقصص (News & Features)" : "News & Features / Authentic Stories",
         icon: Heart,
-        gradient: "from-rose-500 to-pink-500",
-        accentColor: "#f43f5e",
-        lightBadge: "bg-rose-50 border-rose-200 text-rose-700 font-black",
+        gradient: "from-hot-pink via-pink-500 to-rose-500 text-white",
+        accentColor: "#FF9ACC",
+        cardBorder: "border-hot-pink/40 hover:border-hot-pink",
+        lightBadge: "bg-pink-50 border-pink-200 text-pink-700 font-black",
+        iconBox: "bg-pink-50 text-hot-pink-dark group-hover:bg-pink-100",
+        shadow: "shadow-hot-pink/20 hover:shadow-hot-pink/30",
         transitionStage: isRTL ? "من الإمكانية إلى المشاركة" : "Possibility → Participation",
       },
       {
@@ -145,9 +148,12 @@ export default function TheGoodMediaGroupPage() {
           : "We connect young people with opportunities that accelerate their personal and professional journeys. We don't just inform — we create access. Our product line, Forsa Helwa, bridges the gap between Youth and growth opportunities. We built a whole content series focused on equipping youth with skills that would help them grow.",
         corePlatform: isRTL ? "فرصة حلوة (Forsa Helwa)" : "Forsa Helwa / Career Acceleration",
         icon: DoorOpen,
-        gradient: "from-amber-500 to-orange-500",
+        gradient: "from-hot-pink via-rose-400 to-amber-300 text-white",
         accentColor: "#f59e0b",
-        lightBadge: "bg-amber-50 border-amber-200 text-amber-700 font-black",
+        cardBorder: "border-pink-300/50 hover:border-pink-400",
+        lightBadge: "bg-pink-50/90 border-pink-200 text-pink-800 font-black",
+        iconBox: "bg-pink-50 text-pink-700 group-hover:bg-pink-100",
+        shadow: "shadow-pink-400/20 hover:shadow-pink-400/30",
         transitionStage: isRTL ? "من المشاركة إلى الإمكانات" : "Participation → Potential",
       },
       {
@@ -161,9 +167,12 @@ export default function TheGoodMediaGroupPage() {
           : "We equip youth with the skills, confidence, networks and experiences they need to succeed. Through learning, community and mentorship, we help them become ready for what's next through The Good Space.",
         corePlatform: isRTL ? "The Good Space (المجتمع والتعلم الميداني)" : "The Good Space / Community & Learning",
         icon: ShieldCheck,
-        gradient: "from-[#9966FF] to-[#6A2BDE]",
-        accentColor: "#9966FF",
-        lightBadge: "bg-purple-100 border-purple-300 text-purple-900 font-black",
+        gradient: "from-pink-300 via-amber-300 to-yellow-300 text-gray-900",
+        accentColor: "#f59e0b",
+        cardBorder: "border-amber-300/50 hover:border-amber-400",
+        lightBadge: "bg-amber-50 border-amber-200 text-amber-900 font-black",
+        iconBox: "bg-amber-50 text-amber-800 group-hover:bg-amber-100",
+        shadow: "shadow-amber-400/20 hover:shadow-amber-400/30",
         transitionStage: isRTL ? "من الإمكانات إلى الجاهزية" : "Potential → Readiness",
       },
       {
@@ -177,9 +186,12 @@ export default function TheGoodMediaGroupPage() {
           : "We create platforms where young people don't just consume stories — they shape them. We amplify youth voices, connect them with decision-makers and help them influence the future.",
         corePlatform: isRTL ? "تمكين وتأثير القيادات الشبابية" : "Youth Leadership & Amplification",
         icon: Megaphone,
-        gradient: "from-emerald-500 to-teal-500",
-        accentColor: "#10b981",
-        lightBadge: "bg-emerald-100 border-emerald-300 text-emerald-900 font-black",
+        gradient: "from-amber-300 via-yellow-300 to-bright-yellow text-gray-900",
+        accentColor: "#eab308",
+        cardBorder: "border-bright-yellow/70 hover:border-bright-yellow",
+        lightBadge: "bg-yellow-50 border-yellow-300 text-yellow-900 font-black",
+        iconBox: "bg-yellow-50 text-yellow-900 group-hover:bg-yellow-100",
+        shadow: "shadow-bright-yellow/25 hover:shadow-bright-yellow/40",
         transitionStage: isRTL ? "من الجاهزية إلى القيادة" : "Readiness → Leadership",
       },
     ],
@@ -193,8 +205,8 @@ export default function TheGoodMediaGroupPage() {
           letter: "H",
           name: "Humanize",
           stage: isRTL ? "الإمكانية" : "Possibility",
-          color: "bg-gradient-to-br from-rose-500 to-pink-500 text-white shadow-rose-500/40",
-          progressColor: "bg-rose-500",
+          color: "bg-gradient-to-br from-hot-pink to-pink-500 text-white shadow-hot-pink/30",
+          progressColor: "bg-hot-pink",
           text: isRTL
             ? "Humanize ← يكتشف قصص تخليه يشوف إن المستقبل اللي بيحلم بيه ممكن يتحقق."
             : "Humanize → Discover stories that make the future feel possible.",
@@ -203,8 +215,8 @@ export default function TheGoodMediaGroupPage() {
           letter: "O",
           name: "Open",
           stage: isRTL ? "المشاركة" : "Participation",
-          color: "bg-gradient-to-br from-amber-400 to-orange-500 text-gray-950 shadow-amber-500/40",
-          progressColor: "bg-amber-400",
+          color: "bg-gradient-to-br from-hot-pink via-rose-400 to-amber-300 text-white shadow-pink-400/30",
+          progressColor: "bg-gradient-to-r from-hot-pink to-amber-400",
           text: isRTL
             ? "Open ← يوصل لفرص تساعده ياخد خطوات حقيقية لقدام."
             : "Open → Access opportunities that create momentum.",
@@ -213,8 +225,8 @@ export default function TheGoodMediaGroupPage() {
           letter: "P",
           name: "Prepare",
           stage: isRTL ? "الإمكانات" : "Potential",
-          color: "bg-gradient-to-br from-[#9966FF] to-[#6A2BDE] text-white shadow-purple-500/50",
-          progressColor: "bg-[#9966FF]",
+          color: "bg-gradient-to-br from-pink-300 via-amber-300 to-yellow-300 text-gray-900 shadow-amber-400/30",
+          progressColor: "bg-amber-300",
           text: isRTL
             ? "Prepare ← يكتسب المهارات والثقة والمجتمع اللي يساعده على التطور."
             : "Prepare → Gain the skills, confidence and community to grow.",
@@ -223,8 +235,8 @@ export default function TheGoodMediaGroupPage() {
           letter: "E",
           name: "Elevate",
           stage: isRTL ? "القيادة" : "Leadership",
-          color: "bg-gradient-to-br from-emerald-400 to-teal-500 text-gray-950 shadow-emerald-500/40",
-          progressColor: "bg-emerald-400",
+          color: "bg-gradient-to-br from-amber-300 via-yellow-300 to-bright-yellow text-gray-900 shadow-bright-yellow/30",
+          progressColor: "bg-bright-yellow",
           text: isRTL
             ? "Elevate ← يقود ويبدع ويساهم في تشكيل مستقبل أفضل للآخرين."
             : "Elevate → Lead, create and shape the future for others.",
@@ -305,9 +317,8 @@ export default function TheGoodMediaGroupPage() {
       {/* ========================================================================= */}
       <section
         id="our-story"
-        className={`relative pt-12 md:pt-16 pb-10 md:pb-14 px-4 sm:px-6 lg:px-8 border-b border-gray-200/70 overflow-hidden ${
-          isRTL ? "text-right" : "text-left"
-        }`}
+        className={`relative pt-12 md:pt-16 2xl:mt-24 pb-10 md:pb-14 px-4 sm:px-6 lg:px-8 border-b border-gray-200/70 overflow-hidden ${isRTL ? "text-right" : "text-left"
+          }`}
       >
         {/* Subtle Ambient Background Gradients */}
         <div className="absolute inset-0 pointer-events-none opacity-40">
@@ -324,9 +335,8 @@ export default function TheGoodMediaGroupPage() {
             className="text-center mb-6 md:mb-8 space-y-2"
           >
             <h1
-              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-carbon tracking-tight ${
-                isRTL ? "font-arabic-header" : "font-english-heading"
-              }`}
+              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-carbon tracking-tight ${isRTL ? "font-arabic-header" : "font-english-heading"
+                }`}
             >
               {storyContent.title}
             </h1>
@@ -365,17 +375,15 @@ export default function TheGoodMediaGroupPage() {
             >
               {/* Chat Bubble Box */}
               <div
-                className={`relative bg-hot-pink text-white rounded-3xl p-6 sm:p-7 md:p-8 shadow-2xl border-2 border-white/20 transform ${
-                  isRTL ? "-rotate-1" : "rotate-1"
-                } hover:rotate-0 transition-transform duration-300`}
+                className={`relative bg-hot-pink text-white rounded-3xl p-6 sm:p-7 md:p-8 shadow-2xl border-2 border-white/20 transform ${isRTL ? "-rotate-1" : "rotate-1"
+                  } hover:rotate-0 transition-transform duration-300`}
               >
                 {/* Speech Bubble Tail Arrow pointing directly to the character image on md & lg screens */}
                 <div
-                  className={`hidden md:block absolute top-1/3 -translate-y-1/2 ${
-                    isRTL
-                      ? "-right-4 border-y-[12px] border-y-transparent border-l-[16px] border-l-hot-pink border-r-0"
-                      : "-left-4 border-y-[12px] border-y-transparent border-r-[16px] border-r-hot-pink border-l-0"
-                  } w-0 h-0`}
+                  className={`hidden md:block absolute top-1/3 -translate-y-1/2 ${isRTL
+                    ? "-right-4 border-y-[12px] border-y-transparent border-l-[16px] border-l-hot-pink border-r-0"
+                    : "-left-4 border-y-[12px] border-y-transparent border-r-[16px] border-r-hot-pink border-l-0"
+                    } w-0 h-0`}
                 />
 
                 {/* Mobile Tail Arrow pointing up towards the image above the bubble */}
@@ -389,9 +397,8 @@ export default function TheGoodMediaGroupPage() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.3 + idx * 0.15 }}
-                      className={`text-base sm:text-lg md:text-xl font-medium leading-relaxed drop-shadow-sm ${
-                        isRTL ? "font-arabic-body" : "font-english-body"
-                      }`}
+                      className={`text-base sm:text-lg md:text-xl font-medium leading-relaxed drop-shadow-sm ${isRTL ? "font-arabic-body" : "font-english-body"
+                        }`}
                     >
                       {p}
                     </motion.p>
@@ -423,16 +430,14 @@ export default function TheGoodMediaGroupPage() {
             className="text-center space-y-3 max-w-3xl mx-auto mb-10 md:mb-12"
           >
             <h2
-              className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 ${
-                isRTL ? "font-arabic-header" : "font-english-header"
-              }`}
+              className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                }`}
             >
               {ecosystemData.title}
             </h2>
             <p
-              className={`text-base sm:text-lg text-gray-600 font-medium ${
-                isRTL ? "font-arabic-body" : "font-english-body"
-              }`}
+              className={`text-base sm:text-lg text-gray-600 font-medium ${isRTL ? "font-arabic-body" : "font-english-body"
+                }`}
             >
               {ecosystemData.subtitle}
             </p>
@@ -442,7 +447,7 @@ export default function TheGoodMediaGroupPage() {
           {/* VISUAL TREE DIAGRAM */}
           {/* ========================================================= */}
           <div className="space-y-6 md:space-y-8" dir={isRTL ? "rtl" : "ltr"}>
-            
+
             {/* LEVEL 1: ROOT NODE (TGMG - Parent Company) */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -474,17 +479,15 @@ export default function TheGoodMediaGroupPage() {
                     </div>
 
                     <h3
-                      className={`text-2xl sm:text-3xl font-black text-gray-900 ${
-                        isRTL ? "font-arabic-header" : "font-english-header"
-                      }`}
+                      className={`text-2xl sm:text-3xl font-black text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                        }`}
                     >
                       {ecosystemData.tgmg.name}
                     </h3>
 
                     <p
-                      className={`text-sm sm:text-base text-gray-600 leading-relaxed ${
-                        isRTL ? "font-arabic-body" : "font-english-body"
-                      }`}
+                      className={`text-sm sm:text-base text-gray-600 leading-relaxed ${isRTL ? "font-arabic-body" : "font-english-body"
+                        }`}
                     >
                       {ecosystemData.tgmg.desc}
                     </p>
@@ -526,7 +529,7 @@ export default function TheGoodMediaGroupPage() {
 
             {/* LEVEL 2: TWO MAIN PILLARS (TGN & TGS) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-              
+
               {/* ========================================== */}
               {/* PILLAR 1: THE GOOD NEWS (TGN) */}
               {/* ========================================== */}
@@ -560,16 +563,14 @@ export default function TheGoodMediaGroupPage() {
                   {/* Title & Desc */}
                   <div className="space-y-1.5">
                     <h3
-                      className={`text-2xl sm:text-3xl font-black text-gray-900 ${
-                        isRTL ? "font-arabic-header" : "font-english-header"
-                      }`}
+                      className={`text-2xl sm:text-3xl font-black text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                        }`}
                     >
                       {ecosystemData.tgn.name}
                     </h3>
                     <p
-                      className={`text-gray-600 text-sm leading-relaxed ${
-                        isRTL ? "font-arabic-body" : "font-english-body"
-                      }`}
+                      className={`text-gray-600 text-sm leading-relaxed ${isRTL ? "font-arabic-body" : "font-english-body"
+                        }`}
                     >
                       {ecosystemData.tgn.desc}
                     </p>
@@ -585,7 +586,7 @@ export default function TheGoodMediaGroupPage() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      
+
                       {/* Sub-node A: The Good Project (TGP) */}
                       <div className="p-3.5 rounded-2xl bg-cream/60 border border-gray-200/80 hover:bg-cream hover:shadow-md transition-all duration-200 space-y-2">
                         <div className="flex items-center justify-between">
@@ -602,16 +603,14 @@ export default function TheGoodMediaGroupPage() {
                           </span>
                         </div>
                         <h4
-                          className={`text-sm font-bold text-gray-900 ${
-                            isRTL ? "font-arabic-header" : "font-english-header"
-                          }`}
+                          className={`text-sm font-bold text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                            }`}
                         >
                           {ecosystemData.tgp.name}
                         </h4>
                         <p
-                          className={`text-xs text-gray-600 leading-relaxed ${
-                            isRTL ? "font-arabic-body" : "font-english-body"
-                          }`}
+                          className={`text-xs text-gray-600 leading-relaxed ${isRTL ? "font-arabic-body" : "font-english-body"
+                            }`}
                         >
                           {ecosystemData.tgp.desc}
                         </p>
@@ -633,16 +632,14 @@ export default function TheGoodMediaGroupPage() {
                           </span>
                         </div>
                         <h4
-                          className={`text-sm font-bold text-gray-900 ${
-                            isRTL ? "font-arabic-header" : "font-english-header"
-                          }`}
+                          className={`text-sm font-bold text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                            }`}
                         >
                           {ecosystemData.forsa.name}
                         </h4>
                         <p
-                          className={`text-xs text-gray-600 leading-relaxed ${
-                            isRTL ? "font-arabic-body" : "font-english-body"
-                          }`}
+                          className={`text-xs text-gray-600 leading-relaxed ${isRTL ? "font-arabic-body" : "font-english-body"
+                            }`}
                         >
                           {ecosystemData.forsa.desc}
                         </p>
@@ -663,9 +660,8 @@ export default function TheGoodMediaGroupPage() {
                 <div className="pt-4 mt-4 border-t border-gray-100">
                   <Link
                     href={ecosystemData.tgn.link}
-                    className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-hot-pink to-bright-yellow text-gray-900 font-extrabold text-sm shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-200 ${
-                      isRTL ? "font-arabic-subheading" : "font-english-subheading"
-                    }`}
+                    className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-hot-pink to-bright-yellow text-gray-900 font-extrabold text-sm shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-200 ${isRTL ? "font-arabic-subheading" : "font-english-subheading"
+                      }`}
                   >
                     <span>{ecosystemData.tgn.linkText}</span>
                     <ArrowIcon className="w-4 h-4" />
@@ -706,16 +702,14 @@ export default function TheGoodMediaGroupPage() {
                   {/* Title & Desc */}
                   <div className="space-y-1.5">
                     <h3
-                      className={`text-2xl sm:text-3xl font-black text-gray-900 ${
-                        isRTL ? "font-arabic-header" : "font-english-header"
-                      }`}
+                      className={`text-2xl sm:text-3xl font-black text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                        }`}
                     >
                       {ecosystemData.tgs.name}
                     </h3>
                     <p
-                      className={`text-gray-600 text-sm leading-relaxed ${
-                        isRTL ? "font-arabic-body" : "font-english-body"
-                      }`}
+                      className={`text-gray-600 text-sm leading-relaxed ${isRTL ? "font-arabic-body" : "font-english-body"
+                        }`}
                     >
                       {ecosystemData.tgs.desc}
                     </p>
@@ -767,9 +761,8 @@ export default function TheGoodMediaGroupPage() {
                 <div className="pt-4 mt-4 border-t border-gray-100">
                   <Link
                     href={ecosystemData.tgs.link}
-                    className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#5B1C1E] text-white font-extrabold text-sm shadow-md hover:bg-[#451416] hover:shadow-lg hover:scale-[1.02] transition-all duration-200 ${
-                      isRTL ? "font-arabic-subheading" : "font-english-subheading"
-                    }`}
+                    className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#5B1C1E] text-white font-extrabold text-sm shadow-md hover:bg-[#451416] hover:shadow-lg hover:scale-[1.02] transition-all duration-200 ${isRTL ? "font-arabic-subheading" : "font-english-subheading"
+                      }`}
                   >
                     <span>{ecosystemData.tgs.linkText}</span>
                     <ArrowIcon className="w-4 h-4" />
@@ -792,34 +785,31 @@ export default function TheGoodMediaGroupPage() {
       >
         {/* Ambient Glows */}
         <div className="absolute inset-0 pointer-events-none opacity-40">
-          <div className="absolute top-1/4 right-10 w-96 h-96 bg-purple/15 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 left-10 w-96 h-96 bg-hot-pink/15 rounded-full blur-3xl" />
+          <div className="absolute top-1/4 right-10 w-96 h-96 bg-hot-pink/15 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 left-10 w-96 h-96 bg-bright-yellow/20 rounded-full blur-3xl" />
         </div>
 
         <div className="max-w-6xl mx-auto relative z-10" dir={isRTL ? "rtl" : "ltr"}>
-          
+
           {/* Section Header (No badge) */}
           <div className="text-center space-y-3 max-w-3xl mx-auto mb-10 md:mb-12">
             <h2
-              className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 leading-tight ${
-                isRTL ? "font-arabic-header" : "font-english-header"
-              }`}
+              className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 leading-tight ${isRTL ? "font-arabic-header" : "font-english-header"
+                }`}
             >
               {hopeData.title}
             </h2>
 
             <p
-              className={`text-base sm:text-lg font-bold text-hot-pink-dark ${
-                isRTL ? "font-arabic-subheading" : "font-english-subheading"
-              }`}
+              className={`text-base sm:text-lg font-bold text-hot-pink-dark ${isRTL ? "font-arabic-subheading" : "font-english-subheading"
+                }`}
             >
               {hopeData.subtitle}
             </p>
 
             <p
-              className={`text-sm sm:text-base text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium ${
-                isRTL ? "font-arabic-body" : "font-english-body"
-              }`}
+              className={`text-sm sm:text-base text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium ${isRTL ? "font-arabic-body" : "font-english-body"
+                }`}
             >
               {hopeData.intro}
             </p>
@@ -839,11 +829,10 @@ export default function TheGoodMediaGroupPage() {
                   onClick={() => setActiveHopePillar(pillar.id)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`cursor-pointer rounded-3xl p-5 sm:p-6 transition-all duration-300 relative border-2 flex flex-col justify-between overflow-hidden group ${
-                    isSelected
-                      ? "bg-white shadow-2xl ring-4 ring-offset-2 ring-gray-200/70"
-                      : "bg-white/85 hover:bg-white border-gray-200/80 shadow-md hover:shadow-xl"
-                  }`}
+                  className={`cursor-pointer rounded-3xl p-5 sm:p-6 transition-all duration-300 relative border-2 flex flex-col justify-between overflow-hidden group ${isSelected
+                    ? "bg-white shadow-2xl ring-4 ring-offset-2 ring-gray-200/70"
+                    : "bg-white/85 hover:bg-white border-gray-200/80 shadow-md hover:shadow-xl"
+                    } ${pillar.cardBorder} ${pillar.shadow}`}
                   style={{
                     borderColor: isSelected ? pillar.accentColor : undefined,
                   }}
@@ -852,16 +841,12 @@ export default function TheGoodMediaGroupPage() {
                     {/* Top Row: Big Letter Badge & Icon */}
                     <div className="flex items-center justify-between">
                       <div
-                        className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl text-white shadow-md bg-gradient-to-br ${pillar.gradient}`}
+                        className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-md bg-gradient-to-br ${pillar.gradient}`}
                       >
                         {pillar.letter}
                       </div>
                       <div
-                        className="w-9 h-9 rounded-xl flex items-center justify-center transition-colors"
-                        style={{
-                          backgroundColor: `${pillar.accentColor}15`,
-                          color: pillar.accentColor,
-                        }}
+                        className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${pillar.iconBox}`}
                       >
                         <Icon className="w-4 h-4" />
                       </div>
@@ -875,9 +860,8 @@ export default function TheGoodMediaGroupPage() {
                         {pillar.word}
                       </span>
                       <h3
-                        className={`text-lg font-bold text-gray-900 ${
-                          isRTL ? "font-arabic-header" : "font-english-header"
-                        }`}
+                        className={`text-lg font-bold text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                          }`}
                       >
                         {pillar.title}
                       </h3>
@@ -885,9 +869,8 @@ export default function TheGoodMediaGroupPage() {
 
                     {/* Tagline */}
                     <p
-                      className={`text-xs sm:text-sm font-semibold text-gray-600 leading-snug ${
-                        isRTL ? "font-arabic-body" : "font-english-body"
-                      }`}
+                      className={`text-xs sm:text-sm font-semibold text-gray-600 leading-snug ${isRTL ? "font-arabic-body" : "font-english-body"
+                        }`}
                     >
                       {pillar.tagline}
                     </p>
@@ -901,8 +884,8 @@ export default function TheGoodMediaGroupPage() {
                           ? "المحور المختار ✓"
                           : "Selected Pillar ✓"
                         : isRTL
-                        ? "اضغط للتفاصيل"
-                        : "Click to explore"}
+                          ? "اضغط للتفاصيل"
+                          : "Click to explore"}
                     </span>
                     <div
                       className="w-2 h-2 rounded-full"
@@ -940,12 +923,12 @@ export default function TheGoodMediaGroupPage() {
                       />
 
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-                        
+
                         {/* Left/Main Column: Explanation */}
                         <div className="lg:col-span-8 space-y-4">
                           <div className="flex items-center gap-3.5">
                             <div
-                              className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg bg-gradient-to-br ${pillar.gradient}`}
+                              className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg bg-gradient-to-br ${pillar.gradient}`}
                             >
                               <Icon className="w-7 h-7" />
                             </div>
@@ -956,9 +939,8 @@ export default function TheGoodMediaGroupPage() {
                                 {pillar.transitionStage}
                               </span>
                               <h3
-                                className={`text-2xl sm:text-3xl font-black text-gray-900 mt-1 ${
-                                  isRTL ? "font-arabic-header" : "font-english-header"
-                                }`}
+                                className={`text-2xl sm:text-3xl font-black text-gray-900 mt-1 ${isRTL ? "font-arabic-header" : "font-english-header"
+                                  }`}
                               >
                                 {pillar.title}
                               </h3>
@@ -966,9 +948,8 @@ export default function TheGoodMediaGroupPage() {
                           </div>
 
                           <p
-                            className={`text-base sm:text-lg text-gray-800 leading-relaxed font-medium ${
-                              isRTL ? "font-arabic-body" : "font-english-body"
-                            }`}
+                            className={`text-base sm:text-lg text-gray-800 leading-relaxed font-medium ${isRTL ? "font-arabic-body" : "font-english-body"
+                              }`}
                           >
                             {pillar.desc}
                           </p>
@@ -985,17 +966,15 @@ export default function TheGoodMediaGroupPage() {
                           </div>
 
                           <h4
-                            className={`text-base font-bold text-gray-900 ${
-                              isRTL ? "font-arabic-header" : "font-english-header"
-                            }`}
+                            className={`text-base font-bold text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                              }`}
                           >
                             {pillar.corePlatform}
                           </h4>
 
                           <p
-                            className={`text-xs sm:text-sm text-gray-600 leading-relaxed ${
-                              isRTL ? "font-arabic-body" : "font-english-body"
-                            }`}
+                            className={`text-xs sm:text-sm text-gray-600 leading-relaxed ${isRTL ? "font-arabic-body" : "font-english-body"
+                              }`}
                           >
                             {pillar.id === "H" &&
                               (isRTL
@@ -1031,31 +1010,29 @@ export default function TheGoodMediaGroupPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl border border-gray-800 relative overflow-hidden space-y-8 md:space-y-10"
+            className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl border-2 border-gray-100 relative overflow-hidden space-y-8 md:space-y-10"
           >
-            {/* Ambient Background Glow inside dark card */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-hot-pink/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple/15 rounded-full blur-3xl pointer-events-none" />
+            {/* Ambient Background Glow inside light card */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-hot-pink/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-bright-yellow/15 rounded-full blur-3xl pointer-events-none" />
 
             {/* Header */}
             <div className="text-center space-y-2 max-w-3xl mx-auto relative z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-white/10 text-white border border-white/20 shadow-sm backdrop-blur-sm">
-                <TrendingUp className="w-3.5 h-3.5 text-bright-yellow" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-gradient-to-r from-hot-pink/15 via-amber-200/20 to-bright-yellow/25 text-gray-900 border border-hot-pink/30 shadow-sm">
+                <TrendingUp className="w-3.5 h-3.5 text-hot-pink-dark" />
                 {isRTL ? "مراحل رحلة الشباب (4 محطات متتالية)" : "4-Stage Milestone Pipeline"}
               </span>
 
               <h3
-                className={`text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight ${
-                  isRTL ? "font-arabic-header" : "font-english-header"
-                }`}
+                className={`text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 tracking-tight ${isRTL ? "font-arabic-header" : "font-english-header"
+                  }`}
               >
                 {hopeData.journey.title}
               </h3>
 
               <p
-                className={`text-sm sm:text-base text-gray-300 leading-relaxed font-medium ${
-                  isRTL ? "font-arabic-body" : "font-english-body"
-                }`}
+                className={`text-sm sm:text-base text-gray-600 leading-relaxed font-medium ${isRTL ? "font-arabic-body" : "font-english-body"
+                  }`}
               >
                 {hopeData.journey.subtitle}
               </p>
@@ -1064,8 +1041,8 @@ export default function TheGoodMediaGroupPage() {
             {/* PAYMENT-STYLE STEPPER PROGRESS BAR (Horizontal on md+) */}
             <div className="relative z-10 max-w-5xl mx-auto hidden md:block">
               <div className="relative flex items-center justify-between">
-                <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-1 bg-white/15 rounded-full z-0" />
-                <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-1 bg-gradient-to-r from-rose-500 via-amber-400 to-emerald-400 rounded-full z-0 shadow-[0_0_15px_rgba(255,154,204,0.7)]" />
+                <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-1.5 bg-gray-100 rounded-full z-0" />
+                <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-1.5 bg-gradient-to-r from-hot-pink via-pink-400 via-amber-300 to-bright-yellow rounded-full z-0 shadow-sm" />
 
                 {hopeData.journey.steps.map((step, idx) => {
                   const stepNumbers = ["01", "02", "03", "04"];
@@ -1076,23 +1053,22 @@ export default function TheGoodMediaGroupPage() {
                       className="relative z-10 flex flex-col items-center group cursor-default"
                     >
                       <div
-                        className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-base shadow-2xl transition-transform duration-300 group-hover:scale-110 border-2 border-white/60 ${step.color} ring-4 ring-black/50`}
+                        className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-base shadow-lg transition-transform duration-300 group-hover:scale-110 border-2 border-white ${step.color} ring-4 ring-gray-100`}
                       >
                         {idx + 1}
                       </div>
 
                       <div className="text-center mt-2.5 space-y-0.5">
-                        <span className="text-[10px] font-black uppercase tracking-wider text-bright-yellow drop-shadow-sm">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-hot-pink-dark">
                           {isRTL ? `المحطة ${stepNumbers[idx]}` : `Milestone ${stepNumbers[idx]}`}
                         </span>
                         <h5
-                          className={`text-xs sm:text-sm font-extrabold text-white ${
-                            isRTL ? "font-arabic-header" : "font-english-header"
-                          }`}
+                          className={`text-xs sm:text-sm font-extrabold text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                            }`}
                         >
                           {step.name}
                         </h5>
-                        <span className="inline-block px-2 py-0.5 rounded-full text-[9px] font-bold bg-white/15 text-white border border-white/20">
+                        <span className="inline-block px-2 py-0.5 rounded-full text-[9px] font-bold bg-gray-100 text-gray-700 border border-gray-200">
                           {step.stage} • {percentages[idx]}
                         </span>
                       </div>
@@ -1108,10 +1084,10 @@ export default function TheGoodMediaGroupPage() {
                 const stepNumbers = ["01", "02", "03", "04"];
                 const percentages = ["25%", "50%", "75%", "100%"];
                 const borderGradients = [
-                  "border-rose-500/50 hover:border-rose-400",
-                  "border-amber-400/50 hover:border-amber-300",
-                  "border-purple-400/50 hover:border-purple-300",
-                  "border-emerald-400/50 hover:border-emerald-300",
+                  "border-hot-pink/30 hover:border-hot-pink shadow-hot-pink/10",
+                  "border-pink-300/50 hover:border-pink-400 shadow-pink-400/10",
+                  "border-amber-300/50 hover:border-amber-400 shadow-amber-400/10",
+                  "border-bright-yellow/70 hover:border-bright-yellow shadow-bright-yellow/15",
                 ];
 
                 return (
@@ -1121,51 +1097,49 @@ export default function TheGoodMediaGroupPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className={`bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-xl border-2 ${borderGradients[idx]} p-5 sm:p-6 rounded-3xl space-y-4 transition-all duration-300 flex flex-col justify-between shadow-2xl group`}
+                    className={`bg-white hover:bg-gray-50/80 border-2 ${borderGradients[idx]} p-5 sm:p-6 rounded-3xl space-y-4 transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-xl group`}
                   >
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2.5">
                           <span
-                            className={`w-9 h-9 rounded-xl text-sm font-black flex items-center justify-center shadow-lg ${step.color} border border-white/30`}
+                            className={`w-9 h-9 rounded-xl text-sm font-black flex items-center justify-center shadow-md ${step.color} border border-white/50`}
                           >
                             {idx + 1}
                           </span>
                           <div>
-                            <span className="text-[10px] font-black uppercase tracking-wider text-bright-yellow/90">
+                            <span className="text-[10px] font-black uppercase tracking-wider text-hot-pink-dark">
                               {isRTL ? `المحطة ${stepNumbers[idx]}` : `Milestone ${stepNumbers[idx]}`}
                             </span>
                             <h4
-                              className={`text-base font-black text-white ${
-                                isRTL ? "font-arabic-header" : "font-english-header"
-                              }`}
+                              className={`text-base font-black text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                                }`}
                             >
                               {step.name}
                             </h4>
                           </div>
                         </div>
 
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-white/20 text-bright-yellow border border-white/20">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-gray-100 text-gray-800 border border-gray-200">
                           {percentages[idx]}
                         </span>
                       </div>
 
-                      <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-xs font-bold bg-white/15 text-white border border-white/20">
-                        <span className="text-white/80">{isRTL ? "المرحلة:" : "Stage:"}</span>
-                        <span className="text-white font-black">{step.stage}</span>
+                      <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-800 border border-gray-200">
+                        <span className="text-gray-500">{isRTL ? "المرحلة:" : "Stage:"}</span>
+                        <span className="text-gray-900 font-black">{step.stage}</span>
                       </div>
 
                       <p
-                        className={`text-xs sm:text-sm text-white/95 leading-relaxed font-medium ${
-                          isRTL ? "font-arabic-body" : "font-english-body"
-                        }`}
+                        className={`text-xs sm:text-sm text-gray-600 leading-relaxed font-medium ${isRTL ? "font-arabic-body" : "font-english-body"
+                          }`}
                       >
                         {step.text}
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-white/15 space-y-2">
-                      <div className="flex items-center justify-between text-[10px] font-extrabold text-white/85">
+                    <div className="pt-3 border-t border-gray-100 space-y-2">
+                      <div className="flex items-center justify-between text-[10px] font-extrabold text-gray-600">
                         <span>
                           {idx === 0 && (isRTL ? "نقطة الانطلاق" : "Starting Point")}
                           {idx === 1 && (isRTL ? "بناء الفرص" : "Momentum Building")}
@@ -1173,16 +1147,16 @@ export default function TheGoodMediaGroupPage() {
                           {idx === 3 && (isRTL ? "صناعة التأثير" : "Youth Leadership")}
                         </span>
                         {idx < 3 ? (
-                          <span className="flex items-center gap-1 text-white group-hover:text-bright-yellow transition-colors font-bold">
+                          <span className="flex items-center gap-1 text-gray-700 group-hover:text-hot-pink-dark transition-colors font-bold">
                             <span>{isRTL ? "التالي" : "Next"}</span>
                             <ArrowIcon className="w-3 h-3 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
                           </span>
                         ) : (
-                          <span className="text-emerald-400 font-black">✓ {isRTL ? "الهدف النهائي" : "Ultimate Goal"}</span>
+                          <span className="text-amber-600 font-black">✓ {isRTL ? "الهدف النهائي" : "Ultimate Goal"}</span>
                         )}
                       </div>
 
-                      <div className="w-full h-1.5 bg-white/15 rounded-full overflow-hidden">
+                      <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
                         <div
                           className={`h-full ${step.progressColor} rounded-full transition-all duration-500 shadow-sm`}
                           style={{ width: percentages[idx] }}
@@ -1196,11 +1170,10 @@ export default function TheGoodMediaGroupPage() {
 
             {/* The Concluding Hero Quote Box */}
             <div className="relative z-10 pt-2 text-center">
-              <div className="inline-block p-5 sm:p-6 rounded-3xl bg-white/[0.05] border border-white/15 max-w-3xl mx-auto shadow-2xl backdrop-blur-md">
+              <div className="inline-block p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-hot-pink/10 via-amber-100/40 to-bright-yellow/20 border border-hot-pink/20 max-w-3xl mx-auto shadow-md">
                 <p
-                  className={`text-base sm:text-lg md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-bright-yellow via-hot-pink to-bright-yellow leading-relaxed ${
-                    isRTL ? "font-arabic-header" : "font-english-header"
-                  }`}
+                  className={`text-base sm:text-lg md:text-xl font-black text-gray-900 leading-relaxed ${isRTL ? "font-arabic-header" : "font-english-header"
+                    }`}
                 >
                   ✨ &ldquo;{hopeData.journey.conclusion}&rdquo;
                 </p>
@@ -1211,89 +1184,7 @@ export default function TheGoodMediaGroupPage() {
         </div>
       </section>
 
-      {/* ========================================================================= */}
-      {/* SECTION 4: OUR IMPACT (تأثيرنا) */}
-      {/* ========================================================================= */}
-      <section
-        id="our-impact"
-        className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-cream via-white to-cream relative overflow-hidden border-b border-gray-200/70"
-      >
-        {/* Background Gradients */}
-        <div className="absolute inset-0 pointer-events-none opacity-30">
-          <div className="absolute top-1/3 left-10 w-96 h-96 bg-hot-pink/15 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-bright-yellow/20 rounded-full blur-3xl" />
-        </div>
 
-        <div className="max-w-6xl mx-auto relative z-10" dir={isRTL ? "rtl" : "ltr"}>
-          
-          {/* Header (No Badge) */}
-          <div className="text-center space-y-3 max-w-3xl mx-auto mb-10 md:mb-12">
-            <h2
-              className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 leading-tight ${
-                isRTL ? "font-arabic-header" : "font-english-header"
-              }`}
-            >
-              {impactData.title}
-            </h2>
-            <p
-              className={`text-base sm:text-xl text-gray-600 font-bold ${
-                isRTL ? "font-arabic-subheading" : "font-english-subheading"
-              }`}
-            >
-              {impactData.subtitle}
-            </p>
-          </div>
-
-          {/* 5 Impact Metrics Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-            {impactData.metrics.map((metric, idx) => {
-              const Icon = metric.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 25 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.08 }}
-                  className={`bg-white rounded-3xl p-6 sm:p-7 border-2 border-gray-100 shadow-xl hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center text-center justify-between space-y-4 relative overflow-hidden group ${metric.shadow}`}
-                >
-                  <div
-                    className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-md bg-gradient-to-br ${metric.gradient} group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <Icon className="w-7 h-7" />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <h3
-                      className={`text-2xl sm:text-3xl font-black text-gray-900 ${
-                        isRTL ? "font-arabic-header" : "font-english-header"
-                      }`}
-                    >
-                      {metric.value}
-                    </h3>
-                    <p
-                      className={`text-xs sm:text-sm font-semibold text-gray-600 leading-snug ${
-                        isRTL ? "font-arabic-body" : "font-english-body"
-                      }`}
-                    >
-                      {metric.label}
-                    </p>
-                  </div>
-
-                  <div className="w-full pt-3 border-t border-gray-100 flex items-center justify-center">
-                    <span
-                      className={`text-[10px] font-black px-2.5 py-0.5 rounded-full border ${metric.lightBadge}`}
-                    >
-                      {isRTL ? "تأثير مجتمعي" : "Youth Reach"}
-                    </span>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-        </div>
-      </section>
 
       {/* ========================================================================= */}
       {/* SECTION 5: CTA — LET'S BUILD SOMETHING GOOD TOGETHER */}
@@ -1309,16 +1200,15 @@ export default function TheGoodMediaGroupPage() {
         </div>
 
         <div className="max-w-4xl mx-auto relative z-10 text-center space-y-6" dir={isRTL ? "rtl" : "ltr"}>
-          
+
           {/* Section Title (No Badge) */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight ${
-              isRTL ? "font-arabic-header" : "font-english-header"
-            }`}
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight ${isRTL ? "font-arabic-header" : "font-english-header"
+              }`}
           >
             {ctaData.title}
           </motion.h2>
@@ -1329,9 +1219,8 @@ export default function TheGoodMediaGroupPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className={`text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-medium ${
-              isRTL ? "font-arabic-body" : "font-english-body"
-            }`}
+            className={`text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-medium ${isRTL ? "font-arabic-body" : "font-english-body"
+              }`}
           >
             {ctaData.description}
           </motion.p>
@@ -1346,9 +1235,8 @@ export default function TheGoodMediaGroupPage() {
           >
             <Link
               href={ctaData.link}
-              className={`inline-flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-5 rounded-2xl text-base sm:text-lg font-black text-gray-900 bg-gradient-to-r from-hot-pink via-purple-300 to-bright-yellow shadow-2xl hover:scale-105 hover:shadow-[0_0_30px_rgba(255,154,204,0.6)] transition-all duration-300 ${
-                isRTL ? "font-arabic-subheading" : "font-english-subheading"
-              }`}
+              className={`inline-flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-5 rounded-2xl text-base sm:text-lg font-black text-gray-900 bg-gradient-to-r from-hot-pink via-purple-300 to-bright-yellow shadow-2xl hover:scale-105 hover:shadow-[0_0_30px_rgba(255,154,204,0.6)] transition-all duration-300 ${isRTL ? "font-arabic-subheading" : "font-english-subheading"
+                }`}
             >
               <Send className="w-5 h-5" />
               <span>{ctaData.buttonText}</span>

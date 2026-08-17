@@ -322,7 +322,8 @@
   "footer": {
     "brand": {
       "name": "THE GOOD NEWS",
-      "description": "Launched in 2020, TGN is the leading positive news platform in the Arab World with a community of 300K members. Our mission is to amplify positive news stories relevant to Arab youth and organizations making a difference in their communities."
+      "description": "Launched in 2020, TGN is the leading positive news platform in the Arab World with a community of 300K members. Our mission is to amplify positive news stories relevant to Arab youth and organizations making a difference in their communities.",
+      "tgmgDescription": "The Good Media Group (TGMG) is the parent company behind a growing ecosystem of media brands, original content, and community initiatives. Our work sits at the intersection of storytelling, journalism, creativity, and impact—bringing together digital content, on-ground experiences, and strategic partnerships under one umbrella to drive real youth impact."
     },
     "quickLinks": {
       "title": "Quick Links",
@@ -348,7 +349,7 @@
     "bottom": {
       "copyright": "© {year} The Good Media Group. All rights reserved.",
       "madeWith": "Made with",
-      "by": "by THE GOOD NEWS TEAM"
+      "by": "by The Good Media Group Team"
     }
   },
   "notFound": {
