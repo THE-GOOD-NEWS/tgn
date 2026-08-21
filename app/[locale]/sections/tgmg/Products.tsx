@@ -31,6 +31,7 @@ import {
   Briefcase,
   MapPin,
   TrendingUp,
+  Instagram,
 } from "lucide-react";
 
 export function Products() {
@@ -43,11 +44,11 @@ export function Products() {
       id: "news",
       icon: Newspaper,
       badge: isRTL ? "محتوى رقمي وتغطيات" : "Social-First Content",
-      badgeColor: "bg-yellow-400/20 text-gray-950 border-pink-500/40 font-bold",
-      accentColor: "from-yellow-400 via-pink-500 to-black text-white",
-      tabGradient: "from-yellow-400 via-pink-500 to-black",
+      badgeColor: "bg-pink-500/10 text-pink-700 border-pink-400/30 font-bold",
+      accentColor: "from-yellow-400 via-pink-500 to-hot-pink text-white",
+      tabGradient: "from-yellow-400 via-pink-500 to-hot-pink",
       bulletColor: "text-pink-500",
-      ctaClass: "bg-gray-950 hover:bg-hot-pink text-yellow-300 hover:text-white border border-yellow-400/40 shadow-md",
+      ctaClass: "bg-hot-pink hover:bg-pink-600 text-white font-bold shadow-md shadow-pink-500/25",
       title: isRTL ? "الأخبار والقصص" : "News & Features",
       tagline: isRTL
         ? "محتوى جديد وسريع، ومصمم للمشاركة.. محتوى الشباب فعلًا يحبوا يشوفوه"
@@ -67,6 +68,35 @@ export function Products() {
           "Multi-platform distribution: Instagram, TikTok, YouTube, Facebook, Website & Newsletter",
           "Powered by AI automation for faster, smarter replies to DMs and comments",
         ],
+      reels: [
+        {
+          id: "DaH0t0HCmjC",
+          title: isRTL ? "منير — رسالة أمل وابتسامة لبداية الأسبوع" : "Mounir — Weekly Hope & Smiles",
+          partner: isRTL ? "منير" : "Mounir",
+          views: "410K+",
+          thumbnail: "/products/mounir.png",
+          url: "https://www.instagram.com/p/DaH0t0HCmjC/",
+          badge: isRTL ? "سلسلة أسبوعية" : "Sunday Series",
+        },
+        {
+          id: "DZKmnYGijem",
+          title: isRTL ? "The Good Project — دعم مشاريع التخرج" : "The Good Project — Graduation Projects",
+          partner: "Good Project",
+          views: "320K+",
+          thumbnail: "/products/TGP.png",
+          url: "https://www.instagram.com/p/DZKmnYGijem/",
+          badge: isRTL ? "دعم الابتكار" : "Youth Projects",
+        },
+        {
+          id: "DZft2r_CgbS",
+          title: isRTL ? "Features — قصص ملهمة من الوطن العربي" : "Features — Inspiring Arab Stories",
+          partner: "Features",
+          views: "350K+",
+          thumbnail: "/products/hosam.png",
+          url: "https://www.instagram.com/p/DZft2r_CgbS/",
+          badge: isRTL ? "قصة ملهمة" : "Feature Story",
+        },
+      ],
       ctaText: isRTL ? "استكشف محتوى المنصة" : "Explore TGN Content",
       ctaLink: `/${locale}/the-good-news`,
     },
@@ -86,6 +116,8 @@ export function Products() {
       description: isRTL
         ? "سلسلة مخصصة بتسلّط الضوء على فرص مختلفة، من الوظائف والمنح الدراسية، للمنح التمويلية والمسابقات والزمالات، وحققت إجمالي وصول لأكتر من مليون شخص، بالإضافة لأكتر من 70 فرصة تدريب بالتعاون مع شركات ومؤسسات."
         : "A dedicated series highlighting opportunities—from jobs and scholarships to grants, competitions, and fellowships with 1M+ in total reach, and 70+ internship listings through companies and organizations.",
+      media: "/products/forsaHelwa.png",
+      postUrl: "https://www.instagram.com/p/DaGG18gCj8O/",
       stats: [
         { label: isRTL ? "إجمالي الوصول" : "Total Reach", value: "1M+" },
         { label: isRTL ? "فرص تدريب ووظائف" : "Opportunity Listings", value: "70+" },
@@ -181,6 +213,7 @@ export function Products() {
         { label: isRTL ? "مشارك وصانع محتوى" : "Youth Trained", value: "1,500+" },
         { label: isRTL ? "دول في المنطقة" : "MENA Reach", value: "8+" },
       ],
+      media: "/products/tgs.png",
       ctaText: isRTL ? "اعرف أكتر" : "Learn More",
       ctaLink: `/${locale}/the-good-space`,
     },
@@ -188,7 +221,6 @@ export function Products() {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [newsFormatTab, setNewsFormatTab] = useState<"qn" | "mariam" | "carousel">("qn");
   const [forsaSlide, setForsaSlide] = useState(0);
 
   const SLIDE_DURATION = 6000; // 6 seconds per slide
@@ -256,23 +288,16 @@ export function Products() {
           {/* Carousel Tabs Selector (Compact & Sleek) */}
           <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-2 bg-gray-100/90 p-1.5 rounded-xl border border-gray-200/80 backdrop-blur-sm shadow-inner">
             {products.map((p, idx) => {
-              const PIcon = p.icon;
               const isActive = activeIndex === idx;
               return (
                 <button
                   key={p.id}
                   onClick={() => handleSelectSlide(idx)}
-                  className={`relative flex items-center justify-center gap-2 px-3 py-2 rounded-lg font-bold text-xs transition-all duration-300 text-center ${isActive
+                  className={`relative flex items-center justify-center px-3 py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all duration-300 text-center ${isActive
                     ? "bg-white text-gray-950 shadow-sm"
                     : "text-gray-600 hover:text-gray-900 hover:bg-white/60"
                     }`}
                 >
-                  <div
-                    className={`w-5 h-5 rounded-md flex items-center justify-center shrink-0 transition-transform ${isActive ? "scale-105 shadow-xs" : "opacity-80"
-                      } bg-gradient-to-br ${p.accentColor}`}
-                  >
-                    <PIcon className="w-3 h-3" />
-                  </div>
                   <span className="truncate">{p.title}</span>
 
                   {/* Active bottom bar matching tab theme */}
@@ -376,6 +401,8 @@ export function Products() {
                   <div className="pt-4 flex flex-wrap items-center gap-4">
                     <Link
                       href={currentProduct.ctaLink}
+                      target={currentProduct.ctaLink.startsWith("#") ? undefined : "_blank"}
+                      rel={currentProduct.ctaLink.startsWith("#") ? undefined : "noopener noreferrer"}
                       className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-200 group ${currentProduct.ctaClass}`}
                     >
                       <span>{currentProduct.ctaText}</span>
@@ -386,220 +413,171 @@ export function Products() {
 
                 {/* Right Column: Custom Themed Media Mockups */}
                 <div className="lg:col-span-6 w-full">
-                  {/* SLIDE 1: News & Features (Yellow, Black, Pink) */}
+                  {/* SLIDE 1: News & Features (Light Theme - 3 Instagram Highlights) */}
                   {currentProduct.id === "news" && (
-                    <div className="bg-gradient-to-br from-gray-950 via-black to-[#1c0a15] text-white rounded-3xl p-5 sm:p-6 shadow-2xl border-2 border-pink-500/30 space-y-4">
-                      {/* Sub-tabs for the 3 requested mockups */}
-                      <div className="flex items-center justify-between pb-3 border-b border-gray-800">
-                        <span className="text-xs font-black text-yellow-400 uppercase tracking-wider flex items-center gap-1.5">
-                          <Layers className="w-3.5 h-3.5 text-hot-pink" />
-                          {isRTL ? "نماذج المحتوى (3 أشكال)" : "Content Formats (3 Styles)"}
-                        </span>
-                        <div className="flex items-center gap-1 bg-gray-900 p-1 rounded-xl border border-gray-800">
-                          <button
-                            onClick={() => setNewsFormatTab("qn")}
-                            className={`px-2.5 py-1 text-xs font-black rounded-lg transition-all ${newsFormatTab === "qn"
-                              ? "bg-yellow-400 text-black shadow"
-                              : "text-gray-400 hover:text-white"
-                              }`}
-                          >
-                            1 QN
-                          </button>
-                          <button
-                            onClick={() => setNewsFormatTab("mariam")}
-                            className={`px-2.5 py-1 text-xs font-black rounded-lg transition-all ${newsFormatTab === "mariam"
-                              ? "bg-hot-pink text-white shadow"
-                              : "text-gray-400 hover:text-white"
-                              }`}
-                          >
-                            1 Mariam Reel
-                          </button>
-                          <button
-                            onClick={() => setNewsFormatTab("carousel")}
-                            className={`px-2.5 py-1 text-xs font-black rounded-lg transition-all ${newsFormatTab === "carousel"
-                              ? "bg-gradient-to-r from-yellow-400 to-hot-pink text-black shadow"
-                              : "text-gray-400 hover:text-white"
-                              }`}
-                          >
-                            1 Carousel
-                          </button>
+                    <div className="bg-gradient-to-br from-purple-50/70 via-white to-pink-50/70 text-gray-900 rounded-3xl p-5 sm:p-6 shadow-xl border-2 border-pink-200 space-y-4">
+                      {/* Header */}
+                      <div className="flex items-center justify-between pb-3 border-b border-pink-100">
+                        <div className="flex items-center gap-2">
+                          <Instagram className="w-4 h-4 text-pink-600" />
+                          <span className="text-xs font-black text-gray-900 uppercase tracking-wider">
+                            {isRTL ? "نماذج المحتوى على إنستغرام" : "Instagram Highlights"}
+                          </span>
                         </div>
+
                       </div>
 
-                      {/* Mockup 1: QN (Quick News) */}
-                      {newsFormatTab === "qn" && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.96 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="bg-black/70 border border-yellow-400/30 rounded-2xl p-5 space-y-4 backdrop-blur-sm"
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <span className="px-2.5 py-0.5 rounded-md bg-yellow-400 text-black text-[11px] font-black uppercase tracking-wider">
-                                QUICK NEWS (QN)
-                              </span>
-                              <span className="text-xs text-gray-400 flex items-center gap-1">
-                                <Clock className="w-3 h-3 text-hot-pink" />
-                                {isRTL ? "منذ ساعتين" : "2h ago"}
-                              </span>
+                      {/* 3 Reel Cards with Instagram links & Thumbnails */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        {currentProduct.reels?.map((reel, ridx) => (
+                          <a
+                            key={ridx}
+                            href={reel.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative bg-white hover:bg-gradient-to-br hover:from-purple-50/40 hover:to-pink-50/40 border border-pink-100 hover:border-pink-300 rounded-2xl overflow-hidden p-3 transition-all duration-300 flex flex-col justify-between space-y-3 shadow-sm hover:shadow-md"
+                          >
+                            {/* Reel Thumbnail Container */}
+                            <div className="relative h-40 w-full rounded-xl overflow-hidden bg-gray-900 shadow-inner group/thumb">
+                              {reel.thumbnail && (
+                                <Image
+                                  src={reel.thumbnail}
+                                  alt={reel.title}
+                                  fill
+                                  sizes="(max-width: 640px) 100vw, 200px"
+                                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                              )}
+                              {/* Dark Gradient Overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/40" />
+
+                              {/* Top Bar on Image */}
+                              <div className="absolute top-2.5 inset-x-2.5 flex items-center justify-between z-10">
+                                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-gradient-to-r from-[#833ab4] to-[#fd1d1d] text-white shadow">
+                                  {reel.partner}
+                                </span>
+                                <div className="w-6 h-6 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white group-hover:text-pink-300 transition-colors">
+                                  <ExternalLink className="w-3 h-3" />
+                                </div>
+                              </div>
+
+                              {/* Center Play Icon Overlay */}
+                              <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                                <div className="w-10 h-10 rounded-full bg-white/90 group-hover:bg-white text-[#fd1d1d] flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                                  <Play className="w-4 h-4 fill-[#fd1d1d] ml-0.5" />
+                                </div>
+                              </div>
+
+                              {/* Views Counter on Thumbnail Bottom */}
+                              <div className="absolute bottom-2.5 left-2.5 z-10">
+                                <span className="flex items-center gap-1 text-[10px] font-bold text-white bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-md border border-white/10">
+                                  <Eye className="w-3 h-3 text-pink-400" /> {reel.views}
+                                </span>
+                              </div>
                             </div>
-                            <span className="text-xs text-pink-300 font-bold bg-pink-500/20 px-2 py-0.5 rounded border border-pink-500/30">
-                              {isRTL ? "خبر إيجابي" : "Positive News"}
-                            </span>
-                          </div>
 
-                          <div className="space-y-2">
-                            <h4
-                              className={`text-lg font-black text-white leading-snug ${isRTL ? "font-arabic-header" : "font-english-header"
-                                }`}
-                            >
-                              {isRTL
-                                ? "شاب عربي يبتكر منصة ذكاء اصطناعي تفوز بأكبر جائزة إقليمية للاستدامة"
-                                : "Young Arab Innovator Wins Regional Sustainability Award for AI Water Tech"}
-                            </h4>
-                            <p className="text-xs text-gray-300 leading-relaxed">
-                              {isRTL
-                                ? "تغطية سريعة ومختصرة تسلط الضوء على الإنجاز وأثره على المجتمع في أقل من 40 كلمة."
-                                : "Bite-sized, high-impact storytelling crafted specifically for fast social sharing."}
-                            </p>
-                          </div>
-
-                          <div className="flex items-center justify-between pt-3 border-t border-gray-800 text-xs text-gray-400">
-                            <div className="flex items-center gap-3">
-                              <span className="flex items-center gap-1 text-hot-pink font-bold">
-                                <Heart className="w-3.5 h-3.5 fill-hot-pink" /> 12.4K
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <MessageCircle className="w-3.5 h-3.5" /> 342
-                              </span>
-                              <span className="flex items-center gap-1 text-yellow-400">
-                                <Share2 className="w-3.5 h-3.5" /> 1.8K
-                              </span>
+                            {/* Details Below Thumbnail */}
+                            <div className="space-y-1.5 px-0.5">
+                              <h4 className="text-xs font-bold text-gray-900 group-hover:text-[#833ab4] transition-colors line-clamp-2 leading-snug">
+                                {reel.title}
+                              </h4>
+                              <div className="flex items-center justify-between pt-1 border-t border-pink-100 text-[11px]">
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] font-black group-hover:underline flex items-center gap-1">
+                                  {isRTL ? "شاهد على إنستغرام ↗" : "Watch on IG ↗"}
+                                </span>
+                              </div>
                             </div>
-                            <span className="text-[11px] font-bold text-yellow-400">
-                              @thegoodnews
-                            </span>
-                          </div>
-                        </motion.div>
-                      )}
+                          </a>
+                        ))}
+                      </div>
 
-                      {/* Mockup 2: Mariam Reel */}
-                      {newsFormatTab === "mariam" && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.96 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="relative h-72 bg-gradient-to-t from-black via-gray-950 to-[#220718] border border-pink-500/40 rounded-2xl overflow-hidden p-4 flex flex-col justify-between"
-                        >
-                          <div className="flex items-center justify-between z-10">
-                            <div className="flex items-center gap-2 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full border border-yellow-400/30">
-                              <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-                              <span className="text-xs font-bold text-yellow-300">REEL • Mariam El-Khatib</span>
-                            </div>
-                            <span className="text-xs bg-pink-500/20 text-pink-300 px-2 py-0.5 rounded-full border border-pink-500/30 font-bold">
-                              45.2K Views
-                            </span>
-                          </div>
-
-                          {/* Center Play Button Graphic */}
-                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div className="w-16 h-16 rounded-full bg-hot-pink/20 backdrop-blur-md border-2 border-yellow-400 flex items-center justify-center text-yellow-300 shadow-2xl">
-                              <Play className="w-7 h-7 fill-yellow-300 ml-0.5" />
-                            </div>
-                          </div>
-
-                          {/* Reel Bottom Details */}
-                          <div className="z-10 bg-black/80 backdrop-blur-md p-3 rounded-xl border border-pink-500/30 space-y-1.5">
-                            <div className="flex items-center justify-between text-xs font-bold text-white">
-                              <span className="text-yellow-400">@thegoodnews • Original Audio</span>
-                              <span className="text-hot-pink">#GoodNewsStory</span>
-                            </div>
-                            <p className="text-xs text-gray-200 line-clamp-2">
-                              {isRTL
-                                ? "مريم بتقدّم قصة ملهمة عن إزاي أفكار الشباب البسيطة بتتحول لمشاريع بتغيّر الواقع."
-                                : "Mariam breaks down how youth-led grassroots projects are shaping tomorrow."}
-                            </p>
-                          </div>
-                        </motion.div>
-                      )}
-
-                      {/* Mockup 3: Carousel */}
-                      {newsFormatTab === "carousel" && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.96 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="bg-black/70 border border-pink-500/30 rounded-2xl p-5 space-y-4 backdrop-blur-sm"
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <span className="px-2.5 py-0.5 rounded-md bg-hot-pink text-[11px] font-black uppercase text-white">
-                                CAROUSEL POST
-                              </span>
-                              <span className="text-xs text-yellow-300 font-bold bg-white/10 px-2 py-0.5 rounded">
-                                Slide 1 of 6
-                              </span>
-                            </div>
-                            <div className="flex gap-1">
-                              <span className="w-2 h-2 rounded-full bg-yellow-400" />
-                              <span className="w-2 h-2 rounded-full bg-hot-pink" />
-                              <span className="w-2 h-2 rounded-full bg-gray-700" />
-                              <span className="w-2 h-2 rounded-full bg-gray-700" />
-                            </div>
-                          </div>
-
-                          <div className="bg-gradient-to-br from-yellow-500/10 via-pink-900/30 to-black p-4 rounded-xl border border-yellow-400/30 space-y-2">
-                            <span className="text-[11px] font-black text-yellow-400 uppercase tracking-wide">
-                              {isRTL ? "دليل شامل للشباب" : "Visual Guide"}
-                            </span>
-                            <h4
-                              className={`text-base font-black text-white ${isRTL ? "font-arabic-header" : "font-english-header"
-                                }`}
-                            >
-                              {isRTL
-                                ? "5 مهارات يحتاجها الجيل الجديد في سوق العمل الرقمي 2025"
-                                : "5 Digital Storytelling Habits That Built High-Growth Youth Brands"}
-                            </h4>
-                            <p className="text-xs text-gray-300">
-                              {isRTL
-                                ? "اسحب لليسار لمعرفة الخطوات العملية والأمثلة الواقعية ←"
-                                : "Swipe to explore key takeaways and breakdown →"}
-                            </p>
-                          </div>
-
-                          <div className="flex items-center justify-between text-xs text-gray-400 pt-1">
-                            <span className="text-yellow-400 font-bold">Save for later</span>
-                            <Bookmark className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                          </div>
-                        </motion.div>
-                      )}
+                      {/* Partner Trust Badges */}
+                      <div className="pt-2 border-t border-pink-100 flex items-center justify-between text-xs text-gray-600">
+                        <span className="text-[11px] font-bold text-pink-700 uppercase">
+                          {isRTL ? "سلاسل أصلية:" : "Original Pillars:"}
+                        </span>
+                        <div className="flex items-center gap-2 text-gray-800 font-bold text-xs">
+                          <span>Mounir</span>
+                          <span>•</span>
+                          <span>Good Project</span>
+                          <span>•</span>
+                          <span>Features</span>
+                        </div>
+                      </div>
                     </div>
                   )}
 
-                  {/* SLIDE 2: Forsa Helwa (Yellow, White, Black) */}
+                  {/* SLIDE 2: Forsa Helwa (Light Theme & Instagram Carousel) */}
                   {currentProduct.id === "forsa" && (
-                    <div className="bg-gradient-to-br from-black via-gray-950 to-[#1c1800] text-white rounded-3xl p-6 shadow-2xl border-2 border-yellow-400/40 space-y-5">
-                      <div className="flex items-center justify-between pb-3 border-b border-yellow-400/20">
+                    <div className="bg-gradient-to-br from-amber-50/60 via-white to-yellow-50/60 text-gray-900 rounded-3xl p-5 sm:p-6 shadow-xl border-2 border-yellow-200 space-y-4">
+                      <div className="flex items-center justify-between pb-3 border-b border-yellow-100">
                         <div className="flex items-center gap-2">
-                          <div className="w-3 h-3 rounded-full bg-yellow-400 animate-ping" />
-                          <span className="text-xs font-black text-yellow-400 uppercase tracking-wider">
-                            Yalla Success Carousel (فرصة حلوة)
+                          <Instagram className="w-4 h-4 text-amber-600" />
+                          <span className="text-xs font-black text-gray-900 uppercase tracking-wider">
+                            {isRTL ? "سلسلة فرصة حلوة على إنستغرام" : "Instagram Carousel • فرصة حلوة"}
                           </span>
                         </div>
-                        <span className="text-xs bg-white/10 text-white px-2.5 py-0.5 rounded-full border border-white/20 font-bold">
+                        <span className="text-[11px] font-black bg-yellow-400 text-black px-2.5 py-0.5 rounded-full shadow-xs">
                           {isRTL ? "فرص نشطة" : "Active Listings"}
                         </span>
                       </div>
 
+                      {/* Featured Media Image / Instagram Carousel Banner */}
+                      {currentProduct.media && (
+                        <a
+                          href={currentProduct.postUrl || currentProduct.ctaLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="relative h-44 sm:h-52 w-full rounded-2xl overflow-hidden border border-yellow-200 shadow-md group block cursor-pointer"
+                        >
+                          <Image
+                            src={currentProduct.media}
+                            alt={currentProduct.title}
+                            fill
+                            sizes="(max-width: 640px) 100vw, 500px"
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/30" />
+
+                          {/* Top Bar Badge on Image */}
+                          <div className="absolute top-2.5 inset-x-3 flex items-center justify-between z-10">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-yellow-400 text-black shadow">
+                              {isRTL ? "منشور إنستغرام" : "Instagram Carousel"}
+                            </span>
+                            <div className="w-6 h-6 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white group-hover:text-yellow-300 transition-colors">
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </div>
+                          </div>
+
+                          {/* Bottom info on Image */}
+                          <div className="absolute bottom-2.5 inset-x-3 flex items-center justify-between z-10">
+                            <span className="text-[11px] font-bold text-yellow-300 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg border border-yellow-400/20">
+                              <Sparkles className="w-3 h-3 text-yellow-400" />
+                              {isRTL ? "شاهد المنشور على إنستغرام ↗" : "View on Instagram ↗"}
+                            </span>
+                            <span className="text-[10px] font-black text-white bg-black/60 backdrop-blur-md px-2 py-0.5 rounded border border-white/10">
+                              @thegoodnews
+                            </span>
+                          </div>
+                        </a>
+                      )}
+
                       {/* Interactive Opportunity Card */}
-                      <div className="bg-white/5 border border-yellow-400/30 rounded-2xl p-5 space-y-4">
+                      <a
+                        href={currentProduct.postUrl || currentProduct.ctaLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block group/forsa bg-white hover:bg-yellow-50/40 transition-all duration-300 border border-yellow-200 hover:border-yellow-400/80 rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-sm hover:shadow-md cursor-pointer text-gray-900"
+                      >
                         <div className="flex items-start justify-between">
                           <div>
-                            <span className="text-[11px] font-black px-2.5 py-0.5 rounded bg-yellow-400 text-black uppercase">
+                            <span className="text-[10px] font-black px-2.5 py-0.5 rounded bg-yellow-400 text-black uppercase">
                               {forsaSlide === 0
                                 ? isRTL ? "تدريب صيفي" : "Summer Internship"
                                 : isRTL ? "منحة دراسية" : "Fellowship Grant"}
                             </span>
                             <h4
-                              className={`text-lg font-black text-white mt-2 ${isRTL ? "font-arabic-header" : "font-english-header"
+                              className={`text-base sm:text-lg font-black text-gray-900 mt-1.5 group-hover/forsa:text-amber-800 transition-colors leading-snug ${isRTL ? "font-arabic-header" : "font-english-header"
                                 }`}
                             >
                               {forsaSlide === 0
@@ -607,47 +585,57 @@ export function Products() {
                                 : (isRTL ? "منحة تمويلية للمشاريع الشبابية الريادية 2025" : "MENA Youth Innovation & Impact Grant Program")}
                             </h4>
                           </div>
-                          <Bookmark className="w-5 h-5 text-yellow-400 fill-yellow-400 shrink-0" />
+                          <Bookmark className="w-4 h-4 text-amber-500 fill-amber-400 shrink-0" />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-2 text-xs text-gray-200">
-                          <div className="flex items-center gap-1.5 bg-black/60 px-2.5 py-1.5 rounded-lg border border-white/10">
-                            <Briefcase className="w-3.5 h-3.5 text-yellow-400" />
-                            <span>{isRTL ? "دوام جزئي / عن بُعد" : "Hybrid / Remote"}</span>
+                        <div className="grid grid-cols-2 gap-2 text-xs text-gray-700">
+                          <div className="flex items-center gap-1.5 bg-yellow-50/80 px-2.5 py-1.5 rounded-lg border border-yellow-200/80">
+                            <Briefcase className="w-3.5 h-3.5 text-amber-600" />
+                            <span className="font-medium">{isRTL ? "دوام جزئي / عن بُعد" : "Hybrid / Remote"}</span>
                           </div>
-                          <div className="flex items-center gap-1.5 bg-black/60 px-2.5 py-1.5 rounded-lg border border-white/10">
-                            <MapPin className="w-3.5 h-3.5 text-yellow-400" />
-                            <span>{isRTL ? "مصر والشرق الأوسط" : "MENA Region"}</span>
+                          <div className="flex items-center gap-1.5 bg-yellow-50/80 px-2.5 py-1.5 rounded-lg border border-yellow-200/80">
+                            <MapPin className="w-3.5 h-3.5 text-amber-600" />
+                            <span className="font-medium">{isRTL ? "مصر والشرق الأوسط" : "MENA Region"}</span>
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between pt-3 border-t border-gray-800">
+                        <div className="flex items-center justify-between pt-2.5 border-t border-yellow-100">
                           <div className="flex items-center gap-2">
                             <button
-                              onClick={() => setForsaSlide(0)}
-                              className={`w-2.5 h-2.5 rounded-full transition-all ${forsaSlide === 0 ? "bg-yellow-400 w-6" : "bg-white/30"
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setForsaSlide(0);
+                              }}
+                              className={`w-2.5 h-2.5 rounded-full transition-all ${forsaSlide === 0 ? "bg-yellow-400 w-6" : "bg-gray-200 hover:bg-gray-300"
                                 }`}
                             />
                             <button
-                              onClick={() => setForsaSlide(1)}
-                              className={`w-2.5 h-2.5 rounded-full transition-all ${forsaSlide === 1 ? "bg-yellow-400 w-6" : "bg-white/30"
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setForsaSlide(1);
+                              }}
+                              className={`w-2.5 h-2.5 rounded-full transition-all ${forsaSlide === 1 ? "bg-yellow-400 w-6" : "bg-gray-200 hover:bg-gray-300"
                                 }`}
                             />
                           </div>
 
-                          <span className="text-xs font-bold text-yellow-400 hover:text-white flex items-center gap-1">
+                          <span className="text-xs font-bold text-yellow-700 group-hover/forsa:text-yellow-800 flex items-center gap-1">
                             {isRTL ? "شاهد الفرصة كاملة" : "View Listing"} →
                           </span>
                         </div>
-                      </div>
+                      </a>
 
                       {/* Reach Badge footer */}
-                      <div className="flex items-center justify-between text-xs text-gray-300 px-1">
-                        <span className="flex items-center gap-1 text-yellow-400 font-bold">
+                      <div className="flex items-center justify-between text-xs text-gray-600 px-1 pt-0.5 border-t border-yellow-100/80">
+                        <span className="flex items-center gap-1 text-amber-700 font-bold">
                           <TrendingUp className="w-3.5 h-3.5" />
                           1M+ Total Reach
                         </span>
-                        <span className="text-white font-medium">70+ Partner Companies</span>
+                        <span className="text-gray-800 font-bold">70+ Partner Companies</span>
                       </div>
                     </div>
                   )}
@@ -750,7 +738,7 @@ export function Products() {
 
                   {/* SLIDE 4: Education & Community / The Good Space (Burgundy Theme) */}
                   {currentProduct.id === "edu" && (
-                    <div className="bg-gradient-to-br from-[#3D070E] via-[#240408] to-black text-white rounded-3xl p-6 shadow-2xl border-2 border-[#8A1C2E]/40 space-y-5">
+                    <div className="bg-gradient-to-br from-[#3D070E] via-[#240408] to-black text-white rounded-3xl p-5 sm:p-6 shadow-2xl border-2 border-[#8A1C2E]/40 space-y-4">
                       <div className="flex items-center justify-between pb-3 border-b border-[#8A1C2E]/30">
                         <div className="flex items-center gap-2">
                           <Users className="w-4 h-4 text-[#FF9EAE]" />
@@ -763,8 +751,35 @@ export function Products() {
                         </span>
                       </div>
 
+                      {/* Featured Media Image */}
+                      {currentProduct.media && (
+                        <div className="relative h-40 sm:h-48 w-full rounded-2xl overflow-hidden border border-[#8A1C2E]/40 shadow-inner group">
+                          <Image
+                            src={currentProduct.media}
+                            alt={currentProduct.title}
+                            fill
+                            sizes="(max-width: 640px) 100vw, 500px"
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                          <div className="absolute bottom-2.5 inset-x-3 flex items-center justify-between z-10">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-[#8A1C2E]/90 text-white backdrop-blur-md border border-[#FF9EAE]/30">
+                              {isRTL ? "مساحة التعلم والتمكين" : "Youth Learning & Impact Space"}
+                            </span>
+                            <span className="text-[10px] font-bold text-[#FFD1D8] bg-black/60 backdrop-blur-md px-2 py-0.5 rounded border border-white/10">
+                              TGS Community
+                            </span>
+                          </div>
+                        </div>
+                      )}
+
                       {/* Workshop Session Cards */}
-                      <div className="bg-[#540D17]/40 border border-[#8A1C2E]/40 rounded-2xl p-5 space-y-3">
+                      <a
+                        href={currentProduct.ctaLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block group/edu bg-[#540D17]/40 hover:bg-[#540D17]/70 transition-all duration-300 border border-[#8A1C2E]/40 hover:border-[#8A1C2E]/70 rounded-2xl p-4 space-y-2.5 cursor-pointer"
+                      >
                         <div className="flex items-center justify-between">
                           <span className="text-[10px] font-black px-2 py-0.5 rounded bg-[#8A1C2E] text-white uppercase">
                             {isRTL ? "ورشة عمل قادمة" : "Upcoming Workshop"}
@@ -775,7 +790,7 @@ export function Products() {
                         </div>
 
                         <h4
-                          className={`text-base font-black text-white leading-snug ${isRTL ? "font-arabic-header" : "font-english-header"
+                          className={`text-sm sm:text-base font-black text-white group-hover/edu:text-[#FFD1D8] transition-colors leading-snug ${isRTL ? "font-arabic-header" : "font-english-header"
                             }`}
                         >
                           {isRTL
@@ -783,21 +798,21 @@ export function Products() {
                             : "Storytelling, Creative Production & Digital Citizenship Masterclass"}
                         </h4>
 
-                        <div className="flex flex-wrap gap-1.5 pt-1">
-                          <span className="text-[11px] bg-[#6E1321]/60 px-2.5 py-1 rounded-md text-[#FFE6EB] border border-[#8A1C2E]/30 font-medium">
+                        <div className="flex flex-wrap gap-1.5 pt-0.5">
+                          <span className="text-[10px] sm:text-[11px] bg-[#6E1321]/60 px-2 py-0.5 rounded-md text-[#FFE6EB] border border-[#8A1C2E]/30 font-medium">
                             Storytelling
                           </span>
-                          <span className="text-[11px] bg-[#6E1321]/60 px-2.5 py-1 rounded-md text-[#FFE6EB] border border-[#8A1C2E]/30 font-medium">
+                          <span className="text-[10px] sm:text-[11px] bg-[#6E1321]/60 px-2 py-0.5 rounded-md text-[#FFE6EB] border border-[#8A1C2E]/30 font-medium">
                             Content Creation
                           </span>
-                          <span className="text-[11px] bg-[#6E1321]/60 px-2.5 py-1 rounded-md text-[#FFE6EB] border border-[#8A1C2E]/30 font-medium">
+                          <span className="text-[10px] sm:text-[11px] bg-[#6E1321]/60 px-2 py-0.5 rounded-md text-[#FFE6EB] border border-[#8A1C2E]/30 font-medium">
                             Digital Citizenship
                           </span>
                         </div>
-                      </div>
+                      </a>
 
                       {/* Impact metrics footer */}
-                      <div className="flex items-center justify-between text-xs text-gray-300 px-1">
+                      <div className="flex items-center justify-between text-xs text-gray-300 px-1 pt-1 border-t border-[#8A1C2E]/20">
                         <span className="flex items-center gap-1 text-[#FF9EAE] font-bold">
                           <Award className="w-3.5 h-3.5" />
                           1,500+ Participants
