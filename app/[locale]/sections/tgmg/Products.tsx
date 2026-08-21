@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -131,17 +132,19 @@ export function Products() {
       reels: [
         {
           id: "DUkyiCwjP6a",
-          title: isRTL ? "تغطية قمة رايز أب (RiseUp Summit)" : "RiseUp Summit On-Ground Coverage",
-          partner: "RiseUp Summit",
-          views: "240K+",
+          title: isRTL ? "تجربة Budzegypt" : "Budzegypt Experience",
+          partner: "Budzegypt",
+          views: "200K+",
+          thumbnail: "/products/budzzEg.png",
           url: "https://www.instagram.com/reels/DUkyiCwjP6a/",
-          badge: isRTL ? "تغطية مباشرة" : "Summit Live",
+          badge: isRTL ? "حملة مؤسسية" : "Brand Campaign",
         },
         {
           id: "DNQU6lTNidI",
-          title: isRTL ? "تغطية شنايدر إلكتريك (Schneider Electric)" : "Schneider Electric Innovation Launch",
-          partner: "Schneider Electric",
-          views: "180K+",
+          title: isRTL ? "تجربة Socks" : "Socks Experience",
+          partner: "Socks",
+          views: "300K+",
+          thumbnail: "/ourGoodNews/socks.png",
           url: "https://www.instagram.com/reels/DNQU6lTNidI/",
           badge: isRTL ? "حملة مؤسسية" : "Brand Campaign",
         },
@@ -649,62 +652,92 @@ export function Products() {
                     </div>
                   )}
 
-                  {/* SLIDE 3: Media Production (Instagram Gradient Colors) */}
+                  {/* SLIDE 3: Media Production (Instagram Gradient Colors - Light Theme) */}
                   {currentProduct.id === "media" && (
-                    <div className="bg-gradient-to-br from-[#1a0928] via-[#100619] to-black text-white rounded-3xl p-6 shadow-2xl border-2 border-pink-500/30 space-y-4">
+                    <div className="bg-gradient-to-br from-purple-50/70 via-white to-pink-50/70 text-gray-900 rounded-3xl p-6 shadow-xl border-2 border-pink-200 space-y-4">
                       {/* Viewfinder Header */}
-                      <div className="flex items-center justify-between pb-3 border-b border-pink-500/20">
-                        <div className="flex items-center gap-2">
-                          <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
-                          <span className="text-xs font-black text-red-400 uppercase tracking-widest">
+                      <div className="flex items-center justify-between pb-3 border-b border-pink-100">
+                        {/* <div className="flex items-center gap-2">
+                          <div className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
+                          <span className="text-xs font-black text-red-600 uppercase tracking-widest">
                             LIVE REC • 4K 60FPS
                           </span>
-                        </div>
-                        <span className="text-[11px] font-black bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white px-3 py-0.5 rounded-full shadow">
+                        </div> */}
+                        <span className="text-[11px] font-black bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white px-3 py-0.5 rounded-full shadow-sm">
                           Instagram Production
                         </span>
                       </div>
 
-                      {/* 2 Reel Cards requested with Instagram links */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {/* 2 Reel Cards with Instagram links & Thumbnails */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {currentProduct.reels?.map((reel, ridx) => (
                           <a
                             key={ridx}
                             href={reel.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group relative bg-white/5 hover:bg-white/10 border border-pink-500/20 hover:border-pink-500/60 rounded-2xl p-4 transition-all duration-300 flex flex-col justify-between space-y-3"
+                            className="group relative bg-white hover:bg-gradient-to-br hover:from-purple-50/40 hover:to-pink-50/40 border border-pink-100 hover:border-pink-300 rounded-2xl overflow-hidden p-3 transition-all duration-300 flex flex-col justify-between space-y-3 shadow-sm hover:shadow-md"
                           >
-                            <div className="space-y-1.5">
-                              <div className="flex items-center justify-between">
-                                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-gradient-to-r from-[#833ab4] to-[#fd1d1d] text-white">
+                            {/* Reel Thumbnail Container */}
+                            <div className="relative h-44 w-full rounded-xl overflow-hidden bg-gray-900 shadow-inner group/thumb">
+                              {reel.thumbnail && (
+                                <Image
+                                  src={reel.thumbnail}
+                                  alt={reel.title}
+                                  fill
+                                  sizes="(max-width: 640px) 100vw, 250px"
+                                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                              )}
+                              {/* Dark Gradient Overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/40" />
+
+                              {/* Top Bar on Image */}
+                              <div className="absolute top-2.5 inset-x-2.5 flex items-center justify-between z-10">
+                                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-gradient-to-r from-[#833ab4] to-[#fd1d1d] text-white shadow">
                                   {reel.partner}
                                 </span>
-                                <ExternalLink className="w-3.5 h-3.5 text-gray-400 group-hover:text-pink-400 transition-colors" />
+                                <div className="w-6 h-6 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white group-hover:text-pink-300 transition-colors">
+                                  <ExternalLink className="w-3 h-3" />
+                                </div>
                               </div>
-                              <h4 className="text-xs font-bold text-white line-clamp-2 leading-snug">
-                                {reel.title}
-                              </h4>
+
+                              {/* Center Play Icon Overlay */}
+                              <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                                <div className="w-11 h-11 rounded-full bg-white/90 group-hover:bg-white text-[#fd1d1d] flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                                  <Play className="w-5 h-5 fill-[#fd1d1d] ml-0.5" />
+                                </div>
+                              </div>
+
+                              {/* Views Counter on Thumbnail Bottom */}
+                              <div className="absolute bottom-2.5 left-2.5 z-10">
+                                <span className="flex items-center gap-1 text-[11px] font-bold text-white bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-md border border-white/10">
+                                  <Eye className="w-3 h-3 text-pink-400" /> {reel.views}
+                                </span>
+                              </div>
                             </div>
 
-                            <div className="flex items-center justify-between pt-2 border-t border-white/10 text-[11px] text-gray-300">
-                              <span className="flex items-center gap-1 text-pink-300 font-semibold">
-                                <Eye className="w-3 h-3" /> {reel.views}
-                              </span>
-                              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-300 to-amber-300 group-hover:underline font-black">
-                                {isRTL ? "شاهد على إنستغرام ↗" : "Watch on IG ↗"}
-                              </span>
+                            {/* Details Below Thumbnail */}
+                            <div className="space-y-1.5 px-0.5">
+                              <h4 className="text-xs font-bold text-gray-900 group-hover:text-[#833ab4] transition-colors line-clamp-2 leading-snug">
+                                {reel.title}
+                              </h4>
+                              <div className="flex items-center justify-between pt-1 border-t border-pink-100 text-[11px]">
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] font-black group-hover:underline flex items-center gap-1">
+                                  {isRTL ? "شاهد على إنستغرام ↗" : "Watch on IG ↗"}
+                                </span>
+                              </div>
                             </div>
                           </a>
                         ))}
                       </div>
 
                       {/* Partner Trust Badges */}
-                      <div className="pt-2 border-t border-pink-500/20 flex items-center justify-between text-xs text-gray-300">
-                        <span className="text-[11px] font-bold text-pink-300 uppercase">
+                      <div className="pt-2 border-t border-pink-100 flex items-center justify-between text-xs text-gray-600">
+                        <span className="text-[11px] font-bold text-pink-700 uppercase">
                           {isRTL ? "شركاء موثوقون:" : "Trusted By:"}
                         </span>
-                        <div className="flex items-center gap-3 text-white font-bold text-xs">
+                        <div className="flex items-center gap-3 text-gray-800 font-bold text-xs">
                           <span>Schneider</span>
                           <span>•</span>
                           <span>RiseUp</span>
