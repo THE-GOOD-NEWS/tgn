@@ -110,6 +110,7 @@ export function Products() {
       bulletColor: "text-amber-500",
       ctaClass: "bg-yellow-400 hover:bg-yellow-300 text-black font-black border border-yellow-500 shadow-md",
       title: isRTL ? "فرصة حلوة" : "Forsa Helwa",
+
       tagline: isRTL
         ? "بنوصّل الشباب العربي بالفرص اللي تساعدهم يحققوا أهدافهم ويتطوروا."
         : "Connecting Arab youth to the opportunities that move them forward.",
