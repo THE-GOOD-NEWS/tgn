@@ -4,7 +4,37 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, BarChart3, TrendingUp, Eye, Share2, Award } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+function getInstagramEmbedUrl(src: string): string {
+  try {
+    const url = new URL(src);
+    const parts = url.pathname.split("/").filter(Boolean);
+    const pIndex = parts.indexOf("p");
+    const reelIndex = parts.indexOf("reel");
+    const reelsIndex = parts.indexOf("reels");
+
+    let type: "p" | "reel" | undefined;
+    let shortcode: string | undefined;
+
+    if (pIndex !== -1 && parts[pIndex + 1]) {
+      type = "p";
+      shortcode = parts[pIndex + 1];
+    } else if (reelIndex !== -1 && parts[reelIndex + 1]) {
+      type = "reel";
+      shortcode = parts[reelIndex + 1];
+    } else if (reelsIndex !== -1 && parts[reelsIndex + 1]) {
+      type = "reel";
+      shortcode = parts[reelsIndex + 1];
+    }
+
+    return type && shortcode
+      ? `https://www.instagram.com/${type}/${shortcode}/embed`
+      : src;
+  } catch {
+    return src;
+  }
+}
 
 export function PartnerCaseStudies() {
   const t = useTranslations("tgmg.caseStudies");
@@ -18,6 +48,7 @@ export function PartnerCaseStudies() {
       title: t("item1Title"),
       desc: t("item1Desc"),
       stats: t("item1Stats"),
+      instagramUrl: "https://www.instagram.com/p/DaGG18gCj8O/?igsh=aGN4cDRzcnd4Zm41&igsi=aGN4cDRzcnd4Zm41",
       image: "/partners/case studies/Screenshot 2025-10-14 144716.png",
       tag: "Masar Ventures",
       metrics: [
@@ -31,6 +62,7 @@ export function PartnerCaseStudies() {
       title: t("item2Title"),
       desc: t("item2Desc"),
       stats: t("item2Stats"),
+      instagramUrl: "https://www.instagram.com/reel/DZNll7NKOoz/?igsh=MWdpZTJ5ZTY1ejJxdw==&igsi=MWdpZTJ5ZTY1ejJxdw==",
       image: "/partners/case studies/Screenshot 2025-10-14 144823.png",
       tag: "Gemini",
       metrics: [
@@ -43,6 +75,7 @@ export function PartnerCaseStudies() {
       title: t("item3Title"),
       desc: t("item3Desc"),
       stats: t("item3Stats"),
+      instagramUrl: "https://www.instagram.com/reel/DNlZf--NpEC/?igsh=MTBzcndrYWYzaDczNA==&igsi=MTBzcndrYWYzaDczNA==",
       image: "/partners/case studies/Screenshot 2025-10-14 145202.png",
       tag: "Mountain View",
       metrics: [
@@ -56,6 +89,7 @@ export function PartnerCaseStudies() {
       title: t("item4Title"),
       desc: t("item4Desc"),
       stats: t("item4Stats"),
+      instagramUrl: "https://www.instagram.com/p/DUbUwp_DCsf/?igsh=NzFrd2t2M3ZxbmFh&igsi=NzFrd2t2M3ZxbmFh",
       image: "/partners/case studies/Screenshot 2025-10-14 145249.png",
       tag: "BTC",
       metrics: [
@@ -183,14 +217,26 @@ export function PartnerCaseStudies() {
                 </div>
               </div>
 
-              {/* Image Preview */}
-              <div className="lg:col-span-5 relative h-72 sm:h-96 rounded-2xl overflow-hidden border border-gray-200 shadow-inner bg-gray-100">
-                <Image
-                  src={current.image}
-                  alt={current.title}
-                  fill
-                  className="object-cover object-top hover:scale-105 transition-transform duration-500"
-                />
+              {/* Media Preview */}
+              <div className="lg:col-span-5 relative w-full h-[460px] sm:h-[520px] rounded-2xl overflow-hidden border border-gray-200 shadow-inner bg-gray-50 flex items-center justify-center">
+                {current.instagramUrl ? (
+                  <iframe
+                    key={current.id}
+                    src={getInstagramEmbedUrl(current.instagramUrl)}
+                    title={current.title}
+                    className="w-full h-full border-none rounded-2xl bg-white"
+                    allowFullScreen
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  />
+                ) : current.image ? (
+                  <Image
+                    src={current.image}
+                    alt={current.title}
+                    fill
+                    className="object-cover object-top hover:scale-105 transition-transform duration-500"
+                  />
+                ) : null}
               </div>
             </motion.div>
           </AnimatePresence>

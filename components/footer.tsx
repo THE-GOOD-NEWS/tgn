@@ -95,7 +95,13 @@ export function Footer() {
           {/* Brand Section */}
           <div className="space-y-4 text-start">
             <Link
-              href={`/${locale}`}
+              href={
+                pathname.includes("/the-good-space")
+                  ? `/${locale}/the-good-space`
+                  : pathname.includes("/the-good-news")
+                  ? `/${locale}/the-good-news`
+                  : `/${locale}`
+              }
               className="flex items-center justify-center space-x-2 rtl:space-x-reverse"
             >
               <div className="relative w-64 h-32 md:h-32 md:w-64 lg:h-36 lg:w-80">
@@ -113,9 +119,15 @@ export function Footer() {
                 />
               </div>
             </Link>
-           { !pathname.includes("/the-good-space") &&<p className="text-sm text-muted-foreground leading-relaxed">
-              {t("brand.description")}
-            </p>}
+            {pathname.includes("/the-good-news") ? (
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {t("brand.description")}
+              </p>
+            ) : !pathname.includes("/the-good-space") ? (
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {t("brand.tgmgDescription")}
+              </p>
+            ) : null}
             <div className="flex space-x-4 rtl:space-x-reverse">
               {socialLinks.map((social) => {
                 const Icon = social.icon;

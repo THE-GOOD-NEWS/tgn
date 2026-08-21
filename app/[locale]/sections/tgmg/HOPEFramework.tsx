@@ -35,9 +35,11 @@ export function HOPEFramework() {
           ? "سرد قصصي واقعي يبني الثقة ويحفز المشاركة الإيجابية."
           : "Authentic human storytelling and journalism that sparks action.",
         icon: Heart,
-        gradient: "from-rose-500 to-pink-500",
-        lightBadge: "bg-rose-50 border-rose-200 text-rose-700",
-        shadow: "shadow-rose-500/20",
+        gradient: "from-hot-pink via-pink-500 to-rose-500 text-white",
+        cardBorder: "border-hot-pink/40 hover:border-hot-pink",
+        lightBadge: "bg-pink-50 border-pink-200 text-pink-700",
+        iconBox: "bg-pink-100 text-hot-pink-dark group-hover:bg-pink-200",
+        shadow: "shadow-hot-pink/20 hover:shadow-hot-pink/30",
       },
       {
         id: "O",
@@ -49,9 +51,11 @@ export function HOPEFramework() {
           ? "فرص عمل، تدريب، منح، ومسابقات موثوقة تسارع نمو الشباب."
           : "Verified internships, scholarships, and career growth opportunities.",
         icon: DoorOpen,
-        gradient: "from-amber-500 to-orange-500",
-        lightBadge: "bg-amber-50 border-amber-200 text-amber-700",
-        shadow: "shadow-amber-500/20",
+        gradient: "from-hot-pink via-rose-400 to-amber-300 text-white",
+        cardBorder: "border-pink-300/50 hover:border-pink-400",
+        lightBadge: "bg-pink-50/90 border-pink-200 text-pink-800",
+        iconBox: "bg-pink-50 text-pink-700 group-hover:bg-pink-100",
+        shadow: "shadow-pink-400/20 hover:shadow-pink-400/30",
       },
       {
         id: "P",
@@ -63,9 +67,11 @@ export function HOPEFramework() {
           ? "ورش عمل وتجارب تفاعلية تبني المهارات وتوسع شبكة العلاقات."
           : "Hands-on workshops, community spaces, and mentorship to thrive.",
         icon: ShieldCheck,
-        gradient: "from-[#9966FF] to-[#6A2BDE]",
-        lightBadge: "bg-purple-100 border-purple-300 text-purple-900",
-        shadow: "shadow-purple-500/20",
+        gradient: "from-pink-300 via-amber-300 to-yellow-300 text-gray-900",
+        cardBorder: "border-amber-300/50 hover:border-amber-400",
+        lightBadge: "bg-amber-50 border-amber-200 text-amber-900",
+        iconBox: "bg-amber-100 text-amber-800 group-hover:bg-amber-200",
+        shadow: "shadow-amber-400/20 hover:shadow-amber-400/30",
       },
       {
         id: "E",
@@ -77,9 +83,11 @@ export function HOPEFramework() {
           ? "منصات ترفع أصوات الشباب وتربطهم بصناع القرار في المنطقة."
           : "Platforms elevating youth perspectives and shaping the future.",
         icon: Megaphone,
-        gradient: "from-emerald-500 to-teal-500",
-        lightBadge: "bg-emerald-100 border-emerald-300 text-emerald-900",
-        shadow: "shadow-emerald-500/20",
+        gradient: "from-amber-300 via-yellow-300 to-bright-yellow text-gray-900",
+        cardBorder: "border-bright-yellow/70 hover:border-bright-yellow",
+        lightBadge: "bg-yellow-50 border-yellow-300 text-yellow-900",
+        iconBox: "bg-yellow-100 text-yellow-900 group-hover:bg-yellow-200",
+        shadow: "shadow-bright-yellow/25 hover:shadow-bright-yellow/40",
       },
     ],
   };
@@ -89,17 +97,16 @@ export function HOPEFramework() {
       id="hope-framework"
       className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-cream/50 to-white relative overflow-hidden border-b border-gray-200/70"
     >
-      {/* Background Gradients */}
+      {/* Background Left-to-Right Pink-to-Yellow Ambient Glow */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
-        <div className="absolute top-1/4 right-10 w-80 h-80 bg-purple/15 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-80 h-80 bg-hot-pink/15 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-0 right-0 h-96 -translate-y-1/2 bg-gradient-to-r from-hot-pink/25 via-pink-300/15 to-bright-yellow/30 blur-3xl" />
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10" dir={isRTL ? "rtl" : "ltr"}>
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto mb-10 md:mb-12">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-purple/10 text-purple border border-purple/20 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5" />
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-gradient-to-r from-hot-pink/15 via-amber-200/20 to-bright-yellow/25 text-gray-900 border border-hot-pink/30 shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-hot-pink-dark" />
             {hopeData.badge}
           </span>
 
@@ -128,8 +135,8 @@ export function HOPEFramework() {
           </p>
         </div>
 
-        {/* 4 Brief HOPE Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+        {/* 4 Brief HOPE Cards: First almost full Pink, Last almost full Yellow */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10 relative">
           {hopeData.pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
@@ -140,17 +147,17 @@ export function HOPEFramework() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 whileHover={{ y: -4, scale: 1.02 }}
-                className={`bg-white rounded-3xl p-6 border-2 border-gray-100 shadow-xl flex flex-col justify-between space-y-4 relative overflow-hidden group ${pillar.shadow}`}
+                className={`bg-white rounded-3xl p-6 border-2 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 relative overflow-hidden group ${pillar.cardBorder} ${pillar.shadow}`}
               >
                 <div className="space-y-3.5">
-                  {/* Top Row: Badge & Icon */}
+                  {/* Top Row: Letter Badge & Icon */}
                   <div className="flex items-center justify-between">
                     <div
-                      className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl text-white shadow-md bg-gradient-to-br ${pillar.gradient} group-hover:scale-105 transition-transform duration-300`}
+                      className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-md bg-gradient-to-r ${pillar.gradient} group-hover:scale-105 transition-transform duration-300`}
                     >
                       {pillar.letter}
                     </div>
-                    <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-gray-50 text-gray-700 group-hover:bg-gray-100 transition-colors">
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${pillar.iconBox}`}>
                       <Icon className="w-4 h-4" />
                     </div>
                   </div>
@@ -195,7 +202,7 @@ export function HOPEFramework() {
         <div className="text-center pt-2">
           <Link
             href={hopeData.link}
-            className={`inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl font-black text-sm sm:text-base text-gray-900 bg-gradient-to-r from-hot-pink via-purple-300 to-bright-yellow shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 ${
+            className={`inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl font-black text-sm sm:text-base text-gray-900 bg-gradient-to-r from-hot-pink via-amber-200 to-bright-yellow shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 ${
               isRTL ? "font-arabic-subheading" : "font-english-subheading"
             }`}
           >
