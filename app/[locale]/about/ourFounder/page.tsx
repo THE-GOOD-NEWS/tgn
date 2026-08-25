@@ -116,56 +116,80 @@ export default function MediaPresencePage() {
 
   return (
     <div
-      className={`px-6 md:px-10 lg:px-16 pb-12 md:pb-16 pt-20 md:pt-28 ${
-        isRTL ? "text-right" : "text-left"
-      }`}
-
+      className={`px-6 md:px-10 lg:px-16 pb-12 md:pb-16 pt-20 md:pt-28 ${isRTL ? "text-right" : "text-left"
+        }`}
     >
-                <div
-            className={`text-5xl md:text-6xl lg:text-7xl font-extrabold ${
-              isRTL ? "font-arabic-header" : "font-english-heading"
-            } text-carbon text-center pb-6 md:pb-10`}
-          >
-            {t("whoIsMariam")}
-          </div>
-      {/* Who is Mariam Section */}
-      <section className="max-w-4xl mx-auto mb-16">
-        {/* <h2
-          dir={isRTL ? "rtl" : "ltr"}
-          className={`text-xl md:text-2xl lg:text-3xl ${
-            isRTL ? "font-arabic" : "font-english"
-          } text-pink-500 font-semibold mb-3 text-center`}
-        >
-          {t("whoIsMariam")}
-        </h2> */}
-        <div className="flex mb-14 px-4 sm:px-6 md:px-16 lg:px-16 flex-col md:flex-row items-center gap-6">
+      {/* Founder Hero Section matching reference media */}
+      <section className="max-w-6xl mx-auto mt-10 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+          {/* Left Column: Title, Subtitles & Bio Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className={`w-full md:w-1/3 flex justify-center ${
-              isRTL ? "md:order-last" : "md:order-first"
-            }`}
+            className="lg:col-span-7 flex flex-col justify-between space-y-6"
+          >
+            {/* Header Titles */}
+            <div className="space-y-1">
+              <span
+                className={`block text-4xl sm:text-5xl md:text-6xl font-black text-hot-pink uppercase tracking-tight ${isRTL ? "font-arabic-header" : "font-english-heading"
+                  }`}
+              >
+                {isRTL ? "تعرف على" : "MEET THE"}
+              </span>
+              <p
+                className={`text-xl sm:text-2xl font-bold text-gray-800 tracking-wide ${isRTL ? "font-arabic" : "font-english"
+                  }`}
+              >
+                {isRTL ? "المؤسس والرئيس التنفيذي" : "Founder & CEO"}
+              </p>
+              <h1
+                className={`text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 ${isRTL ? "font-arabic-header" : "font-english-heading"
+                  }`}
+              >
+                {isRTL ? "مريم سوليكا" : "Mariam Solika"}
+              </h1>
+            </div>
+
+            {/* Bio Card (Cream Box with rounded corners and TGN logo) */}
+            <div className="bg-[#FAF6F0] rounded-[2rem] p-6 sm:p-8 md:p-9 border border-amber-200/50 shadow-xl relative space-y-5">
+              <p
+                dir={isRTL ? "rtl" : "ltr"}
+                className={`text-sm sm:text-base md:text-[1.05rem] text-gray-900 leading-relaxed font-medium ${isRTL ? "font-arabic text-right" : "font-english text-left"
+                  }`}
+              >
+                {t("content2")}
+              </p>
+
+              {/* TGN Logo at the bottom */}
+              <div className="pt-2 flex items-center">
+                <Image
+                  src="/logos/TGN_LOGOS_PNG-03.png"
+                  alt="The Good News ذا جود نيوز"
+                  width={140}
+                  height={50}
+                  className="h-10 sm:h-12 w-auto object-contain"
+                />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Founder Photo at UN (IMG_2982.JPG) */}
+          <motion.div
+            initial={{ opacity: 0, x: isRTL ? -20 : 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-5 relative min-h-[380px] sm:min-h-[460px] lg:min-h-[520px] rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 bg-gray-100 group"
           >
             <Image
-              src="/pictures/TGN_Profilepicture2.png"
+              src="/founder/IMG_2982.JPG"
               alt="Mariam Solika"
-              width={300}
-              height={300}
-              className="rounded-lg shadow-md"
+              fill
+              priority
+              className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+              sizes="(max-width: 768px) 100vw, 40vw"
             />
           </motion.div>
-          <motion.p
-            dir={isRTL ? "rtl" : "ltr"}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className={`${
-              isRTL ? "font-arabic text-right" : "font-english text-left"
-            } mt-6 md:mt-0 md:w-2/3`}
-          >
-            {t("content2")}
-          </motion.p>
         </div>
       </section>
 
@@ -216,9 +240,8 @@ export default function MediaPresencePage() {
           className="text-center mb-10"
         >
           <span
-            className={`inline-block mt-2 text-2xl md:text-3xl ${
-              isRTL ? "font-arabic-subheading" : "font-english-subheading"
-            } text-carbon font-bold tracking-wide`}
+            className={`inline-block mt-2 text-2xl md:text-3xl ${isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              } text-carbon font-bold tracking-wide`}
           >
             {t("interviewsLabel")}
           </span>
