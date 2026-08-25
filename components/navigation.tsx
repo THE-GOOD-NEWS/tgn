@@ -263,6 +263,8 @@ export function Navigation({}: NavigationProps) {
                     ? "/goodSpace/1.png"
                     : pathname.includes("/the-good-news")
                     ? "/logos/TGN_LOGOS_PNG-03.png"
+                    : isTGMGHero
+                    ? "/TGMG/logoWhite.png"
                     : "/TGMG/logo.png"
                 }
               ></Image>
