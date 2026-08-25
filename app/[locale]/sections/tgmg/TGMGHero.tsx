@@ -39,7 +39,7 @@ export function TGMGHero() {
         </video>
 
         {/* High-contrast gradient overlay ensuring text readability on all devices */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20 lg:bg-gradient-to-r lg:from-black/85 lg:via-black/40 lg:to-black/20 rtl:lg:bg-gradient-to-l rtl:lg:from-black/85 rtl:lg:via-black/60 rtl:lg:to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20 lg:bg-gradient-to-r lg:from-black/85 lg:via-black/30 lg:to-transparent rtl:lg:bg-gradient-to-l rtl:lg:from-black/85 rtl:lg:via-black/30 rtl:lg:to-transparent" />
       </div>
 
       {/* Content Layer on the Left (Bottom-aligned on mobile) */}

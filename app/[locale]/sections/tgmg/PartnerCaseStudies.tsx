@@ -36,6 +36,14 @@ function getInstagramEmbedUrl(src: string): string {
   }
 }
 
+function getTikTokEmbedUrl(src: string): string {
+  const match = src.match(/\/video\/(\d+)/);
+  if (match && match[1]) {
+    return `https://www.tiktok.com/embed/v2/${match[1]}`;
+  }
+  return src;
+}
+
 export function PartnerCaseStudies() {
   const t = useTranslations("tgmg.caseStudies");
   const locale = useLocale();
@@ -103,6 +111,7 @@ export function PartnerCaseStudies() {
       title: t("item5Title"),
       desc: t("item5Desc"),
       stats: t("item5Stats"),
+      tiktokUrl: "https://www.tiktok.com/@thegoodnewsms/video/7396735281153543442",
       image: "/partners/case studies/Screenshot 2025-10-14 145334.png",
       tag: "Palm Hills",
       metrics: [
@@ -223,6 +232,16 @@ export function PartnerCaseStudies() {
                   <iframe
                     key={current.id}
                     src={getInstagramEmbedUrl(current.instagramUrl)}
+                    title={current.title}
+                    className="w-full h-full border-none rounded-2xl bg-white"
+                    allowFullScreen
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  />
+                ) : current.tiktokUrl ? (
+                  <iframe
+                    key={current.id}
+                    src={getTikTokEmbedUrl(current.tiktokUrl)}
                     title={current.title}
                     className="w-full h-full border-none rounded-2xl bg-white"
                     allowFullScreen
