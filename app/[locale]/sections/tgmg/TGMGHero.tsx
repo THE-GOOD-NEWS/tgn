@@ -23,7 +23,7 @@ export function TGMGHero() {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] lg:min-h-[90vh] flex items-center overflow-hidden bg-black">
+    <section className="relative min-h-[85vh] lg:min-h-[90vh] flex items-end sm:items-center overflow-hidden bg-black">
       {/* Background Video */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <video
@@ -35,15 +35,15 @@ export function TGMGHero() {
           preload="auto"
           className="w-full h-full object-cover object-center"
         >
-          <source src="/videos/video2.mp4" type="video/mp4" />
+          <source src="/TGMG/tgmgVideo.mp4" type="video/mp4" />
         </video>
 
         {/* High-contrast gradient overlay ensuring text readability on all devices */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/40 lg:bg-gradient-to-r lg:from-black/85 lg:via-black/60 lg:to-black/30 rtl:lg:bg-gradient-to-l rtl:lg:from-black/85 rtl:lg:via-black/60 rtl:lg:to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20 lg:bg-gradient-to-r lg:from-black/85 lg:via-black/40 lg:to-black/20 rtl:lg:bg-gradient-to-l rtl:lg:from-black/85 rtl:lg:via-black/60 rtl:lg:to-black/30" />
       </div>
 
-      {/* Content Layer on the Left */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10 py-20 lg:py-28">
+      {/* Content Layer on the Left (Bottom-aligned on mobile) */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10 pt-24 pb-12 sm:py-20 lg:py-28 w-full">
         <div
           dir={isRTL ? "rtl" : "ltr"}
           className={`max-w-2xl ${isRTL ? "text-right mr-0 ml-auto" : "text-left ml-0 mr-auto"} space-y-6`}
