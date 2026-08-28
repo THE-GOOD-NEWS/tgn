@@ -43,10 +43,10 @@ export function TGMGHero() {
       </div>
 
       {/* Content Layer on the Left (Bottom-aligned on mobile) */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10 pt-24 pb-12 sm:py-20 lg:py-28 w-full">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10 pt-24 pb-6 sm:py-20 lg:py-28 w-full">
         <div
           dir={isRTL ? "rtl" : "ltr"}
-          className={`max-w-2xl ${isRTL ? "text-right mr-0 ml-auto" : "text-left ml-0 mr-auto"} space-y-6`}
+          className={`max-w-2xl ${isRTL ? "text-right mr-0 ml-auto" : "text-left ml-0 mr-auto"} space-y-2 md:space-y-6`}
         >
           {/* Main Headline (Decreased size & aligned left) */}
           <motion.h1
