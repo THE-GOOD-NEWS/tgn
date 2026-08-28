@@ -23,7 +23,7 @@ export function TGMGHero() {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] lg:min-h-[90vh] flex items-end sm:items-center overflow-hidden bg-black">
+    <section className="relative min-h-[85vh] lg:min-h-[97vh] flex items-end sm:items-center overflow-hidden bg-black">
       {/* Background Video */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <video
