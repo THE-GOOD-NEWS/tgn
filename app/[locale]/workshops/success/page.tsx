@@ -11,6 +11,7 @@ function SuccessContent() {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
   const isWaitlist = type === "waitlist";
+  const isFree = type === "free";
 
   return (
     <div className="min-h-screen bg-cream flex flex-col items-center justify-center  pt-20 md:pt-36 px-6 pb-12">
@@ -47,18 +48,6 @@ function SuccessContent() {
                 />
               </div>
             )}
-            
-            {/* Animated ring */}
-            {/* <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1.5 }}
-              transition={{ 
-                duration: 1,
-                repeat: Infinity,
-                repeatType: "mirror"
-              }}
-              className={`absolute inset-0 rounded-full border-2 ${isWaitlist ? 'border-orange-200' : 'border-green-200'}`}
-            /> */}
           </div>
 
           <h1 className="text-4xl md:text-5xl font-black font-english-heading text-carbon mb-4 tracking-tight">
@@ -68,6 +57,8 @@ function SuccessContent() {
           <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-english mb-10 max-w-lg">
             {isWaitlist 
               ? "Your request for the waiting list has been submitted successfully. We'll notify you if a slot becomes available!"
+              : isFree
+              ? "Your registration request for the workshop has been submitted. We are reviewing your details; we will send you a confirmation email soon!"
               : "Your booking request for the workshop has been submitted. We are reviewing your payment and details; we will send you a confirmation email soon!"
             }
           </p>

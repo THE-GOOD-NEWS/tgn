@@ -209,7 +209,7 @@ export default function TheGoodSpacePage() {
                           <div className="absolute inset-y-0 right-0 w-1 bg-white/30 hidden md:block" />
                           
                           {/* Availability Badge */}
-                          <div className="absolute top-3 left-3 z-20">
+                          <div className="absolute top-3 left-3 z-20 flex flex-wrap gap-1.5 items-center">
                             {ws.status === "coming soon" ? (
                               <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm bg-orange-500 text-white">
                                 Coming Soon
@@ -219,6 +219,11 @@ export default function TheGoodSpacePage() {
                                 isAvailable ? "bg-muted text-white" : "bg-accent text-white"
                               }`}>
                                 {isAvailable ? "Available" : "Waitlist"}
+                              </span>
+                            )}
+                            {ws.price === 0 && (
+                              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm bg-emerald-600 text-white">
+                                Free
                               </span>
                             )}
                           </div>
@@ -246,9 +251,16 @@ export default function TheGoodSpacePage() {
                               </div>
                             )}
                           </div>
-                          <p className="text-[10px] md:text-xs text-gray-400 font-bold mt-2">
-                            {ws.availableSessions?.length || 0} {ws.availableSessions?.length === 1 ? "Session" : "Sessions"}
-                          </p>
+                          <div className="flex items-center justify-between mt-2">
+                            <p className="text-[10px] md:text-xs text-gray-400 font-bold">
+                              {ws.availableSessions?.length || 0} {ws.availableSessions?.length === 1 ? "Session" : "Sessions"}
+                            </p>
+                            {ws.price === 0 && (
+                              <span className="text-xs font-bold text-emerald-600 uppercase tracking-wide">
+                                Free
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
 
