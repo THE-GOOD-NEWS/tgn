@@ -6,6 +6,8 @@ export interface IWorkshopAttendanceRequest extends Document {
   phone: string;
   email: string;
   howDidYouKnow: "TGN" | "Instructor page" | "Ads" | "Friends and Family";
+  areaOfResidence?: string;
+  age?: number;
   type: "available" | "waitlist" ;
   instapayImage: string;
   status?: "pending" | "approved" | "rejected" |"archived";
@@ -29,6 +31,15 @@ const WorkshopAttendanceRequestSchema = new Schema<IWorkshopAttendanceRequest>(
       type: String,
       enum: ["TGN", "Instructor page", "Ads", "Friends and Family"],
       required: true,
+    },
+    areaOfResidence: {
+      type: String,
+      trim: true,
+    },
+    age: {
+      type: Number,
+      min: 1,
+      max: 120,
     },
     type: {
       type: String,
