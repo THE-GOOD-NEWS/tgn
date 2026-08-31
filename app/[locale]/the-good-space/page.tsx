@@ -1032,6 +1032,221 @@ export default function TheGoodSpacePage() {
             </motion.div>
           </section>
 
+          {/* Season 1 Collaboration: Gemini for Content Creation Section */}
+          <section className="max-w-6xl mx-auto mb-24 px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-12"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary font-bold text-xs rounded-full uppercase tracking-widest mb-3">
+                <Sparkles size={14} className="text-primary animate-pulse" />
+                Season 1 Collaboration
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black font-english-heading text-foreground mb-4 tracking-tight">
+                Gemini for Content Creation
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-english">
+                In our collaboration with Gemini we reached:
+              </p>
+            </motion.div>
+
+            {/* Media Gallery Carousel (Placed before the numbers) */}
+
+
+            {/* Collaboration Highlights */}
+            <motion.div
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+            >
+              {/* Metric 1 */}
+              <motion.div
+                variants={item}
+                whileHover={{ y: -4 }}
+                className="bg-white p-8 rounded-[2rem] border border-border/80 hover:border-primary/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <Users className="w-7 h-7" />
+                  </div>
+                  <span className="px-3 py-1 bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider rounded-full">
+                    Top Tier Voices
+                  </span>
+                </div>
+                <div>
+                  <div className="text-5xl font-black font-header-en text-primary tracking-tight mb-2">
+                    9
+                  </div>
+                  <h3 className="text-lg font-bold font-english-subheading text-foreground mb-1">
+                    Top Content Creators
+                  </h3>
+                  <p className="text-sm text-gray-500 font-english leading-relaxed">
+                    9 of the top content creators in the region
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Metric 2 */}
+              <motion.div
+                variants={item}
+                whileHover={{ y: -4 }}
+                className="bg-white p-8 rounded-[2rem] border border-border/80 hover:border-primary/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-accent/20 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <TrendingUp className="w-7 h-7" />
+                  </div>
+                  <span className="px-3 py-1 bg-accent/20 text-primary text-[11px] font-bold uppercase tracking-wider rounded-full">
+                    High Demand
+                  </span>
+                </div>
+                <div>
+                  <div className="text-5xl font-black font-header-en text-primary tracking-tight mb-2">
+                    300
+                  </div>
+                  <h3 className="text-lg font-bold font-english-subheading text-foreground mb-1">
+                    Waitlist Responses
+                  </h3>
+                  <p className="text-sm text-gray-500 font-english leading-relaxed">
+                    300 waitlist responses
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Metric 3 */}
+              <motion.div
+                variants={item}
+                whileHover={{ y: -4 }}
+                className="bg-white p-8 rounded-[2rem] border border-border/80 hover:border-primary/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-secondary/20 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <Award className="w-7 h-7" />
+                  </div>
+                  <div className="flex items-center gap-1 text-amber-500">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-5xl font-black font-header-en text-primary tracking-tight mb-2">
+                    5/5
+                  </div>
+                  <h3 className="text-lg font-bold font-english-subheading text-foreground mb-1">
+                    Satisfaction Rate
+                  </h3>
+                  <p className="text-sm text-gray-500 font-english leading-relaxed">
+                    A 5/5 satisfaction rate
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+            <div className="relative mb-14">
+              <Carousel
+                opts={{ align: "start", loop: true }}
+                className="w-full relative"
+              >
+                <CarouselContent className="-ml-4">
+                  {[
+                    {
+                      src: "/goodSpace/gemini/DSC02543-1.jpg",
+                      alt: "Gemini Content Creation Session",
+                      title: "Creator Community",
+                    },
+                    {
+                      src: "/goodSpace/gemini/DSC02629-7.jpg",
+                      alt: "Workshop in Action",
+                      title: "Collaborative Energy",
+                    },
+                    {
+                      src: "/goodSpace/gemini/DSC02645-1.jpg",
+                      alt: "Interactive Learning",
+                      title: "Hands-on Practice",
+                    },
+                    {
+                      src: "/goodSpace/gemini/DSC02681-1.jpg",
+                      alt: "Community Connection",
+                      title: "Real Connections",
+                    },
+                    {
+                      src: "/goodSpace/gemini/IMG_2947.jpg",
+                      alt: "Storytelling & AI Session",
+                      title: "Mindful Storytelling",
+                    },
+                  ].map((item, idx) => (
+                    <CarouselItem key={idx} className="basis-[85%] pl-4 sm:basis-1/2 lg:basis-1/3">
+                      <div className="relative h-72 md:h-80 rounded-3xl overflow-hidden shadow-md group border border-border bg-gray-100">
+                        <Image
+                          src={item.src}
+                          alt={item.alt}
+                          fill
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                          sizes="(max-width: 640px) 85vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+                        {/* <div className="absolute bottom-4 left-4 right-4 text-white">
+                          <span className="text-[10px] uppercase font-bold tracking-widest text-primary-foreground/90 bg-primary/80 backdrop-blur-sm px-2.5 py-0.5 rounded-full inline-block mb-1.5">
+                            Gemini x The Good Space
+                          </span>
+                          <p className="text-base font-bold font-english-heading text-white line-clamp-1">
+                            {item.title}
+                          </p>
+                        </div> */}
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <div className="hidden md:block">
+                  <CarouselPrevious className="bg-white hover:bg-primary hover:text-white border-none shadow-md -left-4" />
+                  <CarouselNext className="bg-white hover:bg-primary hover:text-white border-none shadow-md -right-4" />
+                </div>
+              </Carousel>
+            </div>
+
+            {/* Large scale event in the making highlight banner */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="bg-gradient-to-r from-primary via-primary/95 to-primary/85 text-white rounded-[2rem] p-6 md:p-8 mb-4 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6"
+            >
+              <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full translate-x-24 -translate-y-24 blur-2xl pointer-events-none" />
+
+              <div className="relative z-10 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-white/90">
+                      In The Making
+                    </span>
+                  </div>
+                  <h4 className="text-xl md:text-2xl font-black font-english-heading tracking-tight text-white">
+                    &amp; A new large scale event in the making
+                  </h4>
+                  <p className="text-xs md:text-sm text-white/80 font-english">
+                    Expanding our community footprint with next-level collaborative creator experiences.
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative z-10 flex-shrink-0">
+                <span className="inline-block px-5 py-2.5 rounded-full bg-white text-primary font-bold text-xs uppercase tracking-wider shadow-md">
+                  Stay Tuned
+                </span>
+              </div>
+            </motion.div>
+          </section>
+
           {/* Our Belief Section */}
           <section className="max-w-4xl mx-auto mb-24 text-center">
             <motion.div
