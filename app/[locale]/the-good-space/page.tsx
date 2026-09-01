@@ -1082,13 +1082,13 @@ export default function TheGoodSpacePage() {
 
               <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
                 <div className="flex-1 text-center md:text-left">
-                  <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full text-white font-bold text-xs tracking-widest uppercase mb-6">
+                  {/* <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full text-white font-bold text-xs tracking-widest uppercase mb-6">
                     <Handshake size={16} className="text-white" />
                     Host With Us
-                  </span>
+                  </span> */}
                   <h2 className="text-4xl md:text-5xl lg:text-6xl font-black font-english-heading mb-6 leading-tight">
                     Host a workshop <br />
-                    <span className="text-white/80">with The Good Space</span>
+                    <span className="text-white/80">with Us</span>
                   </h2>
                   <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-10 max-w-xl font-english">
                     Bring your community, workshop, or brand experience to life in an inspiring, thoughtfully curated space designed for genuine growth.
@@ -1105,7 +1105,7 @@ export default function TheGoodSpacePage() {
                 <div className="md:w-1/3 hidden md:flex justify-center relative">
                   <div className="relative w-72 h-72 md:w-80 md:h-80">
                     <Image
-                      src="/goodSpace/6.png"
+                      src="/goodSpace/goodSpaceTransition.gif"
                       alt="Host a Workshop"
                       fill
                       className="object-contain drop-shadow-2xl"
