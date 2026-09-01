@@ -1216,7 +1216,7 @@ export default function TheGoodSpacePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="bg-gradient-to-r from-primary via-primary/95 to-primary/85 text-white rounded-[2rem] p-6 md:p-8 mb-4 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6"
+              className="bg-gradient-to-r from-primary via-primary/95 to-primary/85 text-white rounded-[2rem] p-6 mt-3 md:mt-6 md:p-8 mb-4 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6"
             >
               <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full translate-x-24 -translate-y-24 blur-2xl pointer-events-none" />
 
