@@ -13,6 +13,7 @@ function SuccessContent() {
   const isWaitlist = type === "waitlist";
   const isComingSoon = type === "coming soon";
   const isFacilitator = type === "be_facilitator";
+  const isFree = type === "free";
 
   return (
     <div className="min-h-screen theme-good-space bg-background flex flex-col items-center justify-center  pt-20 md:pt-36 px-6 pb-12">
@@ -51,10 +52,12 @@ function SuccessContent() {
               ? "Your request for the waiting list has been submitted successfully. We'll notify you if a slot becomes available!"
               : isFacilitator 
               ? "Your facilitator application has been submitted successfully. We'll review your details and get back to you soon!"
+              : isFree
+              ? "Your registration request for the workshop has been submitted. We are reviewing your details; we will send you a confirmation email soon!"
               : "Your booking request for the workshop has been submitted. We are reviewing your payment and details; we will send you a confirmation email soon!"
             }
           </p>
-          <span className="text-gray-500 text-xs mb-10 md:text-sm ">Please make sure to check your smap folder.</span>
+          <span className="text-gray-500 text-xs mb-10 md:text-sm ">Please make sure to check your spam folder.</span>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             <Link href="/en/the-good-space" className="flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold hover:opacity-90 transition-all hover:scale-[1.02] shadow-lg">
