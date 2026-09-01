@@ -10,7 +10,23 @@ import {
   Target,
   Home,
   Star,
+<<<<<<< HEAD
   ArrowRight
+=======
+  ArrowRight,
+  Compass,
+  Briefcase,
+  Feather,
+  HandHeart,
+  Building2,
+  Sparkles,
+  CheckCircle2,
+  TrendingUp,
+  Award,
+  Eye,
+  Globe,
+  Handshake,
+>>>>>>> 648d5cf (feat(the-good-space): add host workshop CTA section and open location link in new tab)
 } from "lucide-react";
 import {
   Carousel,
@@ -625,8 +641,190 @@ export default function TheGoodSpacePage() {
         </motion.div>
       </section>
 
+<<<<<<< HEAD
       {/* Newsletter */}
       {/* <section className="max-w-6xl mx-auto mb-16 px-4">
+=======
+            {/* Large scale event in the making highlight banner */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="bg-gradient-to-r from-primary via-primary/95 to-primary/85 text-white rounded-[2rem] p-6 md:p-8 mb-4 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6"
+            >
+              <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full translate-x-24 -translate-y-24 blur-2xl pointer-events-none" />
+
+              <div className="relative z-10 flex items-center gap-4">
+                {/* <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-6 h-6" />
+                </div> */}
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-white/90">
+                      In The Making
+                    </span>
+                  </div>
+                  <h4 className="text-xl md:text-2xl font-black font-english-heading tracking-tight text-white">
+                    &amp; A new large scale event in the making
+                  </h4>
+                  <p className="text-xs md:text-sm text-white/80 font-english">
+                    Expanding our community footprint with next-level collaborative creator experiences.
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative z-10 flex-shrink-0">
+                <span className="inline-block px-5 py-2.5 rounded-full bg-white text-primary font-bold text-xs uppercase tracking-wider shadow-md">
+                  Stay Tuned
+                </span>
+              </div>
+            </motion.div>
+          </section>
+
+          {/* Host a Workshop / Partner CTA Section */}
+          <section className="max-w-6xl mx-auto mb-24 px-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-primary via-primary/80 to-primary/95 p-10 md:p-16 text-white shadow-2xl border border-primary/20"
+            >
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full translate-x-32 -translate-y-32 blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/15 rounded-full -translate-x-32 translate-y-32 blur-3xl pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+                <div className="flex-1 text-center md:text-left">
+                  <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full text-white font-bold text-xs tracking-widest uppercase mb-6">
+                    <Handshake size={16} className="text-white" />
+                    Host With Us
+                  </span>
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-black font-english-heading mb-6 leading-tight">
+                    Host a workshop <br />
+                    <span className="text-white/80">with The Good Space</span>
+                  </h2>
+                  <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-10 max-w-xl font-english">
+                    Bring your community, workshop, or brand experience to life in an inspiring, thoughtfully curated space designed for genuine growth.
+                  </p>
+                  <Link
+                    href="/en/contact/partner"
+                    className="inline-flex items-center gap-3 px-10 py-5 bg-white text-primary rounded-full font-black text-lg transition-all duration-300 hover:bg-white/90 hover:scale-105 hover:shadow-xl group"
+                  >
+                    Be a Partner
+                    <ArrowRight className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1.5" />
+                  </Link>
+                </div>
+
+                <div className="md:w-1/3 hidden md:flex justify-center relative">
+                  <div className="relative w-72 h-72 md:w-80 md:h-80">
+                    <Image
+                      src="/goodSpace/6.png"
+                      alt="Host a Workshop"
+                      fill
+                      className="object-contain drop-shadow-2xl"
+                    />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </section>
+
+          {/* Our Belief Section */}
+          <section className="max-w-4xl mx-auto mb-24 text-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-10">
+                <Target size={120} className="text-primary" />
+              </div>
+
+              <h2 className="text-3xl md:text-4xl font-black font-english-heading text-foreground mb-12 relative z-10">
+                Our Belief
+              </h2>
+
+              <div className="space-y-6">
+                <motion.div
+                  whileHover={{ x: 10 }}
+                  className="bg-white p-6 rounded-2xl border-l-8 border-primary text-xl md:text-2xl font-bold text-foreground text-left shadow-sm"
+                >
+                  Growth doesn’t have to be loud to be real.
+                </motion.div>
+                <motion.div
+                  whileHover={{ x: -10 }}
+                  className="bg-white p-6 rounded-2xl border-r-8 border-primary text-xl md:text-2xl font-bold text-foreground text-right shadow-sm"
+                >
+                  A community doesn’t have to be big to be powerful.
+                </motion.div>
+                <motion.div
+                  className="bg-primary p-8 rounded-2xl text-2xl md:text-4xl font-black text-primary-foreground shadow-xl transform skew-y-1"
+                >
+                  The Good Space is where good people grow — together.
+                </motion.div>
+              </div>
+            </motion.div>
+          </section>
+
+
+
+          {/* Be a Facilitator with Us Section */}
+          <section className="max-w-6xl mx-auto mb-24 px-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-primary via-primary/70 to-primary-foreground p-10 md:p-16 text-white shadow-2xl"
+            >
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full translate-x-32 -translate-y-32 blur-3xl"></div>
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/10 rounded-full -translate-x-32 translate-y-32 blur-3xl"></div>
+
+              <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
+                <div className="flex-1 text-center md:text-left">
+                  <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full text-white font-bold text-xs tracking-widest uppercase mb-6">
+                    <Star size={14} className="fill-current" />
+                    Join Our Creative Circle
+                  </span>
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-black font-english-heading mb-6 leading-tight">
+                    Be a facilitator <br />
+                    <span className="text-white/80">with us</span>
+                  </h2>
+                  <p className="text-xl text-white/90 leading-relaxed mb-10 max-w-xl font-english">
+                    Do you have a skill, a story, or a practice you want to share?
+                    We are looking for creators and mentors who value growth as much as we do.
+                  </p>
+                  <Link
+                    href="/en/the-good-space/be-facilitator"
+                    className="inline-flex items-center gap-3 px-10 py-5 bg-white text-primary rounded-full font-black text-lg transition-all duration-300 hover:bg-white/90 hover:scale-105 hover:shadow-xl group"
+                  >
+                    Apply Now
+                    <ArrowRight className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1.5" />
+                  </Link>
+                </div>
+
+                <div className=" md:w-1/3 hidden md:flex justify-center relative">
+                  <div className="relative w-72 h-72 md:w-80 md:h-80">
+                    <Image
+                      src="/goodSpace/7.png"
+                      alt="Be a Facilitator"
+                      fill
+                      className="object-contain drop-shadow-2xl"
+                    />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </section>
+
+          {/* Newsletter */}
+          {/* <section className="max-w-6xl mx-auto mb-16 px-4">
         <Newsletter />
       </section> */}
     </div>

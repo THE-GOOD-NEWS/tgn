@@ -335,8 +335,8 @@ export default function WorkshopDetailsPage({
                                 day: "numeric",
                                 year: "numeric",
                               })}</p> */}
-                              <Link className="text-gray-600" href={workshop.location?.link || "#"}><p> {"At"+ " "+ workshop.location?.altText}</p></Link>
-                              <p className="text-gray-400">{workshop.location?.moreDescription}</p>
+              <Link className="text-gray-600" href={workshop.location?.link || "#"} target="_blank" rel="noopener noreferrer"><p> {"At" + " " + workshop.location?.altText}</p></Link>
+              <p className="text-gray-400">{workshop.location?.moreDescription}</p>
               <p className="text-xl font-semibold mt-2 mb-2">Price: {workshop.price} EGP</p>
               {workshop.availableSessions && workshop.availableSessions.length > 0 && (
                 <div className="mt-3 space-y-1">
