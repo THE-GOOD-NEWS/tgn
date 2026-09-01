@@ -340,7 +340,7 @@ export default function WorkshopDetailsPage({
                                 day: "numeric",
                                 year: "numeric",
                               })}</p> */}
-              <Link className="text-gray-600" href={workshop.location?.link || "#"}><p> {"At" + " " + workshop.location?.altText}</p></Link>
+              <Link className="text-gray-600" href={workshop.location?.link || "#"} target="_blank" rel="noopener noreferrer"><p> {"At" + " " + workshop.location?.altText}</p></Link>
               <p className="text-gray-400">{workshop.location?.moreDescription}</p>
               {isFree ? (
                 <div className="flex items-center gap-2 mt-2 mb-2">
