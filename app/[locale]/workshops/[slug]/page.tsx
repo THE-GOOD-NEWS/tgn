@@ -588,6 +588,7 @@ export default function WorkshopDetailsPage({
                   <option value="Maadi">Maadi</option>
                   <option value="Giza (ElMohandiseen, Agouza, Zamalek..etc)">Giza (ElMohandiseen, Agouza, Zamalek..etc)</option>
                   <option value="6th of October">6th of October</option>
+                  <option value="Other City">Other City</option>
                 </select>
               </div>
 
