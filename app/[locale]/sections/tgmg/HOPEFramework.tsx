@@ -12,8 +12,8 @@ export function HOPEFramework() {
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const hopeData = {
-    badge: isRTL ? "إطار عمل HOPE" : "The HOPE Framework",
-    title: isRTL ? "استراتيجيتنا وإطار عملنا" : "Our Strategy and Framework — The HOPE Framework",
+    badge: isRTL ? "إطار العمل" : "The Framework",
+    title: isRTL ? "HOPE" : "HOPE",
     subtitle: isRTL
       ? "استراتيجيتنا لبناء المنظومة الشبابية الرائدة"
       : "Our Strategy for Building the Leading Youth Ecosystem",

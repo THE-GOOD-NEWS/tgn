@@ -110,10 +110,10 @@ export default function TheGoodMediaGroupPage() {
   // Section 3: HOPE Framework & Youth Journey Data
   const hopeData = {
     badge: isRTL ? "إطار عمل HOPE" : "The HOPE Framework",
-    title: isRTL ? "استراتيجيتنا وإطار عملنا" : "Our Strategy and Framework — The HOPE Framework",
+    title: isRTL ? "HOPE" : "HOPE",
     subtitle: isRTL
-      ? "استراتيجيتنا لبناء المنظومة الشبابية الرائدة"
-      : "Our Strategy for Building the Leading Youth Ecosystem",
+      ? "استراتيجيتنا وإطار عملنا لبناء المنظومة الشبابية الرائدة"
+      : "Our Strategy and Framework for Building the Leading Youth Ecosystem",
     intro: isRTL
       ? "كل حاجة بنبنيها هدفها تساعد الشباب ينتقلوا لفرصة حقيقية للمشاركة، ومن المشاركة لاكتشاف إمكاناتهم، ومن إمكاناتهم للقيادة."
       : "Everything we build should help young people move from possibility to participation, from participation to potential, and from potential to leadership.",
@@ -145,7 +145,7 @@ export default function TheGoodMediaGroupPage() {
         tagline: isRTL ? "نفتح أبواب الفرص." : "Open doors to opportunities.",
         desc: isRTL
           ? "بنربط الشباب بفرص تساعدهم يطوّروا نفسهم ويخطوا خطوات أسرع في مسارهم الشخصي والمهني. احنا مش بس بنقدم معلومات، لكن بنسهل الوصول للفرص نفسها. ومن خلال خط المحتوى بتاعنا “فرصة حلوة”، بنساعد في سد الفجوة بين الشباب وفرص التطور والنمو. وكمان بنقدّم سلسلة محتوى كاملة تركّز على تزويد الشباب بالمهارات اللي تساعدهم على التطور."
-          : "We connect young people with opportunities that accelerate their personal and professional journeys. We don't just inform — we create access. Our product line, Forsa Helwa, bridges the gap between Youth and growth opportunities. We built a whole content series focused on equipping youth with skills that would help them grow.",
+          : "We connect young people with opportunities that accelerate their personal and professional journeys. We don't just inform — we create access. Our product line, Forsa Helwa, bridges the gap between youth and growth opportunities. We built a whole content series focused on equipping youth with skills that would help them grow.",
         corePlatform: isRTL ? "فرصة حلوة (Forsa Helwa)" : "Forsa Helwa / Career Acceleration",
         icon: DoorOpen,
         gradient: "from-hot-pink via-rose-400 to-amber-300 text-white",
@@ -196,7 +196,7 @@ export default function TheGoodMediaGroupPage() {
       },
     ],
     journey: {
-      title: isRTL ? "رحلة الشباب" : "The Youth Journey",
+      title: isRTL ? "رحلة الشباب" : "The youth journey",
       subtitle: isRTL
         ? "كل شاب بيتفاعل مع The Good Media Group المفروض يمر بنفس الرحلة:"
         : "Every young person who engages with The Good Media Group should move through the same journey:",
@@ -317,7 +317,7 @@ export default function TheGoodMediaGroupPage() {
       {/* ========================================================================= */}
       <section
         id="our-story"
-        className={`relative pt-12 md:pt-16 2xl:mt-24 pb-10 md:pb-14 px-4 sm:px-6 lg:px-8 border-b border-gray-200/70 overflow-hidden ${isRTL ? "text-right" : "text-left"
+        className={`relative pt-12 md:pt-16 lg:pt-24 2xl:mt-32 pb-10 md:pb-14 px-4 sm:px-6 lg:px-8 border-b border-gray-200/70 overflow-hidden ${isRTL ? "text-right" : "text-left"
           }`}
       >
         {/* Subtle Ambient Background Gradients */}
@@ -854,17 +854,17 @@ export default function TheGoodMediaGroupPage() {
 
                     {/* Pillar Title */}
                     <div>
-                      <span
+                      {/* <span
                         className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full border mb-1.5 ${pillar.lightBadge}`}
                       >
                         {pillar.word}
-                      </span>
-                      <h3
+                      </span> */}
+                      {/* <h3
                         className={`text-lg font-bold text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
                           }`}
                       >
                         {pillar.title}
-                      </h3>
+                      </h3> */}
                     </div>
 
                     {/* Tagline */}
@@ -933,11 +933,11 @@ export default function TheGoodMediaGroupPage() {
                               <Icon className="w-7 h-7" />
                             </div>
                             <div>
-                              <span
+                              {/* <span
                                 className={`text-xs font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${pillar.lightBadge}`}
                               >
                                 {pillar.transitionStage}
-                              </span>
+                              </span> */}
                               <h3
                                 className={`text-2xl sm:text-3xl font-black text-gray-900 mt-1 ${isRTL ? "font-arabic-header" : "font-english-header"
                                   }`}
@@ -1040,7 +1040,7 @@ export default function TheGoodMediaGroupPage() {
 
             {/* PAYMENT-STYLE STEPPER PROGRESS BAR (Horizontal on md+) */}
             <div className="relative z-10 max-w-5xl mx-auto hidden md:block">
-              <div className="relative flex items-center justify-between">
+              <div className="relative flex items-center justify-between pt-4">
                 <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-1.5 bg-gray-100 rounded-full z-0" />
                 <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-1.5 bg-gradient-to-r from-hot-pink via-pink-400 via-amber-300 to-bright-yellow rounded-full z-0 shadow-sm" />
 
@@ -1058,8 +1058,8 @@ export default function TheGoodMediaGroupPage() {
                         {idx + 1}
                       </div>
 
-                      <div className="text-center mt-2.5 space-y-0.5">
-                        <span className="text-[10px] font-black uppercase tracking-wider text-hot-pink-dark">
+                      <div className="text-center mt-4 space-y-0.5">
+                        <span className="text-[10px] mt-4 font-black uppercase tracking-wider text-hot-pink-dark">
                           {isRTL ? `المحطة ${stepNumbers[idx]}` : `Milestone ${stepNumbers[idx]}`}
                         </span>
                         <h5

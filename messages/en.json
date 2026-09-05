@@ -27,7 +27,6 @@
     "success": "Thank you for subscribing!",
     "error": "Something went wrong. Please try again."
   },
-
   "billion": {
     "title": "Our Good Stories",
     "newsItems": [
@@ -497,12 +496,30 @@
       "successMessage": "Thank you for your feedback!",
       "errorMessage": "Something went wrong. Please try again.",
       "ratings": {
-        "professionalism": { "1": "Very Rude", "5": "Professional" },
-        "clarity": { "1": "Very Vague", "5": "Clear" },
-        "adaptability": { "1": "Not Flexible", "5": "Flexible" },
-        "responsiveness": { "1": "Very Slow", "5": "Immediate" },
-        "satisfaction": { "1": "Very Dissatisfied", "5": "Very Satisfied" },
-        "likelihood": { "1": "Very Unlikely", "5": "Very Likely" }
+        "professionalism": {
+          "1": "Very Rude",
+          "5": "Professional"
+        },
+        "clarity": {
+          "1": "Very Vague",
+          "5": "Clear"
+        },
+        "adaptability": {
+          "1": "Not Flexible",
+          "5": "Flexible"
+        },
+        "responsiveness": {
+          "1": "Very Slow",
+          "5": "Immediate"
+        },
+        "satisfaction": {
+          "1": "Very Dissatisfied",
+          "5": "Very Satisfied"
+        },
+        "likelihood": {
+          "1": "Very Unlikely",
+          "5": "Very Likely"
+        }
       }
     }
   },
@@ -511,12 +528,30 @@
       "line1": "Founder, CEO and",
       "line2": "Lead Presenter"
     },
-    "projectManager": { "line1": "Project", "line2": "Manager" },
-    "operationsDirector": { "line1": "Operations", "line2": "Director" },
-    "editorialManager": { "line1": "Editorial", "line2": "Manager" },
-    "editorialExecutive": { "line1": "Editorial", "line2": "Executive" },
-    "partnershipsExecutive": { "line1": "Partnerships", "line2": "Executive" },
-    "videoEditorAnimator": { "line1": "Video Editor", "line2": "and Animator" }
+    "projectManager": {
+      "line1": "Project",
+      "line2": "Manager"
+    },
+    "operationsDirector": {
+      "line1": "Operations",
+      "line2": "Director"
+    },
+    "editorialManager": {
+      "line1": "Editorial",
+      "line2": "Manager"
+    },
+    "editorialExecutive": {
+      "line1": "Editorial",
+      "line2": "Executive"
+    },
+    "partnershipsExecutive": {
+      "line1": "Partnerships",
+      "line2": "Executive"
+    },
+    "videoEditorAnimator": {
+      "line1": "Video Editor",
+      "line2": "and Animator"
+    }
   },
   "contact": {
     "title": "Contact Us",
@@ -841,7 +876,7 @@
       "hDesc": "Through our News & Features, We tell stories that help young people see themselves in the future they want to build. By humanizing issues, challenges and successes through real people, we inspire action rather than passive optimism.",
       "oTitle": "O — Open",
       "oTagline": "Open doors to opportunities.",
-      "oDesc": "We connect young people with opportunities that accelerate their personal and professional journeys. We don't just inform — we create access. Our product line, Forsa Helwa, bridges the gap between Youth and growth opportunities. We built a whole content series focused on equipping youth with skills that would help them grow.",
+      "oDesc": "We connect young people with opportunities that accelerate their personal and professional journeys. We don't just inform — we create access. Our product line, Forsa Helwa, bridges the gap between youth and growth opportunities. We built a whole content series focused on equipping youth with skills that would help them grow.",
       "pTitle": "P — Prepare",
       "pTagline": "Prepare young people to thrive.",
       "pDesc": "We equip youth with the skills, confidence, networks and experiences they need to succeed. Through learning, community and mentorship, we help them become ready for what's next through The Good Space.",
@@ -893,7 +928,16 @@
       "subtitle": "Every partnership starts with a story.",
       "desc": "Whether you're launching a campaign, announcing an initiative, promoting an opportunity, or building long-term brand affinity, we create content tailored to your goals while staying true to our editorial voice.",
       "whoTitle": "We Work With",
-      "whoList": ["Brands", "Startups", "NGOs", "Government entities", "International organizations", "Universities", "Accelerators", "Social enterprises"],
+      "whoList": [
+        "Brands",
+        "Startups",
+        "NGOs",
+        "Government entities",
+        "International organizations",
+        "Universities",
+        "Accelerators",
+        "Social enterprises"
+      ],
       "whyTitle": "Why Partners Choose Us",
       "whySub": "Because people don't engage with ads—they engage with stories.",
       "reasons": [
