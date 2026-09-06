@@ -14,6 +14,7 @@ import {
   ArrowRight,
   ArrowLeft,
   ArrowDown,
+  Handshake,
 } from "lucide-react";
 
 export function Ecosystem() {
@@ -428,6 +429,27 @@ export function Ecosystem() {
                           {isRTL
                             ? "جمع صناع القرار والمؤسسات مع المواهب الصاعدة والمؤثرين."
                             : "Connecting emerging changemakers with institutional partners and leaders."}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/60">
+                      <div className="p-1 rounded-lg bg-amber-200/60 text-amber-900 font-bold mt-0.5">
+                        <Handshake className="w-3.5 h-3.5" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <h5 className="text-xs sm:text-sm font-bold text-gray-900">
+                            {isRTL ? "مسارات B2B والفعاليات المشتركة" : "B2B Tracks: Collab Events"}
+                          </h5>
+                          <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-amber-200/90 text-amber-950">
+                            {isRTL ? "جديد" : "NEW"}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-gray-600">
+                          {isRTL
+                            ? "تجارب وفعاليات مشتركة نصممها مع الشركاء لتعزيز النمو المشترك والاندماج الحقيقي للعلامات التجارية."
+                            : "Together with our partners, we co-create community-led experiences and activations that foster shared growth and authentic brand integration."}
                         </p>
                       </div>
                     </div>

@@ -25,6 +25,7 @@ import {
   FileText,
   Calendar,
   Send,
+  Handshake,
 } from "lucide-react";
 
 export default function TheGoodMediaGroupPage() {
@@ -126,7 +127,7 @@ export default function TheGoodMediaGroupPage() {
         tagline: isRTL ? "نخلّي الموضوع إنساني وأقرب للناس" : "Make possibilities feel personal.",
         desc: isRTL
           ? "من خلال قسم الأخبار والقصص، بنحكي قصص تساعد الشباب يشوفوا نفسهم في المستقبل اللي عايزين يبنوه. ولما بنعرض القضايا والتحديات والنجاحات من خلال تجارب أشخاص حقيقيين، بنشجع الشباب على اتخاذ خطوة فعلية، بدل الاكتفاء بمجرد الشعور بالتفاؤل."
-          : "Through our News & Features, We tell stories that help young people see themselves in the future they want to build. By humanizing issues, challenges and successes through real people, we inspire action rather than passive optimism.",
+          : "Through our News & Features, we tell stories that help young people see themselves in the future they want to build. By humanizing issues, challenges and successes through real people, we inspire action rather than passive optimism.",
         corePlatform: isRTL ? "قسم الأخبار والقصص (News & Features)" : "News & Features / Authentic Stories",
         icon: Heart,
         gradient: "from-hot-pink via-pink-500 to-rose-500 text-white",
@@ -183,7 +184,7 @@ export default function TheGoodMediaGroupPage() {
         tagline: isRTL ? "نوصل صوت الشباب" : "Elevate youth voices and ideas.",
         desc: isRTL
           ? "بنخلق منصات يكون فيها الشباب مش بس متلقين للقصص، لكن جزء من صناعتها وتشكيلها. وبنساعد في توصيل أصواتهم، وربطهم بصناع القرار، وتمكينهم من إن يكون لهم دور في تشكيل المستقبل."
-          : "We create platforms where young people don't just consume stories — they shape them. We amplify youth voices, connect them with decision-makers and help them influence the future.",
+          : "We create platforms where young people don't just consume stories — they shape them. we amplify youth voices, connect them with decision-makers and help them influence the future.",
         corePlatform: isRTL ? "تمكين وتأثير القيادات الشبابية" : "Youth Leadership & Amplification",
         icon: Megaphone,
         gradient: "from-amber-300 via-yellow-300 to-bright-yellow text-gray-900",
@@ -243,8 +244,8 @@ export default function TheGoodMediaGroupPage() {
         },
       ],
       conclusion: isRTL
-        ? "الأمل مش مجرد محور من محاور الرحلة دي. الأمل هو النتيجة اللي بتحصل لما المحاور الأربعة تشتغل مع بعض."
-        : "Hope is not one pillar within this journey. Hope is what happens because all four pillars work together.",
+        ? "لما كل الأجزاء تشتغل سوا، الأمل بيزيد"
+        : "When all four pillars work together, HOPE grows",
     },
   };
 
@@ -753,6 +754,27 @@ export default function TheGoodMediaGroupPage() {
                           </p>
                         </div>
                       </div>
+
+                      <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/60">
+                        <div className="p-1 rounded-lg bg-amber-200/60 text-amber-900 font-bold mt-0.5">
+                          <Handshake className="w-3.5 h-3.5" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <h5 className="text-xs sm:text-sm font-bold text-gray-900">
+                              {isRTL ? "مسارات B2B والفعاليات المشتركة" : "B2B Tracks: Collab Events"}
+                            </h5>
+                            <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-amber-200/90 text-amber-950">
+                              {isRTL ? "جديد" : "NEW"}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-gray-600">
+                            {isRTL
+                              ? "تجارب وفعاليات مشتركة نصممها مع الشركاء لتعزيز النمو المشترك والاندماج الحقيقي للعلامات التجارية."
+                              : "Together with our partners, we co-create community-led experiences and activations that foster shared growth and authentic brand integration."}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1175,7 +1197,7 @@ export default function TheGoodMediaGroupPage() {
                   className={`text-base sm:text-lg md:text-xl font-black text-gray-900 leading-relaxed ${isRTL ? "font-arabic-header" : "font-english-header"
                     }`}
                 >
-                  ✨ &ldquo;{hopeData.journey.conclusion}&rdquo;
+                  {hopeData.journey.conclusion} ✨
                 </p>
               </div>
             </div>

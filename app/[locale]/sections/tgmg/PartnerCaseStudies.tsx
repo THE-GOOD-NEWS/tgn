@@ -138,48 +138,47 @@ export function PartnerCaseStudies() {
         <div dir={isRTL ? "rtl" : "ltr"} className="max-w-6xl mx-auto space-y-12">
           
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-3 max-w-2xl">
-              <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-hot-pink border border-hot-pink/20 shadow-sm">
-                {isRTL ? "قصص نجاح الشركاء" : "Case Studies"}
-              </span>
-              <h2
-                className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 ${
-                  isRTL ? "font-arabic-header" : "font-english-header"
-                }`}
-              >
-                {t("title")}
-              </h2>
-              <p
-                className={`text-base sm:text-lg text-gray-600 ${
-                  isRTL ? "font-arabic-body" : "font-english-body"
-                }`}
-              >
-                {t("subtitle")}
-              </p>
-            </div>
-
-            {/* Navigation Arrows */}
-            <div className="flex items-center gap-3 self-end">
-              <button
-                onClick={prevSlide}
-                className="w-12 h-12 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-gray-800 hover:bg-hot-pink hover:text-white transition-all duration-200"
-                aria-label="Previous case study"
-              >
-                <ChevronLeft className={`w-6 h-6 ${isRTL ? "rotate-180" : ""}`} />
-              </button>
-              <button
-                onClick={nextSlide}
-                className="w-12 h-12 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-gray-800 hover:bg-hot-pink hover:text-white transition-all duration-200"
-                aria-label="Next case study"
-              >
-                <ChevronRight className={`w-6 h-6 ${isRTL ? "rotate-180" : ""}`} />
-              </button>
-            </div>
+          <div className="space-y-3 max-w-2xl">
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-hot-pink border border-hot-pink/20 shadow-sm">
+              {isRTL ? "قصص نجاح الشركاء" : "Case Studies"}
+            </span>
+            <h2
+              className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 ${
+                isRTL ? "font-arabic-header" : "font-english-header"
+              }`}
+            >
+              {t("title")}
+            </h2>
+            <p
+              className={`text-base sm:text-lg text-gray-600 ${
+                isRTL ? "font-arabic-body" : "font-english-body"
+              }`}
+            >
+              {t("subtitle")}
+            </p>
           </div>
 
-          {/* Active Case Study Showcase */}
-          <AnimatePresence mode="wait">
+          {/* Active Case Study Showcase with Side Navigations */}
+          <div className="relative group/casestudy">
+            {/* Left Navigation Button */}
+            <button
+              onClick={isRTL ? nextSlide : prevSlide}
+              className="absolute -left-3 sm:-left-5 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-gray-800 hover:text-hot-pink shadow-lg hover:shadow-xl border border-gray-200/90 backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
+              aria-label={isRTL ? "الحالة التالية" : "Previous case study"}
+            >
+              <ChevronLeft className="w-5 h-5 transition-transform duration-200 group-hover/casestudy:-translate-x-0.5" />
+            </button>
+
+            {/* Right Navigation Button */}
+            <button
+              onClick={isRTL ? prevSlide : nextSlide}
+              className="absolute -right-3 sm:-right-5 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-gray-800 hover:text-hot-pink shadow-lg hover:shadow-xl border border-gray-200/90 backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
+              aria-label={isRTL ? "الحالة السابقة" : "Next case study"}
+            >
+              <ChevronRight className="w-5 h-5 transition-transform duration-200 group-hover/casestudy:translate-x-0.5" />
+            </button>
+
+            <AnimatePresence mode="wait">
             <motion.div
               key={current.id}
               initial={{ opacity: 0, scale: 0.98 }}
@@ -259,8 +258,9 @@ export function PartnerCaseStudies() {
               </div>
             </motion.div>
           </AnimatePresence>
+        </div>
 
-          {/* Dots Indicator */}
+        {/* Dots Indicator */}
           <div className="flex justify-center items-center gap-2">
             {caseStudies.map((item, idx) => (
               <button

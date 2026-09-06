@@ -10,6 +10,27 @@ export function ImpactMetrics() {
   const locale = useLocale();
   const isRTL = locale === "ar";
 
+  const formatMetricValue = (val: string) => {
+    const cleaned = val.trim();
+    const match = cleaned.match(/^([+\d,.]+\+?|\d+[+\d,.]*)(.*)$/);
+    if (match && match[1]) {
+      const rawNum = match[1].replace(/^\+/, "").replace(/\+$/, "");
+      const num = `${rawNum}+`;
+      const text = match[2].trim();
+      return (
+        <span className="inline-flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5" dir={isRTL ? "rtl" : "ltr"}>
+          <span dir="ltr" className="inline-block tabular-nums font-black">{num}</span>
+          {text && (
+            <span className="text-xs sm:text-sm lg:text-base font-bold text-gray-700 tracking-normal">
+              {text}
+            </span>
+          )}
+        </span>
+      );
+    }
+    return <span dir="ltr" className="inline-block">{cleaned}</span>;
+  };
+
   const metrics = [
     {
       value: t("views"),
@@ -103,7 +124,7 @@ export function ImpactMetrics() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: idx * 0.08 }}
-                      className={`bg-white/90 backdrop-blur-md rounded-2xl p-5 border-2 border-hot-pink/30 hover:border-hot-pink shadow-md hover:shadow-xl hover:shadow-hot-pink/15 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group ${isLastItem ? "col-span-2 sm:col-span-1" : ""
+                      className={`bg-white/90 backdrop-blur-md rounded-2xl p-4 sm:p-5 border-2 border-hot-pink/30 hover:border-hot-pink shadow-md hover:shadow-xl hover:shadow-hot-pink/15 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group ${isLastItem ? "col-span-2 sm:col-span-2" : ""
                         }`}
                     >
                       {/* Animated Pink Gradient Bar */}
@@ -127,10 +148,10 @@ export function ImpactMetrics() {
 
                       <div>
                         <h3
-                          className={`text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 group-hover:text-hot-pink transition-colors duration-300 tracking-tight ${isRTL ? "font-arabic-header" : "font-english-header"
+                          className={`text-xl sm:text-2xl lg:text-3xl font-black text-gray-900 group-hover:text-hot-pink transition-colors duration-300 tracking-tight leading-snug ${isRTL ? "font-arabic-header" : "font-english-header"
                             }`}
                         >
-                          {metric.value}
+                          {formatMetricValue(metric.value)}
                         </h3>
                         <p
                           className={`text-xs sm:text-sm font-semibold text-gray-500 mt-1.5 leading-snug ${isRTL ? "font-arabic-body" : "font-english-body"

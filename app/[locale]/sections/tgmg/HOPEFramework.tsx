@@ -111,25 +111,22 @@ export function HOPEFramework() {
           </span>
 
           <h2
-            className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 leading-tight ${
-              isRTL ? "font-arabic-header" : "font-english-header"
-            }`}
+            className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 leading-tight ${isRTL ? "font-arabic-header" : "font-english-header"
+              }`}
           >
             {hopeData.title}
           </h2>
 
           <p
-            className={`text-base sm:text-lg font-bold text-hot-pink-dark ${
-              isRTL ? "font-arabic-subheading" : "font-english-subheading"
-            }`}
+            className={`text-base sm:text-lg font-bold text-hot-pink-dark ${isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              }`}
           >
             {hopeData.subtitle}
           </p>
 
           <p
-            className={`text-sm sm:text-base text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium ${
-              isRTL ? "font-arabic-body" : "font-english-body"
-            }`}
+            className={`text-sm sm:text-base text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium ${isRTL ? "font-arabic-body" : "font-english-body"
+              }`}
           >
             {hopeData.intro}
           </p>
@@ -163,32 +160,29 @@ export function HOPEFramework() {
                   </div>
 
                   <div>
-                    <span
+                    {/* <span
                       className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full border mb-1.5 ${pillar.lightBadge}`}
                     >
                       {pillar.word}
-                    </span>
-                    <h3
-                      className={`text-lg font-bold text-gray-900 ${
-                        isRTL ? "font-arabic-header" : "font-english-header"
-                      }`}
+                    </span> */}
+                    {/* <h3
+                      className={`text-lg font-bold text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
+                        }`}
                     >
                       {pillar.title}
-                    </h3>
+                    </h3> */}
                   </div>
 
                   <p
-                    className={`text-xs font-semibold text-gray-800 leading-snug ${
-                      isRTL ? "font-arabic-body" : "font-english-body"
-                    }`}
+                    className={`text-xs font-semibold text-gray-800 leading-snug ${isRTL ? "font-arabic-body" : "font-english-body"
+                      }`}
                   >
                     {pillar.tagline}
                   </p>
 
                   <p
-                    className={`text-xs text-gray-500 leading-relaxed font-medium ${
-                      isRTL ? "font-arabic-body" : "font-english-body"
-                    }`}
+                    className={`text-xs text-gray-500 leading-relaxed font-medium ${isRTL ? "font-arabic-body" : "font-english-body"
+                      }`}
                   >
                     {pillar.desc}
                   </p>
@@ -202,9 +196,8 @@ export function HOPEFramework() {
         <div className="text-center pt-2">
           <Link
             href={hopeData.link}
-            className={`inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl font-black text-sm sm:text-base text-gray-900 bg-gradient-to-r from-hot-pink via-amber-200 to-bright-yellow shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 ${
-              isRTL ? "font-arabic-subheading" : "font-english-subheading"
-            }`}
+            className={`inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl font-black text-sm sm:text-base text-gray-900 bg-gradient-to-r from-hot-pink via-amber-200 to-bright-yellow shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 ${isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              }`}
           >
             <span>{hopeData.seeMoreText}</span>
             <ArrowIcon className="w-4 h-4" />

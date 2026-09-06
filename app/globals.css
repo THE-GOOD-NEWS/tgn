@@ -140,12 +140,14 @@
     display: flex;
     width: max-content;
     animation: marquee-left 50s linear infinite;
+    will-change: transform;
   }
 
   .animate-marquee-right {
     display: flex;
     width: max-content;
     animation: marquee-right 50s linear infinite;
+    will-change: transform;
   }
 
   .animate-marquee-left:hover,

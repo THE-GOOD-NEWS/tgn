@@ -11,7 +11,7 @@ export function TrustedByMarquee() {
 
   const partnerLogos = [
     { id: "1", src: "/assets/newLogos/2025-Entreprenelle-logo.png", alt: "Entreprenelle" },
-    { id: "2", src: "/assets/newLogos/257-2570094_transparent-background-vodafone-logo.png", alt: "Vodafone" },
+    { id: "2", src: "/assets/newLogos/Vodafone-Logo.png", alt: "Vodafone" },
     { id: "3", src: "/assets/newLogos/ANIMATEX.png", alt: "Animatex" },
     { id: "4", src: "/assets/newLogos/AUC.png", alt: "AUC" },
     { id: "5", src: "/assets/newLogos/Al-Ahly-Sabbour.webp", alt: "Al Ahly Sabbour" },
@@ -25,7 +25,7 @@ export function TrustedByMarquee() {
     { id: "13", src: "/assets/newLogos/Plan_International_Logo_blue.jpg", alt: "Plan International" },
     { id: "14", src: "/assets/newLogos/SAVE THE CHILDREN.webp", alt: "Save the Children" },
     { id: "15", src: "/assets/newLogos/SCHNEIDER.png", alt: "Schneider" },
-    { id: "16", src: "/assets/newLogos/STARTUPS WITHOUT BOARDERS.png", alt: "Startups Without Borders" },
+    { id: "16", src: "/assets/newLogos/684e89f3438bb66f9d89ec8f_SWB.png", alt: "Startups Without Borders" },
     { id: "17", src: "/assets/newLogos/SYNC SUMMIT.png", alt: "Sync Summit" },
     { id: "18", src: "/assets/newLogos/TETRA PAK.png", alt: "Tetra Pak" },
     { id: "19", src: "/assets/newLogos/UNHCR.svg.webp", alt: "UNHCR" },
@@ -68,14 +68,14 @@ export function TrustedByMarquee() {
         </div>
       </div>
 
-      {/* Marquee Rows Container */}
-      <div className="relative w-full overflow-hidden py-4 space-y-6">
+      {/* Marquee Rows Container - Locked to dir=ltr to keep smooth continuous scrolling in both locales */}
+      <div dir="ltr" className="relative w-full overflow-hidden py-4 space-y-6">
         {/* Left & Right Gradient Shadows */}
         <div className="absolute top-0 left-0 bottom-0 w-36 sm:w-60 md:w-80 lg:w-96 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
         <div className="absolute top-0 right-0 bottom-0 w-36 sm:w-60 md:w-80 lg:w-96 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
         {/* First Row - Moving Left */}
-        <div className="animate-marquee-left flex gap-6 items-center">
+        <div dir="ltr" className="animate-marquee-left flex gap-6 items-center">
           {marqueeList1.map((logo, idx) => (
             <div
               key={`row1-${logo.id}-${idx}`}
@@ -95,7 +95,7 @@ export function TrustedByMarquee() {
         </div>
 
         {/* Second Row - Moving Right (Vice Versa) */}
-        <div className="animate-marquee-right flex gap-6 items-center">
+        <div dir="ltr" className="animate-marquee-right flex gap-6 items-center">
           {marqueeList2.map((logo, idx) => (
             <div
               key={`row2-${logo.id}-${idx}`}
