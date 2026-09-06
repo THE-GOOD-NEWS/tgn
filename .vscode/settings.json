@@ -1,0 +1,14 @@
+{
+  "editor.colorDecorators": true,
+  "tailwindCSS.colorDecorators": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "html",
+    "javascript": "javascript",
+    "javascriptreact": "html"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  }
+}

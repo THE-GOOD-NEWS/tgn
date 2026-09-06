@@ -154,7 +154,7 @@ const ArticlesSection = () => {
               isRTL ? "font-arabic-subheading" : "font-english-subheading"
             }`}
           >
-            <Link href={`/${locale}/articles`}>{t("viewAll")}</Link>
+            <Link href={`/${locale}/the-good-news/articles`}>{t("viewAll")}</Link>
           </Button>
         </motion.div>
       </div>

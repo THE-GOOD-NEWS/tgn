@@ -1,38 +1,34 @@
 import { Metadata } from "next";
-import { Navigation } from "@/components/navigation";
-import { HeroSection } from "@/components/hero-section";
-import { FeaturesSection } from "@/components/features-section";
-import { Footer } from "@/components/footer";
-import Hero from "./sections/Hero";
-import Quote from "./components/Quote";
-import ArticlesSection from "./sections/ArticlesSection";
-import HeroGif from "./sections/HeroGif";
-import Testimonials from "./sections/testomonials/Testimonials";
-import Billion from "./sections/Billion";
-import Newsletter from "./sections/Newsletter";
+import { TGMGHero } from "./sections/tgmg/TGMGHero";
+import { OurStory } from "./sections/tgmg/OurStory";
+import { HOPEFramework } from "./sections/tgmg/HOPEFramework";
+import { Ecosystem } from "./sections/tgmg/Ecosystem";
+import { Products } from "./sections/tgmg/Products";
+import { PartnerSolutions } from "./sections/tgmg/PartnerSolutions";
+import { PartnerCaseStudies } from "./sections/tgmg/PartnerCaseStudies";
+import { TrustedByMarquee } from "./sections/tgmg/TrustedByMarquee";
+import { ImpactMetrics } from "./sections/tgmg/ImpactMetrics";
+import { TGMGCTA } from "./sections/tgmg/TGMGCTA";
 
 export const metadata: Metadata = {
-  title: "THE GOOD NEWS",
+  title: "The Good Media Group (TGMG) | Youth Ecosystem & Media",
   description:
-    "Join our community of readers sharing positive stories. Access exclusive content, premium articles, and connect with like-minded individuals.",
+    "A modern youth online and offline ecosystem creating stories, communities, and experiences that drive impact across the MENA region.",
 };
 
-export default function HomePage() {
-  // In a real app, this would come from authentication context
-
+export default function TGMGHomePage() {
   return (
-    <div className="min-h-screen bg-cream overflow-hidden">
-      {/* <Navigation isLoggedIn={isLoggedIn} userRole={userRole} /> */}
-      <main className="w-full flex flex-col items-center">
-        {/* <Hero /> */}
-        <HeroGif />
-        <Quote />
-        <ArticlesSection />
-        <Testimonials />
-        <Billion />
-
-        {/* <HeroSection /> */}
-        {/* <FeaturesSection /> */}
+    <div className="min-h-screen bg-white overflow-hidden">
+      <main className="w-full flex flex-col">
+        <TGMGHero />
+        <Ecosystem />
+        <HOPEFramework />
+        <Products />
+        <PartnerSolutions />
+        <PartnerCaseStudies />
+        <TrustedByMarquee />
+        <ImpactMetrics />
+        <TGMGCTA />
       </main>
     </div>
   );

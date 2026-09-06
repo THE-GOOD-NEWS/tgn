@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
+import Link from "next/link";
 import { TeamMemberCard } from "@/app/[locale]/components/TeamMemberCard";
 
 export default function TeamPage() {
@@ -158,11 +159,11 @@ export default function TeamPage() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <a href={`/${locale}/about/team/join`} className="inline-block">
+          <Link href={`/${locale}/contact/join-our-team`} className="inline-block">
             <button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
               {t("joinTeamButton")}
             </button>
-          </a>
+          </Link>
         </motion.div>
       </section>
     </div>

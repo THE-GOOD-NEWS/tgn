@@ -726,8 +726,8 @@ export default function PartnersPage() {
           <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10" />
 
           {/* Row 1 - Scrolling Left */}
-          <div className="flex overflow-hidden mb-6 select-none">
-            <div className="animate-marquee-left flex gap-6 items-center">
+          <div dir="ltr" className="flex overflow-hidden mb-6 select-none">
+            <div dir="ltr" className="animate-marquee-left flex gap-6 items-center">
               {[
                 { id: "1", src: "/assets/newLogos/2025-Entreprenelle-logo.png", alt: "Entreprenelle" },
                 { id: "2", src: "/assets/newLogos/257-2570094_transparent-background-vodafone-logo.png", alt: "Vodafone" },
@@ -801,8 +801,8 @@ export default function PartnersPage() {
           </div>
 
           {/* Row 2 - Scrolling Right */}
-          <div className="flex overflow-hidden select-none">
-            <div className="animate-marquee-right flex gap-6 items-center">
+          <div dir="ltr" className="flex overflow-hidden select-none">
+            <div dir="ltr" className="animate-marquee-right flex gap-6 items-center">
               {[
                 { id: "27", src: "/assets/newLogos/WB.png", alt: "World Bank" },
                 { id: "28", src: "/assets/newLogos/Water Valley.png", alt: "Water Valley" },

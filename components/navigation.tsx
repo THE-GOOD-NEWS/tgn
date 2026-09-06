@@ -81,11 +81,30 @@ export function Navigation({}: NavigationProps) {
     ? "subscriber"
     : "user";
 
+  const isHomePage =
+    pathname === `/${locale}` ||
+    pathname === `/${locale}/` ||
+    pathname === "/";
+  const isTGMGHero = isHomePage && !scrolled;
+
   // Function to get the current path with the other locale
   const getLocalizedPath = () => {
     // Remove the current locale from the pathname and add the other locale
     const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
     return `/${otherLocale}${pathWithoutLocale}`;
+  };
+
+  const isSubItemActive = (subItem: NavSubItem) => {
+    if (subItem.href && pathname === subItem.href) return true;
+    if (subItem.children) {
+      return subItem.children.some((child) => child.href === pathname);
+    }
+    return false;
+  };
+
+  const isDropdownActive = (item: NavItem) => {
+    if (item.type === "link") return pathname === item.href;
+    return item.items.some((subItem) => isSubItemActive(subItem));
   };
 
   // Comprehensive navigation structure with dropdowns
@@ -96,114 +115,73 @@ export function Navigation({}: NavigationProps) {
       type: "link",
     },
     {
-      label: t("news"),
+      label: t("theGoodNews"),
       type: "dropdown",
       items: [
         {
-          href: `/${locale}/articles`,
-          label: locale === "ar" ? "كل المقالات" : "All Articles",
+          href: `/${locale}/the-good-news`,
+          label: t("home"),
         },
-        ...articleCategories.map((cat) => ({
-          href: `/${locale}/articles?category=${cat.slug}`,
-          label: locale === "ar" ? cat.titleAr : cat.titleEn,
-        })),
-      ],
-    },
-    // {
-    //   label: t("projects"),
-    //   type: "dropdown",
-    //   items: [
-    //     {
-    //       href: `/${locale}/projects/big-sister-talks`,
-    //       label: t("projectsSubItems.bigSisterTalks"),
-    //     },
-    //     ...(isLoggedIn && userRole === "subscriber"
-    //       ? [
-    //           {
-    //             href: `/${locale}/the-good-project`,
-    //             label: t("projectsSubItems.theGoodProject"),
-    //           },
-    //         ]
-    //       : []),
-
-    //   ],
-    // },
-    // {
-    //   label: t("opportunities"),
-    //   type: "dropdown",
-    //   items: [
-    //     {
-    //       href: `/${locale}/articles?category=intern`,
-    //       label: t("opportunitiesSubItems.theGoodIntern"),
-    //     },
-    //     // {
-    //     //   href: `/${locale}/articles?category=workshops`,
-    //     //   label: t("opportunitiesSubItems.workshops"),
-    //     // },
-    //     {
-    //       href: `/${locale}/articles?category=programs`,
-    //       label: t("opportunitiesSubItems.programs"),
-    //     },
-    //     {
-    //       href: `/${locale}/articles?category=scholarships`,
-    //       label: t("opportunitiesSubItems.scholarships"),
-    //     },
-    //   ],
-    // },
-
-    {
-      label: t("about"),
-      type: "dropdown",
-      items: [
-        { href: `/${locale}/about/story`, label: t("aboutSubItems.ourStory") },
-        { href: `/${locale}/about/team`, label: t("aboutSubItems.team") },
         {
-          label: t("projects"),
+          label: t("news"),
           children: [
             {
-              href: `/${locale}/the-good-project`,
+              href: `/${locale}/the-good-news/articles`,
+              label: t("allNews"),
+            },
+            ...articleCategories.map((cat) => ({
+              href: `/${locale}/the-good-news/articles?category=${cat.slug}`,
+              label: locale === "ar" ? cat.titleAr : cat.titleEn,
+            })),
+          ],
+        },
+        {
+          label: t("initiatives"),
+          children: [
+            {
+              href: `/${locale}/the-good-news/the-good-project`,
               label: t("projectsSubItems.theGoodProject"),
             },
             {
-              href: `/${locale}/forseHelwa`,
-              label: t("opportunitiesSubItems.forsaHelwa"),
+              href: `/${locale}/the-good-news/forsa-helwa`,
+              label: t("forsaHelwa"),
             },
           ],
         },
         {
-          href: `/${locale}/about/partners`,
-          label: t("aboutSubItems.partners"),
-        },
-        {
-          href: `/${locale}/about/ourFounder`,
-          label: t("aboutSubItems.ourFounder"),
+          href: `/${locale}/the-good-news/about/story`,
+          label: t("aboutTheGoodNews"),
         },
       ],
     },
-
-    // {
-    //   label: t("multimedia"),
-    //   type: "dropdown",
-    //   items: [
-    //     {
-    //       href: `/${locale}/multimedia/mariam-videos`,
-    //       label: t("multimediaSubItems.mariamVideos"),
-    //     },
-    //   ],
-    // },
-    // {
-    //   href: `/${locale}/mediaPresence`,
-    //   label: t("mediaPresence"),
-    //   type: "link",
-    // },
     {
       href: `/${locale}/the-good-space`,
       label: "The Good Space",
       type: "link",
     },
-
     {
-      // label: t("contact"),
+      label: t("about"),
+      type: "dropdown",
+      items: [
+        {
+          href: `/${locale}/about/the-good-media-group`,
+          label: t("aboutSubItems.theGoodMediaGroup"),
+        },
+        {
+          href: `/${locale}/about/team`,
+          label: t("aboutSubItems.team"),
+        },
+        {
+          href: `/${locale}/about/ourFounder`,
+          label: t("aboutSubItems.ourFounder"),
+        },
+        {
+          href: `/${locale}/about/partners`,
+          label: t("aboutSubItems.partners"),
+        },
+      ],
+    },
+    {
       label: t("involved"),
       type: "dropdown",
       items: [
@@ -215,22 +193,20 @@ export function Navigation({}: NavigationProps) {
           href: `/${locale}/contact/share-news`,
           label: t("contactSubItems.shareGoodNews"),
         },
-        { href: `/${locale}/contact`, label: t("contact") },
         {
-          href: `/${locale}/the-good-project/join`,
+          href: `/${locale}/contact/join-our-team`,
+          label: t("contactSubItems.joinOurTeam"),
+        },
+        {
+          href: `/${locale}/the-good-news/the-good-project/join`,
           label: "The Good Project",
         },
-        // {
-        //   href: `/${locale}/#newsletter`,
-        //   label: t("newsletter"),
-        // },
+        {
+          href: `/${locale}/contact`,
+          label: t("contact"),
+        },
       ],
     },
-    // {
-    //   label: t("aboutSubItems.partners"),
-    //   type: "dropdown",
-    //   items: [],
-    // },
   ];
 
   // Fetch article categories from API
@@ -262,7 +238,13 @@ export function Navigation({}: NavigationProps) {
         <div className="flex items-center px-4 sm:px-6 lg:px-8 justify-between">
           {/* Logo */}
           <Link
-            href={`/${locale}`}
+            href={
+              pathname.includes("/the-good-space")
+                ? `/${locale}/the-good-space`
+                : pathname.includes("/the-good-news")
+                ? `/${locale}/the-good-news`
+                : `/${locale}`
+            }
             className="flex items-center space-x-2 rtl:space-x-reverse"
           >
             <div
@@ -273,10 +255,18 @@ export function Navigation({}: NavigationProps) {
               }`}
             >
               <Image
-                alt="The Good News Logo"
+                alt="The Good Media Group Logo"
                 fill
                 className="object-contain"
-                src={pathname.includes("/the-good-space") ? "/goodSpace/1.png" : "/logos/TGN_LOGOS_PNG-03.png"}
+                src={
+                  pathname.includes("/the-good-space")
+                    ? "/goodSpace/1.png"
+                    : pathname.includes("/the-good-news")
+                    ? "/logos/TGN_LOGOS_PNG-03.png"
+                    : isTGMGHero
+                    ? "/TGMG/logoWhite.png"
+                    : "/TGMG/logo.png"
+                }
               ></Image>
             </div>
           </Link>
@@ -288,9 +278,17 @@ export function Navigation({}: NavigationProps) {
                 {item.type === "link" ? (
                   <Link
                     href={item.href}
-                    className={`text-sm font-medium text-muted-foreground transition-colors hover:text-foreground relative group ${
+                    className={`text-sm font-medium transition-colors relative group ${
                       locale === "ar" ? "font-header-ar" : "font-header-en"
-                    } ${pathname === item.href ? "text-foreground" : ""}`}
+                    } ${
+                      isTGMGHero
+                        ? pathname === item.href
+                          ? "text-white font-semibold drop-shadow-sm"
+                          : "text-white/80 hover:text-white drop-shadow-sm"
+                        : pathname === item.href
+                        ? "text-foreground font-semibold"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
                   >
                     {item.label}
                     <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
@@ -300,13 +298,16 @@ export function Navigation({}: NavigationProps) {
                 ) : (
                   <>
                     <button
-                      className={`text-sm font-medium transition-colors hover:text-foreground flex items-center gap-1 ${
+                      className={`text-sm font-medium transition-colors flex items-center gap-1 ${
                         locale === "ar" ? "font-header-ar" : "font-header-en"
                       } ${
-                        item.type === "dropdown" &&
-                        item.items.some((subItem) => pathname === subItem.href)
-                          ? "text-foreground"
-                          : "text-muted-foreground"
+                        isTGMGHero
+                          ? isDropdownActive(item)
+                            ? "text-white font-semibold drop-shadow-sm"
+                            : "text-white/80 hover:text-white drop-shadow-sm"
+                          : isDropdownActive(item)
+                          ? "text-foreground font-semibold"
+                          : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
                       {item.label}
@@ -400,7 +401,16 @@ export function Navigation({}: NavigationProps) {
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4 rtl:space-x-reverse">
             {/* Language Toggle */}
-            <Button variant="ghost" size="icon" asChild className="h-9 w-9">
+            <Button
+              variant="ghost"
+              size="icon"
+              asChild
+              className={`h-9 w-9 transition-colors ${
+                isTGMGHero
+                  ? "text-white hover:text-white hover:bg-white/15 drop-shadow-sm"
+                  : "text-foreground hover:bg-muted"
+              }`}
+            >
               <Link href={getLocalizedPath()}>
                 <Globe className="h-4 w-4" />
                 <span className="sr-only">Change language</span>
@@ -411,7 +421,15 @@ export function Navigation({}: NavigationProps) {
             {isLoggedIn ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-9 w-9">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className={`h-9 w-9 transition-colors ${
+                      isTGMGHero
+                        ? "text-white hover:text-white hover:bg-white/15 drop-shadow-sm"
+                        : "text-foreground hover:bg-muted"
+                    }`}
+                  >
                     <User className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -447,7 +465,15 @@ export function Navigation({}: NavigationProps) {
               </DropdownMenu>
             ) : (
               <div className="hidden sm:flex items-center space-x-2 rtl:space-x-reverse">
-                <Button variant="ghost" asChild>
+                <Button
+                  variant="ghost"
+                  asChild
+                  className={`transition-colors ${
+                    isTGMGHero
+                      ? "text-white hover:text-white hover:bg-white/15 drop-shadow-sm"
+                      : "text-foreground hover:bg-muted"
+                  }`}
+                >
                   <Link href={`/${locale}/auth/login`}>{t("login")}</Link>
                 </Button>
                 <Button
@@ -467,7 +493,11 @@ export function Navigation({}: NavigationProps) {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden"
+              className={`md:hidden transition-colors ${
+                isTGMGHero
+                  ? "text-white hover:text-white hover:bg-white/15 drop-shadow-sm"
+                  : "text-foreground hover:bg-muted"
+              }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? (
@@ -522,10 +552,7 @@ export function Navigation({}: NavigationProps) {
                             ? "font-header-ar text-right"
                             : "font-header-en text-left"
                         } ${
-                          item.type === "dropdown" &&
-                          item.items.some(
-                            (subItem) => pathname === subItem.href
-                          )
+                          isDropdownActive(item)
                             ? "text-foreground"
                             : "text-muted-foreground hover:text-foreground"
                         }`}

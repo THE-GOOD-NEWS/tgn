@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import MetricsCards from "@/app/[locale]/forseHelwa/components/MetricsCards";
+import MetricsCards from "@/app/[locale]/the-good-news/forsa-helwa/components/MetricsCards";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -126,7 +126,7 @@ export default async function TheGoodProjectPage({ params }: Props) {
               </p>
               {/* CTAs */}
               <div className="mt-8 flex flex-wrap gap-4 items-center">
-                <Link href={`/${locale}/the-good-project/join`}>
+                <Link href={`/${locale}/the-good-news/the-good-project/join`}>
                   <Button className="bg-hot-pink hover:bg-hot-pink/90 text-white font-bold py-6 px-10 text-lg rounded-full transition-transform hover:scale-105 shadow-lg">
                     {tJoin("title")}
                   </Button>

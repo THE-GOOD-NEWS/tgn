@@ -9,8 +9,7 @@
 /* Arabic Fonts */
 @font-face {
   font-family: "Frutiger LT Arabic";
-  src: url("./[locale]/fonts/header/arabic/frutigerltarabic75black.ttf")
-    format("truetype");
+  src: url("./[locale]/fonts/header/arabic/frutigerltarabic75black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -18,8 +17,7 @@
 
 @font-face {
   font-family: "Raqami Arabic";
-  src: url("./[locale]/fonts/subHeading/arabic/alfont_com_AlFont_com_Raqami.ttf")
-    format("truetype");
+  src: url("./[locale]/fonts/subHeading/arabic/alfont_com_AlFont_com_Raqami.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -27,8 +25,7 @@
 
 @font-face {
   font-family: "Graphik Arabic";
-  src: url("./[locale]/fonts/body/arabic/GraphikArabic-Regular.ttf")
-    format("truetype");
+  src: url("./[locale]/fonts/body/arabic/GraphikArabic-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -37,8 +34,7 @@
 /* English Fonts */
 @font-face {
   font-family: "Helvetica Neue Heavy";
-  src: url("./[locale]/fonts/header/english/HelveticaNeue-HeavyCondObl.otf")
-    format("opentype");
+  src: url("./[locale]/fonts/header/english/HelveticaNeue-HeavyCondObl.otf") format("opentype");
   font-weight: 900;
   font-style: oblique;
   font-display: swap;
@@ -46,8 +42,7 @@
 
 @font-face {
   font-family: "Bitend Mono";
-  src: url("./[locale]/fonts/subHeading/english/Bitend Mono.ttf")
-    format("truetype");
+  src: url("./[locale]/fonts/subHeading/english/Bitend Mono.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -104,6 +99,7 @@
 
 /* Font utility classes for internationalization */
 @layer utilities {
+
   /* Arabic Font Classes */
   .font-header-ar {
     font-family: "Frutiger LT Arabic", "Arial", sans-serif;
@@ -144,12 +140,14 @@
     display: flex;
     width: max-content;
     animation: marquee-left 50s linear infinite;
+    will-change: transform;
   }
 
   .animate-marquee-right {
     display: flex;
     width: max-content;
     animation: marquee-right 50s linear infinite;
+    will-change: transform;
   }
 
   .animate-marquee-left:hover,
@@ -162,6 +160,7 @@
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -171,6 +170,7 @@
   0% {
     transform: translateX(-50%);
   }
+
   100% {
     transform: translateX(0%);
   }
@@ -247,19 +247,26 @@
   } */
 
   .theme-good-space {
-    --background: 32 36% 92%; /* #F2EAE1 */
-    --foreground: 358 53% 23%;   /* #3D3D3D */
-    --card: 29 33% 77%;       /* #D9C5B2 */
+    --background: 32 36% 92%;
+    /* #F2EAE1 */
+    --foreground: 358 53% 23%;
+    /* #3D3D3D */
+    --card: 29 33% 77%;
+    /* #D9C5B2 */
     --card-foreground: 0 0% 24%;
     --popover: 32 36% 92%;
     --popover-foreground: 0 0% 24%;
-    --primary: 358 53% 23%;    /* #5B1C1E */
+    --primary: 358 53% 23%;
+    /* #5B1C1E */
     --primary-foreground: 32 36% 92%;
-    --secondary: 130 5% 53%;   /* #828E84 */
+    --secondary: 130 5% 53%;
+    /* #828E84 */
     --secondary-foreground: 32 36% 92%;
-    --muted: 140 13% 26%;     /* #3A4C40 */
+    --muted: 140 13% 26%;
+    /* #3A4C40 */
     --muted-foreground: 0 0% 24%;
-    --accent: 6 24% 61%;      /* #B48A85 */
+    --accent: 6 24% 61%;
+    /* #B48A85 */
     --accent-foreground: 32 36% 92%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -312,7 +319,9 @@
   }
 
   /* Prevent browser from automatically darkening inputs in dark mode */
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     color-scheme: light !important;
     background-color: hsl(var(--background)) !important;
     color: hsl(var(--foreground)) !important;
@@ -369,6 +378,7 @@
 
 /* Override browser autofill styles to preserve theme colors */
 @layer base {
+
   input:-webkit-autofill,
   textarea:-webkit-autofill,
   select:-webkit-autofill {
@@ -403,12 +413,17 @@
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
 }
+
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none;
+  /* Safari and Chrome */
 }
+
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-gray-400;
 }
