@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
@@ -26,13 +26,37 @@ import {
   Calendar,
   Send,
   Handshake,
+  Newspaper,
+  Video,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselIndicators,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 export default function TheGoodMediaGroupPage() {
   const locale = useLocale();
   const isRTL = locale === "ar";
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
   const [activeHopePillar, setActiveHopePillar] = useState<string>("H");
+
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+  const [isCarouselHovered, setIsCarouselHovered] = useState(false);
+
+  useEffect(() => {
+    if (!carouselApi || isCarouselHovered) return;
+    const interval = setInterval(() => {
+      carouselApi.scrollNext();
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [carouselApi, isCarouselHovered]);
 
   // Bilingual Content for Section 1 (Our Story / قصتنا)
   const storyContent = {
@@ -78,6 +102,16 @@ export default function TheGoodMediaGroupPage() {
       linkText: isRTL ? "استكشف المنصة" : "Explore TGN",
       subTitle: isRTL ? "المبادرات التابعة لـ TGN" : "Pillars Under TGN",
     },
+    news: {
+      name: isRTL ? "الأخبار والقصص" : "News & Features",
+      role: isRTL ? "محتوى رقمي وتغطيات" : "Social-First Content",
+      desc: isRTL
+        ? "محتوى جديد وسريع، ومصمم للمشاركة.. محتوى الشباب فعلًا يحبوا يشوفوه."
+        : "Fresh, fast, and made to be shared — content youth actually want to watch.",
+      link: `/${locale}/the-good-news`,
+      linkText: isRTL ? "استكشف القصص" : "Explore Stories",
+      badge: isRTL ? "محتوى وتغطيات" : "Social-First",
+    },
     tgp: {
       name: isRTL ? "The Good Project (TGP)" : "The Good Project (TGP)",
       role: isRTL ? "المحتوى والإنتاج الأصلي" : "Original Storytelling & Productions",
@@ -96,6 +130,16 @@ export default function TheGoodMediaGroupPage() {
       linkText: isRTL ? "صفحة فرصة حلوة" : "View Forsa Helwa",
       badge: isRTL ? "فرص ومنح" : "Opportunities & Grants",
     },
+    media: {
+      name: isRTL ? "إنتاج المحتوى" : "MEDIA PRODUCTION",
+      role: isRTL ? "تغطية وإنتاج ميداني" : "On-Ground & Live Coverage",
+      desc: isRTL
+        ? "بننقل اللحظات المهمة من قلب الحدث، لايف ومن أرض الواقع للفعاليات والشركاء."
+        : "Capturing the moments that matter, live and in the room for summits, launches, and brand stories.",
+      link: `/${locale}/contact/partner`,
+      linkText: isRTL ? "طلب إنتاج" : "Request Production",
+      badge: isRTL ? "إنتاج ميداني" : "Live & Production",
+    },
     tgs: {
       name: isRTL ? "The Good Space (TGS)" : "The Good Space (TGS)",
       role: isRTL ? "المجتمع والفعاليات على أرض الواقع" : "On-Ground Community & Experiential Hub",
@@ -107,6 +151,57 @@ export default function TheGoodMediaGroupPage() {
       badge: isRTL ? "مجتمع وتجارب" : "Community & Events",
     },
   };
+
+  const tgnPillars = [
+    {
+      id: "news",
+      name: ecosystemData.news.name,
+      badge: ecosystemData.news.badge,
+      badgeColor: "bg-hot-pink/15 text-hot-pink-dark border-hot-pink/20",
+      desc: ecosystemData.news.desc,
+      link: ecosystemData.news.link,
+      linkText: ecosystemData.news.linkText,
+      icon: (
+        <div className="w-8 h-8 rounded-lg bg-hot-pink/15 text-hot-pink-dark flex items-center justify-center">
+          <Newspaper className="w-4 h-4" />
+        </div>
+      ),
+    },
+    {
+      id: "tgp",
+      name: ecosystemData.tgp.name,
+      badge: ecosystemData.tgp.badge,
+      badgeColor: "bg-hot-pink/20 text-gray-800",
+      desc: ecosystemData.tgp.desc,
+      logo: "/tgp/tgpLogocropped.png",
+      logoAlt: "The Good Project Logo",
+    },
+    {
+      id: "forsa",
+      name: ecosystemData.forsa.name,
+      badge: ecosystemData.forsa.badge,
+      badgeColor: "bg-bright-yellow text-gray-900 border border-black/10",
+      desc: ecosystemData.forsa.desc,
+      link: ecosystemData.forsa.link,
+      linkText: ecosystemData.forsa.linkText,
+      logo: "/goodIntern/ForsaHelwaFinal(5).png",
+      logoAlt: "Forsa Helwa Logo",
+    },
+    {
+      id: "media",
+      name: ecosystemData.media.name,
+      badge: ecosystemData.media.badge,
+      badgeColor: "bg-purple-100 text-purple-800 border border-purple-200",
+      desc: ecosystemData.media.desc,
+      link: ecosystemData.media.link,
+      linkText: ecosystemData.media.linkText,
+      icon: (
+        <div className="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center">
+          <Video className="w-4 h-4" />
+        </div>
+      ),
+    },
+  ];
 
   // Section 3: HOPE Framework & Youth Journey Data
   const hopeData = {
@@ -577,83 +672,117 @@ export default function TheGoodMediaGroupPage() {
                     </p>
                   </div>
 
-                  {/* SUB-BRANCHES UNDER TGN: TGP & FORSA HELWA */}
-                  <div className="pt-4 border-t-2 border-dashed border-gray-200 space-y-3">
-                    <div className="flex items-center gap-1.5">
-                      <ArrowDown className="w-3.5 h-3.5 text-hot-pink" />
-                      <p className="text-xs font-extrabold uppercase tracking-wider text-gray-500">
-                        {ecosystemData.tgn.subTitle}
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
-                      {/* Sub-node A: The Good Project (TGP) */}
-                      <div className="p-3.5 rounded-2xl bg-cream/60 border border-gray-200/80 hover:bg-cream hover:shadow-md transition-all duration-200 space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="relative w-16 h-8">
-                            <Image
-                              src="/tgp/tgpLogocropped.png"
-                              alt="The Good Project Logo"
-                              fill
-                              className="object-contain object-left rtl:object-right"
-                            />
-                          </div>
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-hot-pink/20 text-gray-800">
-                            {ecosystemData.tgp.badge}
-                          </span>
+                  {/* SUB-BRANCHES UNDER TGN: CAROUSEL */}
+                  <div
+                    className="pt-4 border-t-2 border-dashed border-gray-200"
+                    onMouseEnter={() => setIsCarouselHovered(true)}
+                    onMouseLeave={() => setIsCarouselHovered(false)}
+                  >
+                    <Carousel
+                      opts={{
+                        loop: true,
+                        direction: isRTL ? "rtl" : "ltr",
+                        align: "start",
+                      }}
+                      setApi={setCarouselApi}
+                      className="w-full space-y-3"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5">
+                          <ArrowDown className="w-3.5 h-3.5 text-hot-pink" />
+                          <p className="text-xs font-extrabold uppercase tracking-wider text-gray-500">
+                            {ecosystemData.tgn.subTitle}
+                          </p>
                         </div>
-                        <h4
-                          className={`text-sm font-bold text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
-                            }`}
-                        >
-                          {ecosystemData.tgp.name}
-                        </h4>
-                        <p
-                          className={`text-xs text-gray-600 leading-relaxed ${isRTL ? "font-arabic-body" : "font-english-body"
-                            }`}
-                        >
-                          {ecosystemData.tgp.desc}
-                        </p>
+
+                        <div className="flex items-center gap-1" dir="ltr">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (!carouselApi) return;
+                              if (isRTL) carouselApi.scrollNext();
+                              else carouselApi.scrollPrev();
+                            }}
+                            className="h-7 w-7 rounded-full border border-gray-200 bg-white hover:bg-hot-pink/10 hover:border-hot-pink hover:text-hot-pink-dark text-gray-700 shadow-xs flex items-center justify-center transition-colors cursor-pointer"
+                            aria-label={isRTL ? "الشريحة السابقة" : "Previous slide"}
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (!carouselApi) return;
+                              if (isRTL) carouselApi.scrollPrev();
+                              else carouselApi.scrollNext();
+                            }}
+                            className="h-7 w-7 rounded-full border border-gray-200 bg-white hover:bg-hot-pink/10 hover:border-hot-pink hover:text-hot-pink-dark text-gray-700 shadow-xs flex items-center justify-center transition-colors cursor-pointer"
+                            aria-label={isRTL ? "الشريحة التالية" : "Next slide"}
+                          >
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+                        </div>
                       </div>
 
-                      {/* Sub-node B: Forsa Helwa */}
-                      <div className="p-3.5 rounded-2xl bg-cream/60 border border-gray-200/80 hover:bg-cream hover:shadow-md transition-all duration-200 space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="relative w-16 h-8">
-                            <Image
-                              src="/goodIntern/ForsaHelwaFinal(5).png"
-                              alt="Forsa Helwa Logo"
-                              fill
-                              className="object-contain object-left rtl:object-right"
-                            />
-                          </div>
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-bright-yellow text-gray-900 border border-black/10">
-                            {ecosystemData.forsa.badge}
-                          </span>
-                        </div>
-                        <h4
-                          className={`text-sm font-bold text-gray-900 ${isRTL ? "font-arabic-header" : "font-english-header"
-                            }`}
-                        >
-                          {ecosystemData.forsa.name}
-                        </h4>
-                        <p
-                          className={`text-xs text-gray-600 leading-relaxed ${isRTL ? "font-arabic-body" : "font-english-body"
-                            }`}
-                        >
-                          {ecosystemData.forsa.desc}
-                        </p>
-                        <Link
-                          href={ecosystemData.forsa.link}
-                          className="inline-flex items-center gap-1 text-xs font-bold text-gray-900 hover:text-hot-pink transition-colors pt-0.5"
-                        >
-                          <span>{ecosystemData.forsa.linkText}</span>
-                          <ArrowIcon className="w-3 h-3" />
-                        </Link>
-                      </div>
+                      <CarouselContent className="-ms-2.5">
+                        {tgnPillars.map((pillar) => (
+                          <CarouselItem
+                            key={pillar.id}
+                            className="ps-2.5 basis-full sm:basis-1/2"
+                          >
+                            <div className="h-full p-3.5 rounded-2xl bg-cream/60 border border-gray-200/80 hover:bg-cream hover:shadow-md transition-all duration-200 flex flex-col justify-between space-y-2">
+                              <div className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                  {pillar.logo ? (
+                                    <div className="relative w-16 h-8">
+                                      <Image
+                                        src={pillar.logo}
+                                        alt={pillar.logoAlt || pillar.name}
+                                        fill
+                                        className="object-contain object-left rtl:object-right"
+                                      />
+                                    </div>
+                                  ) : (
+                                    <div className="h-8 flex items-center">
+                                      {pillar.icon}
+                                    </div>
+                                  )}
+                                  <span
+                                    className={`px-2 py-0.5 rounded text-[10px] font-bold ${pillar.badgeColor}`}
+                                  >
+                                    {pillar.badge}
+                                  </span>
+                                </div>
+                                <h4
+                                  className={`text-sm font-bold text-gray-900 line-clamp-1 ${isRTL ? "font-arabic-header" : "font-english-header"
+                                    }`}
+                                >
+                                  {pillar.name}
+                                </h4>
+                                <p
+                                  className={`text-xs text-gray-600 leading-relaxed line-clamp-3 ${isRTL ? "font-arabic-body" : "font-english-body"
+                                    }`}
+                                >
+                                  {pillar.desc}
+                                </p>
+                              </div>
+                              {pillar.link ? (
+                                <Link
+                                  href={pillar.link}
+                                  className="inline-flex items-center gap-1 text-xs font-bold text-gray-900 hover:text-hot-pink transition-colors pt-0.5"
+                                >
+                                  <span>{pillar.linkText}</span>
+                                  <ArrowIcon className="w-3 h-3" />
+                                </Link>
+                              ) : (
+                                <div className="h-4" />
+                              )}
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
 
-                    </div>
+                      <CarouselIndicators className="pt-2 [&_button[aria-current=true]]:bg-hot-pink [&_button]:w-2 [&_button]:h-2" />
+                    </Carousel>
                   </div>
                 </div>
 
