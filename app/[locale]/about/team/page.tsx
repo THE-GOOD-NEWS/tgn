@@ -148,6 +148,16 @@ export default function TeamPage() {
               imageSrc="/team/Yoyo.jpg"
             />
           </motion.div>
+          <motion.div variants={item}>
+            <TeamMemberCard
+              name="Omar El-Desouky"
+              roleLines={[
+                roles("softwareEngineer.line1"),
+                roles("softwareEngineer.line2"),
+              ]}
+              imageSrc="/team/wiigTGN.png"
+            />
+          </motion.div>
         </motion.div>
       </section>
 

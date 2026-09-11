@@ -552,7 +552,8 @@
     "editorialManager": { "line1": "مدير", "line2": "التحرير" },
     "editorialExecutive": { "line1": "مسؤول", "line2": "تحرير" },
     "partnershipsExecutive": { "line1": "مسؤول", "line2": "شراكات" },
-    "videoEditorAnimator": { "line1": "محرر فيديو", "line2": "ومصمم تحريك" }
+    "videoEditorAnimator": { "line1": "محرر فيديو", "line2": "ومصمم تحريك" },
+    "softwareEngineer": { "line1": "مهندس", "line2": "برمجيات" }
   },
   "shareNews": {
     "title": "شاركنا خبر حلو",

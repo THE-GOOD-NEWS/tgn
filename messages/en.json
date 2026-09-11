@@ -551,6 +551,10 @@
     "videoEditorAnimator": {
       "line1": "Video Editor",
       "line2": "and Animator"
+    },
+    "softwareEngineer": {
+      "line1": "Software",
+      "line2": "Engineer"
     }
   },
   "contact": {
