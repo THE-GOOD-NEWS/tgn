@@ -10,6 +10,8 @@ export interface IWorkshopPackage extends Document {
   isAllWorkshopsIncluded: boolean;
   // if isAllWorkshopsIncluded is false, this is the array of allowed workshop ObjectIds
   includedWorkshops: string[];
+  // Array of mandatory/fixed workshop ObjectIds that are automatically included
+  fixedWorkshops: string[];
   description: string;
   createdAt: Date;
   updatedAt: Date;
@@ -30,6 +32,7 @@ const WorkshopPackageSchema = new Schema<IWorkshopPackage>(
     maxWorkshops: { type: Number, required: true, min: 1 },
     isAllWorkshopsIncluded: { type: Boolean, default: false },
     includedWorkshops: { type: [String], default: [] },
+    fixedWorkshops: { type: [String], default: [] },
     description: { type: String, required: true },
   },
   {

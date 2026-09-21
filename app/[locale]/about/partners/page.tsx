@@ -543,9 +543,8 @@ export default function PartnersPage() {
 
   return (
     <div
-      className={`px-6 md:px-10 lg:px-16 pb-12 md:pb-16 pt-20 md:pt-28 ${
-        isRTL ? "text-right" : "text-left"
-      }`}
+      className={`px-6 md:px-10 lg:px-16 pb-12 md:pb-16 pt-20 md:pt-28 ${isRTL ? "text-right" : "text-left"
+        }`}
     >
       <section className="max-w-6xl mx-auto">
         <motion.div
@@ -555,16 +554,14 @@ export default function PartnersPage() {
           className="text-center mb-10 md:mb-16"
         >
           <div
-            className={`text-5xl md:text-6xl lg:text-7xl font-extrabold ${
-              isRTL ? "font-arabic-header" : "font-english-heading"
-            } text-carbon`}
+            className={`text-5xl md:text-6xl lg:text-7xl font-extrabold ${isRTL ? "font-arabic-header" : "font-english-heading"
+              } text-carbon`}
           >
             {t("title")}
           </div>
           <div
-            className={`text-2xl md:text-3xl font-bold mt-3 ${
-              isRTL ? "font-arabic-subheading" : "font-english-subheading"
-            } text-carbon`}
+            className={`text-2xl md:text-3xl font-bold mt-3 ${isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              } text-carbon`}
           >
             {t("subtitle")}
           </div>
@@ -583,14 +580,14 @@ export default function PartnersPage() {
             className="w-full relative"
           >
             <div
-            dir={isRTL ? "rtl" : "ltr"}
-            className="flex items-center justify-between mb-6">
+              dir={isRTL ? "rtl" : "ltr"}
+              className="flex items-center justify-between mb-6">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-hot-pink">
                 {t("caseStudiesTitle")}
               </h2>
-              <div 
-              dir="ltr"
-              className="flex items-center gap-2">
+              <div
+                dir="ltr"
+                className="flex items-center gap-2">
                 <CarouselPrevious className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white hover:border-hot-pink transition-all shadow-sm" />
                 <CarouselNext className="relative inset-auto translate-y-0 h-10 w-10 border-gray-200 hover:bg-hot-pink hover:text-white hover:border-hot-pink transition-all shadow-sm" />
               </div>
@@ -689,7 +686,7 @@ export default function PartnersPage() {
             </div>
           </Carousel>
         </section>
-              <section className="my-20 text-center">
+        <section className="my-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -697,9 +694,8 @@ export default function PartnersPage() {
             transition={{ duration: 0.6 }}
           >
             <h3
-              className={`text-2xl md:text-3xl font-bold ${
-                isRTL ? "font-arabic-subheading" : "font-english-subheading"
-              } text-carbon mb-6`}
+              className={`text-2xl md:text-3xl font-bold ${isRTL ? "font-arabic-subheading" : "font-english-subheading"
+                } text-carbon mb-6`}
             >
               {t("becomePartner")}
             </h3>
@@ -730,7 +726,7 @@ export default function PartnersPage() {
             <div dir="ltr" className="animate-marquee-left flex gap-6 items-center">
               {[
                 { id: "1", src: "/assets/newLogos/2025-Entreprenelle-logo.png", alt: "Entreprenelle" },
-                { id: "2", src: "/assets/newLogos/257-2570094_transparent-background-vodafone-logo.png", alt: "Vodafone" },
+                { id: "2", src: "/assets/newLogos/Vodafone-Logo.png", alt: "Vodafone" },
                 { id: "3", src: "/assets/newLogos/ANIMATEX.png", alt: "Animatex" },
                 { id: "4", src: "/assets/newLogos/AUC.png", alt: "AUC" },
                 { id: "5", src: "/assets/newLogos/Al-Ahly-Sabbour.webp", alt: "Al Ahly Sabbour" },
@@ -756,7 +752,7 @@ export default function PartnersPage() {
                 { id: "25", src: "/assets/newLogos/UN_Women_Logo.svg.webp", alt: "UN Women" },
                 { id: "26", src: "/assets/newLogos/US EMBASSY.png", alt: "US Embassy" },
                 { id: "1", src: "/assets/newLogos/2025-Entreprenelle-logo.png", alt: "Entreprenelle" },
-                { id: "2", src: "/assets/newLogos/257-2570094_transparent-background-vodafone-logo.png", alt: "Vodafone" },
+                { id: "2", src: "/assets/newLogos/Vodafone-Logo.png", alt: "Vodafone" },
                 { id: "3", src: "/assets/newLogos/ANIMATEX.png", alt: "Animatex" },
                 { id: "4", src: "/assets/newLogos/AUC.png", alt: "AUC" },
                 { id: "5", src: "/assets/newLogos/Al-Ahly-Sabbour.webp", alt: "Al Ahly Sabbour" },
@@ -876,7 +872,7 @@ export default function PartnersPage() {
 
 
         {/* Become a Partner Section */}
-  
+
       </section>
     </div>
   );

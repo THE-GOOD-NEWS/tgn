@@ -26,6 +26,7 @@ interface Package {
   maxWorkshops: number;
   isAllWorkshopsIncluded: boolean;
   includedWorkshops: string[];
+  fixedWorkshops?: string[];
 }
 
 interface Workshop {
@@ -116,7 +117,21 @@ export default function PackageDetailsPage({
     return Math.max(0, totalStandAlonePrice - pkg.price);
   }, [pkg, workshops, selected]);
 
+  const sortedWorkshops = useMemo(() => {
+    const fixedSet = new Set(pkg?.fixedWorkshops || []);
+    return [...workshops].sort((a, b) => {
+      const aFixed = fixedSet.has(a._id);
+      const bFixed = fixedSet.has(b._id);
+      if (aFixed && !bFixed) return -1;
+      if (!aFixed && bFixed) return 1;
+      return 0;
+    });
+  }, [workshops, pkg]);
+
   const toggleWorkshop = (id: string) => {
+    if (pkg?.fixedWorkshops?.includes(id)) {
+      return;
+    }
     setSelected((prev) => {
       if (prev.includes(id)) {
         return prev.filter((x) => x !== id);
@@ -144,8 +159,12 @@ export default function PackageDetailsPage({
         if (res.ok) {
           const data = await res.json();
           if (data.success) {
-            setPkg(data.data.pkg);
+            const fetchedPkg = data.data.pkg;
+            setPkg(fetchedPkg);
             setWorkshops(data.data.workshops || []);
+            if (Array.isArray(fetchedPkg.fixedWorkshops) && fetchedPkg.fixedWorkshops.length > 0) {
+              setSelected((prev) => Array.from(new Set([...fetchedPkg.fixedWorkshops, ...prev])));
+            }
           } else {
             router.push("/en/the-good-space");
           }
@@ -174,7 +193,10 @@ export default function PackageDetailsPage({
       toast.error("Please fill all required fields and upload the instapay receipt.");
       return;
     }
-    if (selected.length === 0) {
+    const fixedIds = pkg?.fixedWorkshops || [];
+    const finalSelected = Array.from(new Set([...fixedIds, ...selected]));
+
+    if (finalSelected.length === 0) {
       toast.error(`Please select up to ${pkg?.maxWorkshops} workshop(s).`);
       return;
     }
@@ -186,7 +208,7 @@ export default function PackageDetailsPage({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          selectedWorkshops: selected,
+          selectedWorkshops: finalSelected,
         }),
       });
 
@@ -415,54 +437,76 @@ export default function PackageDetailsPage({
             <form onSubmit={handleSubmit} className="space-y-4">
               
               <div className="mb-4">
-                <h2 className="block  font-semibold mb-2">
-                  Select Workshops (Choose up to {pkg.maxWorkshops} — Remaining: {remaining})
+                <h2 className="block font-semibold mb-2">
+                  {pkg.fixedWorkshops && pkg.fixedWorkshops.length > 0 ? (
+                    pkg.maxWorkshops <= pkg.fixedWorkshops.length ? (
+                      `Included Workshops (${pkg.fixedWorkshops.length} Fixed workshops included)`
+                    ) : (
+                      `Select Workshops (${pkg.fixedWorkshops.length} Fixed + Choose up to ${pkg.maxWorkshops - pkg.fixedWorkshops.length} more — Remaining choices: ${remaining})`
+                    )
+                  ) : (
+                    `Select Workshops (Choose up to ${pkg.maxWorkshops} — Remaining: ${remaining})`
+                  )}
                 </h2>
-                {workshops.length === 0 ? (
+                {sortedWorkshops.length === 0 ? (
                   <p className="text-sm text-gray-500">
                     No workshops available for this package.
                   </p>
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-48 overflow-y-auto pr-2">
-                    {workshops.map((w) => {
-                      const checked = selected.includes(w._id);
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-56 overflow-y-auto pr-2">
+                    {sortedWorkshops.map((w) => {
+                      const isFixed = pkg.fixedWorkshops?.includes(w._id);
+                      const checked = isFixed || selected.includes(w._id);
                       const isFull = (w.attendanceCount + w.pendingCount) >= w.slots;
-                      const disabled = !checked && (isFull || selected.length >= pkg.maxWorkshops);
+                      const disabled = isFixed || (!checked && (isFull || selected.length >= pkg.maxWorkshops));
                       return (
                         <label
                           key={w._id}
-                          className={`flex items-start gap-3 p-3 bg-white border rounded-lg cursor-pointer transition-colors ${
-                            checked ? "border-primary bg-primary/5" : "border-border"
-                          } ${disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-primary/5"}`}
+                          className={`flex items-start gap-3 p-3 bg-white border rounded-lg transition-colors ${
+                            isFixed
+                              ? "border-primary/40 bg-primary/[0.04] cursor-default"
+                              : checked
+                              ? "border-primary bg-primary/5 cursor-pointer"
+                              : "border-border cursor-pointer"
+                          } ${disabled && !isFixed ? "opacity-50 cursor-not-allowed" : !isFixed ? "hover:bg-primary/5" : ""}`}
                         >
                           <Checkbox
                             checked={checked}
-                            onCheckedChange={() => toggleWorkshop(w._id)}
+                            onCheckedChange={() => {
+                              if (!isFixed) toggleWorkshop(w._id);
+                            }}
                             disabled={disabled}
                             className="mt-1"
                           />
                           <div className="flex flex-col text-left">
-                             <span className="text-sm font-bold text-primary">{w.title}</span>
-                             {w.instructors && w.instructors.length > 0 && (
-                               <span className="text-[10px] text-gray-500 font-medium">With {w.instructors.join(", ")}</span>
-                             )}
-                             {w.availableSessions && w.availableSessions.length > 0 && (
-                               <span className="text-[10px] text-muted-foreground">{w.availableSessions.length} {w.availableSessions.length === 1 ? "Session" : "Sessions"}</span>
-                             )}
-                             {isFull && !checked && (
-                               <span className="text-[10px] text-red-500 font-bold">Sold Out / Fully Booked</span>
-                             )}
-                             <button
-                               type="button"
-                               onClick={(e) => {
-                                 e.preventDefault();
-                                 e.stopPropagation();
-                                 setDetailWorkshop(w);
-                               }}
-                               className="text-[10px] text-primary font-bold underline mt-1 text-left hover:text-primary/70"
-                             >
-                               More details
-                             </button>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className="text-sm font-bold text-primary">{w.title}</span>
+                              {isFixed && (
+                                <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded-full bg-primary text-white tracking-wider">
+                                  Fixed
+                                </span>
+                              )}
+                            </div>
+                            {w.instructors && w.instructors.length > 0 && (
+                              <span className="text-[10px] text-gray-500 font-medium">With {w.instructors.join(", ")}</span>
+                            )}
+                            {w.availableSessions && w.availableSessions.length > 0 && (
+                              <span className="text-[10px] text-muted-foreground">{w.availableSessions.length} {w.availableSessions.length === 1 ? "Session" : "Sessions"}</span>
+                            )}
+                            {isFull && !checked && (
+                              <span className="text-[10px] text-red-500 font-bold">Sold Out / Fully Booked</span>
+                            )}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setDetailWorkshop(w);
+                              }}
+                              className="text-[10px] text-primary font-bold underline mt-1 text-left hover:text-primary/70"
+                            >
+                              More details
+                            </button>
                           </div>
                         </label>
                       );

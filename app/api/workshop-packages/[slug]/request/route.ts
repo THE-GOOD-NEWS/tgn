@@ -30,13 +30,16 @@ export async function POST(
       notes,
     } = body || {};
 
-    if (!Array.isArray(selectedWorkshops) || selectedWorkshops.length === 0) {
+    const fixedIds = Array.isArray(pkg.fixedWorkshops) ? pkg.fixedWorkshops : [];
+    const mergedWorkshops = Array.from(new Set([...fixedIds, ...(Array.isArray(selectedWorkshops) ? selectedWorkshops : [])]));
+
+    if (mergedWorkshops.length === 0) {
       return NextResponse.json(
         { success: false, error: "Please select at least one workshop" },
         { status: 400 }
       );
     }
-    if (pkg.maxWorkshops && selectedWorkshops.length > pkg.maxWorkshops) {
+    if (pkg.maxWorkshops && mergedWorkshops.length > pkg.maxWorkshops) {
       return NextResponse.json(
         { success: false, error: "Selected workshops exceed package limit" },
         { status: 400 }
@@ -51,7 +54,7 @@ export async function POST(
 
     const created = await WorkshopPackageRequestModel.create({
       packageId: new mongoose.Types.ObjectId(pkg._id as any),
-      selectedWorkshops: selectedWorkshops.map((id: string) => new mongoose.Types.ObjectId(id)),
+      selectedWorkshops: mergedWorkshops.map((id: string) => new mongoose.Types.ObjectId(id)),
       name,
       phone,
       email,

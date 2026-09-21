@@ -27,15 +27,20 @@ export async function GET(
     let workshops: any[] = [];
     if (pkg.isAllWorkshopsIncluded) {
       workshops = await WorkshopModel.find({}).select("_id title slug images instructors availableSessions description startDate endDate price slots attendance").lean();
-    } else if (
-      Array.isArray(pkg.includedWorkshops) &&
-      pkg.includedWorkshops.length
-    ) {
-      workshops = await WorkshopModel.find({
-        _id: { $in: pkg.includedWorkshops },
-      })
-        .select("_id title slug images instructors availableSessions description startDate endDate price slots attendance")
-        .lean();
+    } else {
+      const allowedIds = Array.from(
+        new Set([
+          ...(Array.isArray(pkg.includedWorkshops) ? pkg.includedWorkshops : []),
+          ...(Array.isArray(pkg.fixedWorkshops) ? pkg.fixedWorkshops : []),
+        ])
+      );
+      if (allowedIds.length > 0) {
+        workshops = await WorkshopModel.find({
+          _id: { $in: allowedIds },
+        })
+          .select("_id title slug images instructors availableSessions description startDate endDate price slots attendance")
+          .lean();
+      }
     }
 
     const workshopsWithCounts = await Promise.all(
