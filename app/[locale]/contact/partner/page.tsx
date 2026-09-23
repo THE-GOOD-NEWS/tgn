@@ -11,16 +11,51 @@ export default function PartnerPage() {
   const isRTL = locale === "ar";
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+  const [productError, setProductError] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const productOptions = [
+    { id: "news" },
+    { id: "forsa" },
+    { id: "media" },
+    { id: "space" },
+    { id: "other" },
+  ];
+
+  const handleProductToggle = (productId: string) => {
+    setSelectedProducts((prev) => {
+      const next = prev.includes(productId)
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId];
+      if (next.length > 0) {
+        setProductError(false);
+      }
+      return next;
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (selectedProducts.length === 0) {
+      setProductError(true);
+      return;
+    }
+
     setIsSubmitting(true);
     setFormError(false);
     setFormSubmitted(false);
 
     const formData = new FormData(e.currentTarget);
+
+    const otherProductVal = formData.get("otherProduct")?.toString().trim();
+    const formattedProducts = selectedProducts.map((id) => {
+      if (id === "other" && otherProductVal) {
+        return `Other (${otherProductVal})`;
+      }
+      return t(`form.products.${id}`);
+    });
 
     // Handle checkboxes for contact method
     const contactMethods: string[] = [];
@@ -32,9 +67,10 @@ export default function PartnerPage() {
       formType: "partner",
       businessName: formData.get("businessName"),
       industry: formData.get("industry"),
+      product: formattedProducts.join(", "),
+      interestedProducts: formattedProducts,
       collaborationIdea: formData.get("collaborationIdea"),
-      campaignDetails: formData.get("campaignDetails"),
-      socialMediaAccounts: formData.get("socialMediaAccounts"),
+      campaignDetails: formData.get("collaborationIdea"),
       name: formData.get("contactName"),
       contactNumber: formData.get("contactNumber"),
       email: formData.get("contactEmail"),
@@ -56,6 +92,8 @@ export default function PartnerPage() {
       loading: "Submitting...",
       success: () => {
         setFormSubmitted(true);
+        setSelectedProducts([]);
+        setProductError(false);
         (e.target as HTMLFormElement).reset();
         return t("form.successMessage") || "Submission successful!";
       },
@@ -76,6 +114,8 @@ export default function PartnerPage() {
   };
 
   const handleClearForm = () => {
+    setSelectedProducts([]);
+    setProductError(false);
     // Reset the form
     const form = document.getElementById("partnerForm") as HTMLFormElement;
     if (form) form.reset();
@@ -108,6 +148,13 @@ export default function PartnerPage() {
           >
             {t("subtitle")}
           </div>
+          <p
+            className={`text-base md:text-lg text-gray-600 mt-4 max-w-xl mx-auto leading-relaxed ${
+              isRTL ? "font-arabic-subheading" : "font-english-body"
+            }`}
+          >
+            {t("description")}
+          </p>
         </motion.div>
 
         {formSubmitted ? (
@@ -182,7 +229,66 @@ export default function PartnerPage() {
             />
           </div>
 
-          {/* How do you think we can collaborate? */}
+          {/* Which product are you interested in? */}
+          <div className="form-group">
+            <label
+              className={`block text-carbon font-bold mb-2 ${
+                isRTL ? "font-arabic-subheading" : "font-english-subheading"
+              }`}
+            >
+              {t("form.whichProduct")}
+              <span className="text-hot-pink">*</span>
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {productOptions.map((product) => {
+                const isChecked = selectedProducts.includes(product.id);
+                return (
+                  <label
+                    key={product.id}
+                    className={`flex items-center gap-3 p-3.5 border rounded-lg cursor-pointer transition-all duration-200 select-none ${
+                      isChecked
+                        ? "border-hot-pink bg-hot-pink/5 text-carbon font-semibold shadow-sm ring-1 ring-hot-pink"
+                        : "border-gray-300 hover:border-gray-400 hover:bg-gray-50/60 text-gray-700"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      value={product.id}
+                      checked={isChecked}
+                      onChange={() => handleProductToggle(product.id)}
+                      className="h-4 w-4 rounded text-hot-pink focus:ring-hot-pink border-gray-300"
+                      disabled={isSubmitting}
+                    />
+                    <span
+                      className={`text-sm sm:text-base ${
+                        isRTL ? "font-arabic-body" : "font-english-body"
+                      }`}
+                    >
+                      {t(`form.products.${product.id}`)}
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+            {selectedProducts.includes("other") && (
+              <input
+                name="otherProduct"
+                type="text"
+                placeholder={t("form.otherProductPlaceholder")}
+                className={`mt-3 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink ${
+                  isRTL ? "text-right" : "text-left"
+                }`}
+                disabled={isSubmitting}
+              />
+            )}
+            {productError && (
+              <p className="text-red-500 text-sm mt-1.5 font-medium">
+                {t("form.productRequired")}
+              </p>
+            )}
+          </div>
+
+          {/* How do you think we can collaborate? / Campaign Details */}
           <div className="form-group">
             <label
               className={`block text-carbon font-bold mb-2 ${
@@ -192,27 +298,6 @@ export default function PartnerPage() {
               {t("form.howCollaborate")}
               <span className="text-hot-pink">*</span>
             </label>
-            <textarea
-              name="collaborationIdea"
-              className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink h-32 ${
-                isRTL ? "text-right" : "text-left"
-              }`}
-              required
-              placeholder={t("form.placeholder")}
-              dir={isRTL ? "rtl" : "ltr"}
-              disabled={isSubmitting}
-            ></textarea>
-          </div>
-
-          {/* Campaign Details */}
-          <div className="form-group">
-            <label
-              className={`block text-carbon font-bold mb-2 ${
-                isRTL ? "font-arabic-subheading" : "font-english-subheading"
-              }`}
-            >
-              {t("form.campaignDetails")}
-            </label>
             <p
               className={`text-sm text-gray-500 mb-2 ${
                 isRTL ? "text-right" : "text-left"
@@ -221,37 +306,15 @@ export default function PartnerPage() {
               {t("form.campaignDetailsHint")}
             </p>
             <textarea
-              name="campaignDetails"
-              className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink h-32 ${
-                isRTL ? "text-right" : "text-left"
-              }`}
-              placeholder={t("form.placeholder")}
-              dir={isRTL ? "rtl" : "ltr"}
-              disabled={isSubmitting}
-            ></textarea>
-          </div>
-
-          {/* Social Media Accounts */}
-          <div className="form-group">
-            <label
-              className={`block text-carbon font-bold mb-2 ${
-                isRTL ? "font-arabic-subheading" : "font-english-subheading"
-              }`}
-            >
-              {t("form.socialMedia")}
-              <span className="text-hot-pink">*</span>
-            </label>
-            <input
-              name="socialMediaAccounts"
-              type="text"
-              className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink ${
+              name="collaborationIdea"
+              className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hot-pink h-36 ${
                 isRTL ? "text-right" : "text-left"
               }`}
               required
               placeholder={t("form.placeholder")}
               dir={isRTL ? "rtl" : "ltr"}
               disabled={isSubmitting}
-            />
+            ></textarea>
           </div>
 
           {/* Contact Person Name */}

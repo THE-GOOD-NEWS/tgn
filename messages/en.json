@@ -569,12 +569,23 @@
   "partner": {
     "title": "Be Our Partner",
     "subtitle": "Let's collaborate to create something amazing",
+    "description": "After you fill the form a team member from the business development team will reach out for a demo",
     "form": {
       "businessName": "Business Name",
       "industry": "Industry",
-      "howCollaborate": "How do you think we can collaborate?",
+      "whichProduct": "Which product are you interested in?",
+      "productRequired": "Please select at least one product",
+      "otherProductPlaceholder": "Please specify which product or service...",
+      "products": {
+        "news": "News & Features (The Good News)",
+        "forsa": "Forsa Helwa",
+        "media": "Media Production",
+        "space": "The Good Space (Education & Community)",
+        "other": "Other"
+      },
+      "howCollaborate": "How do you think we can collaborate? / Campaign Details",
       "campaignDetails": "Campaign Details",
-      "campaignDetailsHint": "If there is a specific campaign of yours that you'd like, please specify it's details (campaign start date, objective, if there is an event, etc)",
+      "campaignDetailsHint": "If there is a specific campaign of yours that you'd like, please specify its details (campaign start date, objective, if there is an event, etc)",
       "socialMedia": "Your Social media accounts",
       "contactName": "Contact Person Name",
       "contactNumber": "Contact person number",

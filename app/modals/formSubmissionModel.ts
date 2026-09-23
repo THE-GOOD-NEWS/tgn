@@ -31,6 +31,8 @@ export interface IFormSubmission extends Document {
   // Partner Fields
   businessName?: string;
   industry?: string;
+  product?: string;
+  interestedProducts?: string[];
   collaborationIdea?: string;
   campaignDetails?: string;
   socialMediaAccounts?: string;
@@ -131,6 +133,8 @@ const FormSubmissionSchema = new Schema<IFormSubmission>(
     // Partner
     businessName: { type: String },
     industry: { type: String },
+    product: { type: String },
+    interestedProducts: { type: [String] },
     collaborationIdea: { type: String },
     campaignDetails: { type: String },
     socialMediaAccounts: { type: String },
